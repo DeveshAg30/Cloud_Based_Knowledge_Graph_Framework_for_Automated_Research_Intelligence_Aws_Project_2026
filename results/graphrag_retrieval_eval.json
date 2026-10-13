@@ -1,0 +1,1432 @@
+{
+  "summary": {
+    "questions": 51,
+    "context_recall": 0.963,
+    "full_context_recall": 0.956,
+    "context_precision_of_sources": 0.514,
+    "unanswerable_with_no_matching_facts": 0.167,
+    "avg_retrieval_latency_s": 0.57,
+    "by_type": {
+      "paper_authors": 1.0,
+      "method_papers": 0.889,
+      "task_methods": 1.0
+    }
+  },
+  "results": [
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'DEBrowser: interactive differential expression analysis and visualization tool for count data'?",
+      "truth": [
+        "Alper K\u00fc\u00e7\u00fckural",
+        "Onur Yukselen",
+        "Deniz Mahmut \u00d6zata",
+        "Melissa J. Moore",
+        "Manuel G. Garber"
+      ],
+      "truth_docs": [
+        "W2951159620"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.39,
+        "facts": 45,
+        "seeds": [
+          "DEBrowser: interactive differential expression analysis and visualization tool for count data"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'A Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks'?",
+      "truth": [
+        "Yuanfei Dai",
+        "Shiping Wang",
+        "Naixue N. Xiong",
+        "Wenzhong Guo"
+      ],
+      "truth_docs": [
+        "W3021393704"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.18,
+        "facts": 49,
+        "seeds": [
+          "A Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.16666666666666666
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Learning to Dispatch for Job Shop Scheduling via Deep Reinforcement Learning'?",
+      "truth": [
+        "Cong Zhang",
+        "Wen Wu Song",
+        "Zhiguang Cao",
+        "Jie Zhang",
+        "Puay Siew Tan",
+        "Chi Xu"
+      ],
+      "truth_docs": [
+        "W3094181369"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.18,
+        "facts": 46,
+        "seeds": [
+          "Learning to Dispatch for Job Shop Scheduling via Deep Reinforcement Learning"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Spatiotemporal Representation Learning for Translation-Based POI Recommendation'?",
+      "truth": [
+        "Tieyun Qian",
+        "Bei Liu",
+        "Quoc Viet Hung Nguyen",
+        "Hongzhi Yin"
+      ],
+      "truth_docs": [
+        "W2914041468"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.17,
+        "facts": 44,
+        "seeds": [
+          "Spatiotemporal Representation Learning for Translation-Based POI Recommendation"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'GraphAF: a Flow-based Autoregressive Model for Molecular Graph Generation'?",
+      "truth": [
+        "Zhaocheng Zhu",
+        "Chence Shi",
+        "Minkai Xu",
+        "Weinan Zhang",
+        "Zhang, Ming",
+        "Jian Tang"
+      ],
+      "truth_docs": [
+        "W2994860160"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.17,
+        "facts": 48,
+        "seeds": [
+          "GraphAF: a Flow-based Autoregressive Model for Molecular Graph Generation"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.3333333333333333
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Knowledge Graph Embedding for Link Prediction'?",
+      "truth": [
+        "Andrea Rossi",
+        "Denilson Barbosa",
+        "Donatella Firmani",
+        "Antonio Matinata",
+        "Paolo Merialdo"
+      ],
+      "truth_docs": [
+        "W3120491054"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.18,
+        "facts": 54,
+        "seeds": [
+          "Knowledge Graph Embedding for Link Prediction"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.1
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'GuPPy, a Python toolbox for the analysis of fiber photometry data'?",
+      "truth": [
+        "Venus N. Sherathiya",
+        "Michael D. Schaid",
+        "Jillian L. Seiler",
+        "Gabriela C. Lopez",
+        "Talia N. Lerner"
+      ],
+      "truth_docs": [
+        "W4226059393"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.26,
+        "facts": 39,
+        "seeds": [
+          "GuPPy, a Python toolbox for the analysis of fiber photometry data"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Sparse Graph Attention Networks'?",
+      "truth": [
+        "Yang Ye",
+        "Shihao Ji"
+      ],
+      "truth_docs": [
+        "W3153880451"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.18,
+        "facts": 42,
+        "seeds": [
+          "Sparse Graph Attention Networks"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'A graph convolutional neural network for classification of building patterns using spatial vector data'?",
+      "truth": [
+        "Xiongfeng Yan",
+        "Tinghua Ai",
+        "Min Ji Yang",
+        "Hongmei Yin"
+      ],
+      "truth_docs": [
+        "W2920964209"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.17,
+        "facts": 44,
+        "seeds": [
+          "A graph convolutional neural network for classification of building patterns using spatial vector data"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'KG-BERT: BERT for Knowledge Graph Completion'?",
+      "truth": [
+        "Liang Yao",
+        "Chengsheng Mao",
+        "Yuan Luo"
+      ],
+      "truth_docs": [
+        "W2972167903"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.16,
+        "facts": 47,
+        "seeds": [
+          "KG-BERT: BERT for Knowledge Graph Completion"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.2
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Distributed Finite-Time Fault-Tolerant Containment Control for Multiple Unmanned Aerial Vehicles'?",
+      "truth": [
+        "Ziquan Yu",
+        "Zhixiang Liu",
+        "Youmin M. Zhang",
+        "Yaohong Qu",
+        "Chun\u2010Yi Su"
+      ],
+      "truth_docs": [
+        "W2968521751"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.19,
+        "facts": 45,
+        "seeds": [
+          "Distributed Finite-Time Fault-Tolerant Containment Control for Multiple Unmanned Aerial Vehicles"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'A comprehensive survey of entity alignment for knowledge graphs'?",
+      "truth": [
+        "Juanzi Li",
+        "Kaisheng Zeng",
+        "Chengjiang Li",
+        "Ling Feng",
+        "Lei Hou"
+      ],
+      "truth_docs": [
+        "W3156850293"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.18,
+        "facts": 45,
+        "seeds": [
+          "A comprehensive survey of entity alignment for knowledge graphs"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'A Comprehensive Survey of Knowledge Graph-Based Recommender Systems: Technologies, Development, and Contributions'?",
+      "truth": [
+        "Janneth Alexandra Chicaiza",
+        "Priscila Valdiviezo-D\u00edaz"
+      ],
+      "truth_docs": [
+        "W3167434385"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.19,
+        "facts": 42,
+        "seeds": [
+          "A Comprehensive Survey of Knowledge Graph-Based Recommender Systems: Technologies, Development, and Contributions"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Neural, symbolic and neural-symbolic reasoning on knowledge graphs'?",
+      "truth": [
+        "Jing Zhang",
+        "Bo Chen",
+        "Lingxi Zhang",
+        "Xirui Ke",
+        "Haipeng Ding"
+      ],
+      "truth_docs": [
+        "W3157651462"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.17,
+        "facts": 47,
+        "seeds": [
+          "Neural, symbolic and neural-symbolic reasoning on knowledge graphs"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.3333333333333333
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'From development to deployment: dataset shift, causality, and shift-stable models in health AI'?",
+      "truth": [
+        "Adarsh Subbaswamy",
+        "Suchi Saria"
+      ],
+      "truth_docs": [
+        "W2990519034"
+      ],
+      "match": "surname",
+      "retrieval": {
+        "seconds": 0.2,
+        "facts": 42,
+        "seeds": [
+          "From development to deployment: dataset shift, causality, and shift-stable models in health AI"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use learning algorithm?",
+      "truth": [
+        "From development to deployment: dataset shift, causality, and shift-stable models in health AI",
+        "Generalized Incomplete Multiview Clustering With Flexible Locality Structure Diffusion",
+        "Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics"
+      ],
+      "truth_docs": [
+        "W2990519034",
+        "W3021342796",
+        "W2965374788"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.84,
+        "facts": 17,
+        "seeds": [
+          "learning algorithm",
+          "deep learning algorithm",
+          "graph learning algorithm",
+          "ML algorithm",
+          "stable learning algorithm",
+          "machine learning algorithm",
+          "structure learning algorithm",
+          "multiview learning algorithm"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.375
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use KGE model?",
+      "truth": [
+        "PharmKG: a dedicated knowledge graph benchmark for bomedical data mining",
+        "Knowledge Graph Contrastive Learning Based on Relation-Symmetrical Structure",
+        "Biological applications of knowledge graph embedding models",
+        "Knowledge Graph Embedding: A Survey from the Perspective of Representation Spaces"
+      ],
+      "truth_docs": [
+        "W3116099552",
+        "W4380303532",
+        "W3007807538",
+        "W4391473819"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.61,
+        "facts": 36,
+        "seeds": [
+          "KGE model",
+          "modelling method",
+          "prediction model",
+          "Predictive modelling",
+          "fully supervised model",
+          "MechGPT LLM foundation model",
+          "Mechanics and Materials Modeling",
+          "fine-tuned large language model (LLM)"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.4
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use Retrieval-Augmented Generation?",
+      "truth": [
+        "Biomedical knowledge graph-optimized prompt generation for large language models",
+        "Graph Retrieval-Augmented Generation: A Survey",
+        "ChatTf: A Knowledge Graph-Enhanced Q&A System for Mitigating Factuality Hallucinations",
+        "MechGPT, a Language-Based Strategy for Mechanics and Materials Modeling That Connects Knowledge Across Scales, Disciplines, and Modalities"
+      ],
+      "truth_docs": [
+        "W4402567773",
+        "W4416379250",
+        "sample-001",
+        "W4387773384"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.76,
+        "facts": 60,
+        "seeds": [
+          "Retrieval-Augmented Generation",
+          "Graph Retrieval-Augmented Generation",
+          "Graph Retrieval-Augmented Generation: A Survey",
+          "dual-stage retrieval-augmented generation pipeline",
+          "entropy generation",
+          "generation process",
+          "structure generation",
+          "hypothesis generation"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use statistical model?",
+      "truth": [
+        "From development to deployment: dataset shift, causality, and shift-stable models in health AI",
+        "Deep learning methods for flood mapping: a review of existing applications and future research directions",
+        "Guidelines for Reporting of Statistics for Clinical Research in Urology"
+      ],
+      "truth_docs": [
+        "W2990519034",
+        "W4293226370",
+        "W4238494775"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.75,
+        "facts": 33,
+        "seeds": [
+          "statistical model",
+          "statistical modeling",
+          "statistical data",
+          "Statistical method",
+          "predictive statistical model",
+          "statistical modeling approache",
+          "statistical analysis",
+          "statistical reporting"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.375
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use deep learning-based approache?",
+      "truth": [
+        "Graph Neural Networks for Wireless Communications: From Theory to Practice",
+        "A Novel Group Recommendation Model With Two-Stage Deep Learning",
+        "Anomaly Detection in Dynamic Graphs via Transformer",
+        "Deep learning-based approaches for multi-omics data integration and analysis"
+      ],
+      "truth_docs": [
+        "W4221150253",
+        "W4205142581",
+        "W3191802839",
+        "W4403052529"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.89,
+        "facts": 18,
+        "seeds": [
+          "deep learning-based approache",
+          "learning-based approache",
+          "machine learning-based approache",
+          "graph learning-based method",
+          "deep learning-based action recognition",
+          "Reactive approache",
+          "proactive approache",
+          "Computational approache"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.36363636363636365
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use tool?",
+      "truth": [
+        "Phylogenomics \u2014 principles, opportunities and pitfalls of big\u2010data phylogenetics",
+        "Microsoft Academic Graph: When experts are not enough",
+        "GuPPy, a Python toolbox for the analysis of fiber photometry data"
+      ],
+      "truth_docs": [
+        "W2996137088",
+        "W3002924435",
+        "W4226059393"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.61,
+        "facts": 12,
+        "seeds": [
+          "tool",
+          "D2RQ tool",
+          "Bioinformatic tool",
+          "data retrieval tool",
+          "graph analysis tool",
+          "bioinformatics tool",
+          "proteome-wide analytic tool",
+          "ontology editing tool Prot\u00e9g\u00e9"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.42857142857142855
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use attention mechanism?",
+      "truth": [
+        "MG-BERT: leveraging unsupervised atomic representation learning for molecular property prediction",
+        "Graph Attention Spatial-Temporal Network With Collaborative Global-Local Learning for Citywide Mobile Traffic Prediction",
+        "Enhanced Multi-Task Learning and Knowledge Graph-Based Recommender System",
+        "A Generalization of Transformer Networks to Graphs",
+        "Heterogeneous Graph Attention Network for Unsupervised Multiple-Target Domain Adaptation",
+        "Knowledge Graph Augmented Network Towards Multiview Representation Learning for Aspect-Based Sentiment Analysis",
+        "Learning Knowledge Graph Embedding With Heterogeneous Relation Attention Networks"
+      ],
+      "truth_docs": [
+        "W3157265962",
+        "W3082935815",
+        "W4323022392",
+        "W3113177135",
+        "W3088032605",
+        "W4322706667",
+        "W3129758539"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.68,
+        "facts": 20,
+        "seeds": [
+          "attention mechanism",
+          "self-attention mechanism",
+          "graph attention mechanism",
+          "joint attention mechanism",
+          "dense attention mechanism",
+          "modified attention mechanism",
+          "axial attention",
+          "item-specific attention mechanism"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.5384615384615384
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use Deep learning model?",
+      "truth": [
+        "Machine Learning of Reaction Properties via Learned Representations of the Condensed Graph of Reaction",
+        "Deep Learning Architecture for Short-Term Passenger Flow Forecasting in Urban Rail Transit",
+        "Deep learning methods for flood mapping: a review of existing applications and future research directions",
+        "Adversarial Attacks on Graph Neural Networks",
+        "Knowledge graph-enhanced molecular contrastive learning with functional prompt",
+        "Deep learning for drug repurposing: Methods, databases, and applications",
+        "Deep learning models for price forecasting of financial time series: A review of recent advancements: 2020\u20132022",
+        "MUFFIN: multi-scale feature fusion for drug\u2013drug interaction prediction"
+      ],
+      "truth_docs": [
+        "W3209951148",
+        "W2998652672",
+        "W4293226370",
+        "W3038342492",
+        "W4381679608",
+        "W4211219865",
+        "W4387121164",
+        "W3139253280"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.82,
+        "facts": 57,
+        "seeds": [
+          "Deep learning model",
+          "learning model",
+          "ultra-deep learning model",
+          "graph deep learning",
+          "machine learning model",
+          "deep learning algorithm",
+          "semi-supervised deep learning model",
+          "end-to-end deep learning"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.4
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use Machine Learning (ML)?",
+      "truth": [
+        "From development to deployment: dataset shift, causality, and shift-stable models in health AI",
+        "Machine Learning for Large-Scale Optimization in 6G Wireless Networks",
+        "Graph Neural Networks for Intrusion Detection: A Survey"
+      ],
+      "truth_docs": [
+        "W2990519034",
+        "W4385453555",
+        "W4376480418"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.39,
+        "facts": 60,
+        "seeds": [
+          "Machine learning",
+          "Machine Learning",
+          "Machine Learning",
+          "Machine Learning"
+        ],
+        "recall": 0.3333333333333333,
+        "refused": false,
+        "citation_precision": 0.020833333333333332
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use pre-trained language model?",
+      "truth": [
+        "A Comprehensive Survey on Relation Extraction: Recent Advances and New Frontiers",
+        "KG-BERT: BERT for Knowledge Graph Completion",
+        "Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling",
+        "ERNIE: Enhanced Language Representation with Informative Entities",
+        "Commonsense Knowledge Base Completion with Structural and Semantic Context",
+        "ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation",
+        "A Survey of Knowledge Enhanced Pre-Trained Language Models",
+        "Enriching contextualized language model from knowledge graph for biomedical information extraction"
+      ],
+      "truth_docs": [
+        "W4399978597",
+        "W2972167903",
+        "W4391407054",
+        "W2946345909",
+        "W2997545008",
+        "W3182414949",
+        "W4386275705",
+        "W3037979089"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 1.19,
+        "facts": 45,
+        "seeds": [
+          "pre-trained language model",
+          "pre-trained",
+          "Pre-trained model",
+          "KG-BERT language model",
+          "language task",
+          "Pre-trained LanguagERepresentation",
+          "pre-trained network",
+          "Knowledge Enhanced Pre-Trained Language Model"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.6153846153846154
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use machine learning approach?",
+      "truth": [
+        "KBot: A Knowledge Graph Based ChatBot for Natural Language Understanding Over Linked Data",
+        "Predicting materials properties without crystal structure: deep representation learning from stoichiometry",
+        "Reporting, Epidemic Growth, and Reproduction Numbers for the 2019 Novel Coronavirus (2019-nCoV) Epidemic",
+        "Highly accurate protein structure prediction with AlphaFold"
+      ],
+      "truth_docs": [
+        "W3048922236",
+        "W2978707075",
+        "W3004479334",
+        "W3177828909"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.73,
+        "facts": 49,
+        "seeds": [
+          "machine learning approach",
+          "learning approach",
+          "Machine",
+          "machine learning approache",
+          "learning approache",
+          "Machine Learning (ML)",
+          "graph-based machine learning approache",
+          "Explainable Machine Learning approache"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.2857142857142857
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use Pre-trained model?",
+      "truth": [
+        "Motor Imagery Classification via Temporal Attention Cues of Graph Embedded EEG Signals",
+        "Deep neural network for remote-sensing image interpretation: status and perspectives",
+        "ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation"
+      ],
+      "truth_docs": [
+        "W3000231660",
+        "W2943781490",
+        "W3182414949"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.71,
+        "facts": 58,
+        "seeds": [
+          "Pre-trained model",
+          "pre-trained",
+          "pre-trained network",
+          "pre-trained language model",
+          "Pre-trained LanguagERepresentation",
+          "Pre-trained Language Representation",
+          "modelling method",
+          "prediction model"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.21428571428571427
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use representation?",
+      "truth": [
+        "Reconstructed Graph Neural Network With Knowledge Distillation for Lightweight Anomaly Detection",
+        "Machine Learning of Reaction Properties via Learned Representations of the Condensed Graph of Reaction",
+        "Semantics of the Black-Box: Can Knowledge Graphs Help Make Deep Learning Systems More Interpretable and Explainable?",
+        "Low-Rank Tensor Based Proximity Learning for Multi-View Clustering"
+      ],
+      "truth_docs": [
+        "W4396506525",
+        "W3209951148",
+        "W3093463288",
+        "W4212873158"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.51,
+        "facts": 31,
+        "seeds": [
+          "representation",
+          "representation",
+          "visual representation",
+          "Molecular Representation",
+          "Graphical representation",
+          "Local-Global-Graph Representation",
+          "visual representations of knowledge",
+          "local-global-graph (LGG) representation"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.25
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use Graph neural networks (GNN)?",
+      "truth": [
+        "Could graph neural networks learn better molecular representation for drug discovery? A comparison study of descriptor-based and graph-based models",
+        "EvolveGCN: Evolving Graph Convolutional Networks for Dynamic Graphs",
+        "Contextualized Graph Attention Network for Recommendation with Item Knowledge Graph"
+      ],
+      "truth_docs": [
+        "W3116202926",
+        "W2998313947",
+        "W3165548017"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.78,
+        "facts": 60,
+        "seeds": [
+          "graph neural networks",
+          "Adversarial Attacks on Graph Neural Networks",
+          "graph neural network (GNN)",
+          "Attentive Graph Neural Network",
+          "Transfer Graph Neural Networks for Pandemic Forecasting",
+          "regularized graph neural network",
+          "Co-Embedding of Nodes and Edges With Graph Neural Networks",
+          "Reconstructed Graph Neural Network"
+        ],
+        "recall": 0.0,
+        "refused": false,
+        "citation_precision": 0.0
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use ChatGPT?",
+      "truth": [
+        "Leveraging Medical Knowledge Graphs Into Large Language Models for Diagnosis Prediction: Design and Application Study",
+        "Unifying Large Language Models and Knowledge Graphs: A Roadmap",
+        "Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling"
+      ],
+      "truth_docs": [
+        "W4404138521",
+        "W4390692489",
+        "W4391407054"
+      ],
+      "match": "title",
+      "retrieval": {
+        "seconds": 0.3,
+        "facts": 6,
+        "seeds": [
+          "ChatGPT"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to healthcare?",
+      "truth": [
+        "Machine Learning (ML)",
+        "statistical model",
+        "non-interpretable black-box model",
+        "Large Language Model",
+        "Deep Learning",
+        "deep learning method"
+      ],
+      "truth_docs": [
+        "W2990519034",
+        "W3133653953",
+        "W4406152291"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.81,
+        "facts": 33,
+        "seeds": [
+          "healthcare",
+          "global healthcare",
+          "Machine Learning in Healthcare",
+          "Healthcare Quality and Management",
+          "Patient Satisfaction in Healthcare",
+          "Healthcare Quality and Satisfaction",
+          "Healthcare Operations and Scheduling Optimization",
+          "Heat Transfer and Numerical Methods"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.16666666666666666
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to image classification?",
+      "truth": [
+        "knowledge distillation",
+        "knowledge distillation strategy",
+        "distillation scheme"
+      ],
+      "truth_docs": [
+        "W3034870355"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.88,
+        "facts": 18,
+        "seeds": [
+          "image classification",
+          "classification task",
+          "Contextual image classification",
+          "imagenet classification",
+          "classification accuracy",
+          "remote-sensing image classification",
+          "Remote-Sensing Image Classification",
+          "Multi-label classification"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.1
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to knowledge base completion?",
+      "truth": [
+        "Knowledge Graph",
+        "temporal and non-temporal link prediction method"
+      ],
+      "truth_docs": [
+        "W2951105272",
+        "W2996371683"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.76,
+        "facts": 60,
+        "seeds": [
+          "knowledge base completion",
+          "temporal knowledge base completion",
+          "Commonsense Knowledge Base Completion",
+          "Tensor Decompositions for temporal knowledge base completion",
+          "Commonsense Knowledge Base Completion with Structural and Semantic Context"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.6666666666666666
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to disease?",
+      "truth": [
+        "Spatially resolved transcriptomics",
+        "Deep learning model"
+      ],
+      "truth_docs": [
+        "W4288758477",
+        "W4211219865"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.3,
+        "facts": 8,
+        "seeds": [
+          "disease",
+          "disease",
+          "Disease"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.4
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to molecular property prediction?",
+      "truth": [
+        "modelling method",
+        "descriptor-based method",
+        "MG-BERT",
+        "unsupervised atomic representation learning",
+        "molecular representation learning",
+        "Graph Neural Network",
+        "molecular feature representation",
+        "Graph neural networks (GNN)"
+      ],
+      "truth_docs": [
+        "W3116202926",
+        "W3157265962",
+        "W4213077304",
+        "W4388845139"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.78,
+        "facts": 37,
+        "seeds": [
+          "molecular property prediction",
+          "property prediction",
+          "molecular property",
+          "Drug Property Prediction",
+          "ADME property prediction",
+          "molecular property prediction dataset",
+          "chemical property prediction",
+          "predicting molecular property"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.5714285714285714
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to fusion?",
+      "truth": [
+        "Convolutional Neural Network",
+        "yield model",
+        "core algorithm"
+      ],
+      "truth_docs": [
+        "W2911710347",
+        "W3021393704"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.92,
+        "facts": 13,
+        "seeds": [
+          "fusion",
+          "Fusion",
+          "Applied Sciences",
+          "Applied Mechanics Reviews",
+          "Applied Advanced Technologies",
+          "Heat Transfer and Numerical Methods",
+          "Statistical Methods in Epidemiology",
+          "Statistical Methods in Clinical Trials"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.2222222222222222
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to biomedicine?",
+      "truth": [
+        "Knowledge Graph",
+        "Machine Learning"
+      ],
+      "truth_docs": [
+        "W3116099552",
+        "W3033896008"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.31,
+        "facts": 15,
+        "seeds": [
+          "biomedicine",
+          "Biomedicine",
+          "biomedicine"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.6666666666666666
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to service?",
+      "truth": [
+        "information and communication technology",
+        "value co-creation paradigm",
+        "Knowledge Graph"
+      ],
+      "truth_docs": [
+        "W3143911195",
+        "W3159316741"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.75,
+        "facts": 21,
+        "seeds": [
+          "service",
+          "service",
+          "Web service",
+          "Service provider",
+          "Service (business)",
+          "intelligent service",
+          "Product-service system",
+          "smart product-service system"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.2857142857142857
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to biological application?",
+      "truth": [
+        "physical and evolutionary-history-based approache",
+        "Knowledge Graph Embedding"
+      ],
+      "truth_docs": [
+        "W3177828909",
+        "W3007807538"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.71,
+        "facts": 56,
+        "seeds": [
+          "biological application",
+          "Biological applications of knowledge graph embedding models"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.2222222222222222
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to large-scale problem?",
+      "truth": [
+        "branch-and-bound",
+        "algorithm unrolling",
+        "wireless federated learning",
+        "end-to-end learning",
+        "Graph Neural Network",
+        "Reinforcement Learning"
+      ],
+      "truth_docs": [
+        "W4385453555"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.64,
+        "facts": 8,
+        "seeds": [
+          "large-scale problem"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.5
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to DDI prediction?",
+      "truth": [
+        "attention-based KG representation learning framework",
+        "DDKG",
+        "Substructure Substructure Interaction Drug Drug Interaction",
+        "multi-scale feature fusion deep learning model",
+        "MUFFIN"
+      ],
+      "truth_docs": [
+        "W4224322651",
+        "W3157889929",
+        "W3139253280"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.72,
+        "facts": 30,
+        "seeds": [
+          "DDI prediction",
+          "DDI prediction task",
+          "binary DDI prediction",
+          "multi-typed DDI prediction",
+          "binary-class, multi-class and multi-label DDI prediction task"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.75
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to Question Answering?",
+      "truth": [
+        "unified reasoning framework",
+        "Knowledge Graph",
+        "Graph Neural Network",
+        "KG-enhanced LLM",
+        "LLM-augmented KGs",
+        "LLMs + KGs",
+        "GNN method"
+      ],
+      "truth_docs": [
+        "W3157651462",
+        "W4285818445",
+        "W4390692489"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.73,
+        "facts": 60,
+        "seeds": [
+          "Question answering",
+          "Question Answering",
+          "Visual Question Answering",
+          "Zero-shot Commonsense Question Answering",
+          "Dynamic Neuro-Symbolic Knowledge Graph Construction for Zero-shot Commonsense Question Answering"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.2727272727272727
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to Anomaly Detection?",
+      "truth": [
+        "Graph Neural Network",
+        "Transformer"
+      ],
+      "truth_docs": [
+        "W4401567681",
+        "W3191802839"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.77,
+        "facts": 38,
+        "seeds": [
+          "Anomaly detection",
+          "Anomaly Detection",
+          "anomaly detection task",
+          "Graph Anomaly Detection",
+          "Lightweight Anomaly Detection",
+          "graph anomaly detection method",
+          "graph anomaly detection problem",
+          "Anomaly Detection Techniques and Applications"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.4
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to object?",
+      "truth": [
+        "computer vision technology",
+        "data representation"
+      ],
+      "truth_docs": [
+        "W4200498145",
+        "W4306733841"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 0.84,
+        "facts": 11,
+        "seeds": [
+          "object",
+          "Applied Sciences",
+          "Applied Mechanics Reviews",
+          "Applied Advanced Technologies",
+          "Heat Transfer and Numerical Methods",
+          "Statistical Methods in Epidemiology",
+          "Statistical Methods in Clinical Trials",
+          "Video Surveillance and Tracking Methods"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.25
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to policy?",
+      "truth": [
+        "heterogeneous GNN",
+        "homogeneous GNN",
+        "Mediation analysis"
+      ],
+      "truth_docs": [
+        "W3189854358",
+        "W3165488072"
+      ],
+      "match": "name",
+      "retrieval": {
+        "seconds": 1.12,
+        "facts": 12,
+        "seeds": [
+          "policy",
+          "Applied Sciences",
+          "Applied Mechanics Reviews",
+          "Applied Advanced Technologies",
+          "Heat Transfer and Numerical Methods",
+          "Statistical Methods in Epidemiology",
+          "Statistical Methods in Clinical Trials",
+          "Video Surveillance and Tracking Methods"
+        ],
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 0.25
+      }
+    },
+    {
+      "type": "unanswerable",
+      "question": "Which papers evaluate the QuantumFrobnicator embedding, and what results did they report?",
+      "truth": [],
+      "truth_docs": [],
+      "match": "refusal",
+      "retrieval": {
+        "seconds": 0.74,
+        "facts": 41,
+        "seeds": [
+          "Embedding",
+          "embedding"
+        ],
+        "recall": null,
+        "refused": false
+      }
+    },
+    {
+      "type": "unanswerable",
+      "question": "Which papers evaluate the Zelkova-9 benchmark, and what results did they report?",
+      "truth": [],
+      "truth_docs": [],
+      "match": "refusal",
+      "retrieval": {
+        "seconds": 0.67,
+        "facts": 0,
+        "seeds": [],
+        "recall": null,
+        "refused": true
+      }
+    },
+    {
+      "type": "unanswerable",
+      "question": "Which papers evaluate HyperLattice Transformer v7, and what results did they report?",
+      "truth": [],
+      "truth_docs": [],
+      "match": "refusal",
+      "retrieval": {
+        "seconds": 0.66,
+        "facts": 21,
+        "seeds": [
+          "Transformer",
+          "Transformer"
+        ],
+        "recall": null,
+        "refused": false
+      }
+    },
+    {
+      "type": "unanswerable",
+      "question": "Which papers evaluate the Morvane reasoning dataset, and what results did they report?",
+      "truth": [],
+      "truth_docs": [],
+      "match": "refusal",
+      "retrieval": {
+        "seconds": 0.69,
+        "facts": 18,
+        "seeds": [
+          "reasoning",
+          "reasoning"
+        ],
+        "recall": null,
+        "refused": false
+      }
+    },
+    {
+      "type": "unanswerable",
+      "question": "Which papers evaluate the Pellucid graph distillation method, and what results did they report?",
+      "truth": [],
+      "truth_docs": [],
+      "match": "refusal",
+      "retrieval": {
+        "seconds": 1.14,
+        "facts": 42,
+        "seeds": [
+          "Distillation",
+          "Graph"
+        ],
+        "recall": null,
+        "refused": false
+      }
+    },
+    {
+      "type": "unanswerable",
+      "question": "Which papers evaluate the Kestrel-X retrieval model, and what results did they report?",
+      "truth": [],
+      "truth_docs": [],
+      "match": "refusal",
+      "retrieval": {
+        "seconds": 0.6,
+        "facts": 4,
+        "seeds": [
+          "retrieval"
+        ],
+        "recall": null,
+        "refused": false
+      }
+    }
+  ]
+}
