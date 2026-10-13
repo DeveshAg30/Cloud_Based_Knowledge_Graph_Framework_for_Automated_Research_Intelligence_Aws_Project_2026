@@ -1,0 +1,457 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Cloud-Based Knowledge Graph Framework for Automated Research Intelligence (S3, Lambda, SageMaker, Neptune Analytics, Bedrock, API Gateway, Cognito, CloudWatch)
+
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+  GraphBackend:
+    Type: String
+    Default: neo4j
+    AllowedValues: [neo4j, neptune-analytics]
+    Description: neo4j = Neo4j AuraDB Free ($0, works on the AWS Free plan). neptune-analytics = Amazon Neptune (paid plan; bills hourly while it exists - use only for the demo).
+  Neo4jUri:
+    Type: String
+    Default: ""
+    Description: AuraDB connection URI, e.g. neo4j+s://xxxxxxxx.databases.neo4j.io
+  Neo4jUser:
+    Type: String
+    Default: neo4j
+    Description: NEO4J_USERNAME from the AuraDB credentials file (newer instances use the instance id).
+  Neo4jDatabase:
+    Type: String
+    Default: ""
+    Description: NEO4J_DATABASE from the AuraDB credentials file (empty = server default).
+  Neo4jPassword:
+    Type: String
+    Default: ""
+    NoEcho: true
+  LlmProvider:
+    Type: String
+    Default: gemini
+    AllowedValues: [gemini, groq, bedrock-nova, bedrock-claude, none]
+    Description: gemini = Google Gemini free tier. bedrock-nova / bedrock-claude need the AWS paid plan. none = return ranked graph facts only.
+  GeminiApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+  GroqApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Optional free Groq key (console.groq.com). Used as a fast fallback when Gemini is slow or overloaded.
+  GroqModel:
+    Type: String
+    Default: openai/gpt-oss-120b
+  GeminiModel:
+    Type: String
+    Default: gemini-flash-lite-latest
+  NovaModelId:
+    Type: String
+    Default: us.amazon.nova-2-lite-v1:0
+  ExtractorMode:
+    Type: String
+    Default: rules
+    AllowedValues: [rules, llm, bedrock, sagemaker]
+    Description: rules = free dictionary/regex baseline. llm = zero-shot extraction with LlmProvider. sagemaker = fine-tuned SciBERT endpoint.
+  SageMakerEndpointName:
+    Type: String
+    Default: research-kg-ner
+  BedrockModelId:
+    Type: String
+    Default: anthropic.claude-opus-5-5
+  GraphMemory:
+    Type: Number
+    Default: 16
+    Description: Neptune Analytics provisioned memory in m-NCUs (16 is the smallest / cheapest).
+  DashboardUrl:
+    Type: String
+    Default: http://localhost:8080/
+    Description: Where the dashboard is served (Cognito callback). Update after Amplify gives you a URL.
+  AlarmEmail:
+    Type: String
+    Default: ""
+    Description: Optional email for CloudWatch alarm notifications.
+
+Conditions:
+  HasAlarmEmail: !Not [!Equals [!Ref AlarmEmail, ""]]
+  UseNeptune: !Equals [!Ref GraphBackend, neptune-analytics]
+  DashboardIsLocal: !Equals [!Ref DashboardUrl, "http://localhost:8080/"]
+  UseBedrock: !Or [!Equals [!Ref LlmProvider, bedrock-nova], !Equals [!Ref LlmProvider, bedrock-claude]]
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Architectures: [x86_64]
+    CodeUri: src/backend/
+    MemorySize: 1024
+    Tracing: Active
+    Environment:
+      Variables:
+        GRAPH_BACKEND: !Ref GraphBackend
+        NEPTUNE_GRAPH_ID: !If [UseNeptune, !GetAtt ResearchGraph.GraphId, ""]
+        NEO4J_URI: !Ref Neo4jUri
+        NEO4J_USER: !Ref Neo4jUser
+        NEO4J_DATABASE: !Ref Neo4jDatabase
+        NEO4J_PASSWORD: !Ref Neo4jPassword
+        LLM_PROVIDER: !Ref LlmProvider
+        GEMINI_API_KEY: !Ref GeminiApiKey
+        GEMINI_MODEL: !Ref GeminiModel
+        GROQ_API_KEY: !Ref GroqApiKey
+        GROQ_MODEL: !Ref GroqModel
+        LLM_BUDGET_S: "15"
+        NOVA_MODEL_ID: !Ref NovaModelId
+        EXTRACTOR_MODE: !Ref ExtractorMode
+        SAGEMAKER_ENDPOINT: !Ref SageMakerEndpointName
+        BEDROCK_MODEL_ID: !Ref BedrockModelId
+        DATA_BUCKET: !Sub research-kg-${AWS::AccountId}-${AWS::Region}-${Stage}
+
+Resources:
+  # ---------------------------------------------------------------- storage
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub research-kg-${AWS::AccountId}-${AWS::Region}-${Stage}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods: [PUT]
+            AllowedOrigins: ["*"]
+            AllowedHeaders: ["*"]
+            MaxAge: 3000
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-failed-multipart
+            Status: Enabled
+            AbortIncompleteMultipartUpload: {DaysAfterInitiation: 7}
+
+  ResearchGraph:
+    Type: AWS::NeptuneGraph::Graph
+    Condition: UseNeptune   # only exists while GraphBackend=neptune-analytics; switching back deletes it
+    Properties:
+      GraphName: !Sub research-kg-${Stage}
+      ProvisionedMemory: !Ref GraphMemory
+      PublicConnectivity: true   # reachable with IAM SigV4 only; avoids VPC + NAT costs for Lambda
+      ReplicaCount: 0
+      DeletionProtection: false
+
+  # ---------------------------------------------------------------- ingestion
+  IngestDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600
+
+  IngestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub research-kg-ingest-${Stage}
+      Handler: handlers.ingest.handler
+      Timeout: 900
+      MemorySize: 2048
+      EventInvokeConfig:
+        MaximumRetryAttempts: 1
+        DestinationConfig:
+          OnFailure:
+            Type: SQS
+            Destination: !GetAtt IngestDLQ.Arn
+      Events:
+        RawUpload:
+          Type: S3
+          Properties:
+            Bucket: !Ref DataBucket
+            Events: s3:ObjectCreated:*
+            Filter:
+              S3Key:
+                Rules:
+                  - {Name: prefix, Value: raw/}
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Sub research-kg-${AWS::AccountId}-${AWS::Region}-${Stage}
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt IngestDLQ.QueueName
+        - Statement:
+            - Effect: Allow
+              Action: [sagemaker:InvokeEndpoint]
+              Resource: !Sub arn:aws:sagemaker:${AWS::Region}:${AWS::AccountId}:endpoint/${SageMakerEndpointName}
+            - !If
+              - UseNeptune
+              - Effect: Allow
+                Action: [neptune-graph:ReadDataViaQuery, neptune-graph:WriteDataViaQuery]
+                Resource: !GetAtt ResearchGraph.GraphArn
+              - !Ref AWS::NoValue
+            - !If
+              - UseBedrock
+              - Effect: Allow
+                Action: [bedrock-mantle:CreateInference, bedrock:InvokeModel]
+                Resource: "*"
+              - !Ref AWS::NoValue
+
+  # ---------------------------------------------------------------- query API
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref Stage
+      CorsConfiguration:
+        AllowOrigins: ["*"]
+        AllowHeaders: [authorization, content-type]
+        AllowMethods: [GET, POST, OPTIONS]
+      # Sign-up is public, so cap the request rate: protects the Gemini free quota and AuraDB.
+      DefaultRouteSettings:
+        ThrottlingRateLimit: 5
+        ThrottlingBurstLimit: 10
+      Auth:
+        DefaultAuthorizer: CognitoJwt
+        Authorizers:
+          CognitoJwt:
+            IdentitySource: $request.header.Authorization
+            JwtConfiguration:
+              issuer: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}
+              audience: [!Ref UserPoolClient]
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub research-kg-api-${Stage}
+      Handler: handlers.api.handler
+      Timeout: 29
+      Events:
+        Query: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: POST, Path: /query}}
+        Graph: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /graph}}
+        Stats: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /stats}}
+        UploadUrl: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: POST, Path: /upload-url}}
+        UploadStatus: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /upload-status}}
+        PublicStats:   # landing page counters, no login needed
+          Type: HttpApi
+          Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /public/stats, Auth: {Authorizer: NONE}}
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [s3:PutObject]
+              Resource: !Sub arn:aws:s3:::research-kg-${AWS::AccountId}-${AWS::Region}-${Stage}/raw/uploads/*
+            - Effect: Allow   # read upload progress written by the ingest Lambda
+              Action: [s3:GetObject]
+              Resource: !Sub arn:aws:s3:::research-kg-${AWS::AccountId}-${AWS::Region}-${Stage}/status/*
+            - Effect: Allow   # lets GetObject on a missing status file return NoSuchKey instead of AccessDenied
+              Action: [s3:ListBucket]
+              Resource: !Sub arn:aws:s3:::research-kg-${AWS::AccountId}-${AWS::Region}-${Stage}
+            - !If
+              - UseNeptune
+              - Effect: Allow
+                Action: [neptune-graph:ReadDataViaQuery]
+                Resource: !GetAtt ResearchGraph.GraphArn
+              - !Ref AWS::NoValue
+            - !If
+              - UseBedrock
+              - Effect: Allow
+                Action: [bedrock-mantle:CreateInference, bedrock:InvokeModel]
+                Resource: "*"
+              - !Ref AWS::NoValue
+
+  # ---------------------------------------------------------------- auth
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub research-kg-users-${Stage}
+      UsernameAttributes: [email]
+      AutoVerifiedAttributes: [email]
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false  # public sign-up; uploads are still limited to the "members" group
+      AccountRecoverySetting:
+        RecoveryMechanisms: [{Name: verified_email, Priority: 1}]
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+        EmailSubject: Your Research Intelligence Graph verification code
+        EmailMessage: "Welcome to the Research Intelligence Graph. Your verification code is {####}"
+      Policies:
+        PasswordPolicy: {MinimumLength: 10, RequireLowercase: true, RequireNumbers: true, RequireUppercase: true, RequireSymbols: false}
+
+  MembersGroup:   # project team: may upload papers (POST /upload-url)
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      UserPoolId: !Ref UserPool
+      GroupName: members
+      Description: Project team members allowed to upload papers
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: research-kg-dashboard
+      GenerateSecret: false
+      # The dashboard signs users in with its own form (Cognito API, password over TLS) instead of redirecting.
+      ExplicitAuthFlows: [ALLOW_USER_PASSWORD_AUTH, ALLOW_REFRESH_TOKEN_AUTH, ALLOW_USER_SRP_AUTH]
+      PreventUserExistenceErrors: ENABLED
+      IdTokenValidity: 8
+      AccessTokenValidity: 8
+      TokenValidityUnits: {IdToken: hours, AccessToken: hours, RefreshToken: days}
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows: [code]
+      AllowedOAuthScopes: [openid, email, profile]
+      SupportedIdentityProviders: [COGNITO]
+      # Hosted dashboard plus localhost, so local testing keeps working after deploying to Amplify.
+      CallbackURLs: !If [DashboardIsLocal, [!Ref DashboardUrl], [!Ref DashboardUrl, "http://localhost:8080/"]]
+      LogoutURLs: !If [DashboardIsLocal, [!Ref DashboardUrl], [!Ref DashboardUrl, "http://localhost:8080/"]]
+
+  UserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      UserPoolId: !Ref UserPool
+      Domain: !Sub research-kg-${AWS::AccountId}-${Stage}
+
+  # ---------------------------------------------------------------- monitoring
+  AlarmTopic:
+    Type: AWS::SNS::Topic
+    Condition: HasAlarmEmail
+    Properties:
+      Subscription:
+        - {Protocol: email, Endpoint: !Ref AlarmEmail}
+
+  IngestErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Ingest Lambda failed to process an upload
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions: [{Name: FunctionName, Value: !Ref IngestFunction}]
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: !If [HasAlarmEmail, [!Ref AlarmTopic], !Ref AWS::NoValue]
+
+  ApiErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Query API returned errors
+      Namespace: ResearchKG
+      MetricName: ApiErrors
+      Dimensions: [{Name: Stage, Value: api}]
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: !If [HasAlarmEmail, [!Ref AlarmTopic], !Ref AWS::NoValue]
+
+  Dashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Sub research-kg-${Stage}
+      DashboardBody: !Sub |
+        {"widgets": [
+          {"type": "metric", "x": 0, "y": 0, "width": 12, "height": 6, "properties": {
+            "title": "Ingestion", "region": "${AWS::Region}", "stat": "Sum", "period": 300,
+            "metrics": [["ResearchKG", "DocumentsProcessed", "Stage", "ingest"],
+                        ["ResearchKG", "EntitiesExtracted", "Stage", "ingest"],
+                        ["ResearchKG", "EdgesWritten", "Stage", "ingest"],
+                        ["ResearchKG", "DocumentFailures", "Stage", "ingest"]]}},
+          {"type": "metric", "x": 12, "y": 0, "width": 12, "height": 6, "properties": {
+            "title": "Query latency (s)", "region": "${AWS::Region}", "period": 300,
+            "metrics": [["ResearchKG", "QueryLatency", "Stage", "query", {"stat": "Average"}],
+                        ["ResearchKG", "QueryLatency", "Stage", "query", {"stat": "p90"}]]}},
+          {"type": "metric", "x": 0, "y": 6, "width": 12, "height": 6, "properties": {
+            "title": "Lambda errors", "region": "${AWS::Region}", "stat": "Sum", "period": 300,
+            "metrics": [["AWS/Lambda", "Errors", "FunctionName", "${IngestFunction}"],
+                        ["AWS/Lambda", "Errors", "FunctionName", "${ApiFunction}"]]}},
+          {"type": "metric", "x": 12, "y": 6, "width": 12, "height": 6, "properties": {
+            "title": "Document processing time (s)", "region": "${AWS::Region}", "stat": "Average", "period": 300,
+            "metrics": [["ResearchKG", "DocumentLatency", "Stage", "ingest"]]}},
+          {"type": "metric", "x": 0, "y": 12, "width": 8, "height": 6, "properties": {
+            "title": "SciBERT endpoint: invocations and errors", "region": "${AWS::Region}", "stat": "Sum", "period": 300,
+            "metrics": [["AWS/SageMaker", "Invocations", "EndpointName", "${SageMakerEndpointName}", "VariantName", "AllTraffic"],
+                        ["AWS/SageMaker", "Invocation4XXErrors", "EndpointName", "${SageMakerEndpointName}", "VariantName", "AllTraffic"],
+                        ["AWS/SageMaker", "Invocation5XXErrors", "EndpointName", "${SageMakerEndpointName}", "VariantName", "AllTraffic"]]}},
+          {"type": "metric", "x": 8, "y": 12, "width": 8, "height": 6, "properties": {
+            "title": "SciBERT endpoint: model latency (ms) and cold starts", "region": "${AWS::Region}", "period": 300,
+            "metrics": [[{"expression": "m1/1000", "label": "ModelLatency avg (ms)", "id": "e1"}],
+                        ["AWS/SageMaker", "ModelLatency", "EndpointName", "${SageMakerEndpointName}", "VariantName", "AllTraffic", {"stat": "Average", "id": "m1", "visible": false}],
+                        ["AWS/SageMaker", "ModelSetupTime", "EndpointName", "${SageMakerEndpointName}", "VariantName", "AllTraffic", {"stat": "SampleCount", "label": "Cold starts", "yAxis": "right"}]]}},
+          {"type": "metric", "x": 16, "y": 12, "width": 8, "height": 6, "properties": {
+            "title": "Questions answered and facts retrieved", "region": "${AWS::Region}", "stat": "Sum", "period": 300,
+            "metrics": [["ResearchKG", "Queries", "Stage", "query"],
+                        ["ResearchKG", "FactsRetrieved", "Stage", "query", {"yAxis": "right"}]]}},
+          {"type": "metric", "x": 0, "y": 18, "width": 12, "height": 6, "properties": {
+            "title": "API Gateway: requests and errors", "region": "${AWS::Region}", "stat": "Sum", "period": 300,
+            "metrics": [["AWS/ApiGateway", "Count", "ApiId", "${HttpApi}", "Stage", "${Stage}"],
+                        ["AWS/ApiGateway", "4xx", "ApiId", "${HttpApi}", "Stage", "${Stage}"],
+                        ["AWS/ApiGateway", "5xx", "ApiId", "${HttpApi}", "Stage", "${Stage}"]]}},
+          {"type": "metric", "x": 12, "y": 18, "width": 12, "height": 6, "properties": {
+            "title": "API Gateway: latency (ms)", "region": "${AWS::Region}", "period": 300,
+            "metrics": [["AWS/ApiGateway", "Latency", "ApiId", "${HttpApi}", "Stage", "${Stage}", {"stat": "Average"}],
+                        ["AWS/ApiGateway", "Latency", "ApiId", "${HttpApi}", "Stage", "${Stage}", {"stat": "p90"}]]}}
+        ]}
+
+  # Saved CloudWatch Logs Insights queries (CloudWatch -> Logs Insights -> Saved queries)
+  QueryRecentQuestions:
+    Type: AWS::Logs::QueryDefinition
+    Properties:
+      Name: !Sub research-kg-${Stage}/recent-questions
+      LogGroupNames: [!Sub "/aws/lambda/research-kg-api-${Stage}"]
+      QueryString: |
+        fields @timestamp, user, question, seeds, facts, latency
+        | filter ispresent(question)
+        | sort @timestamp desc
+        | limit 100
+
+  QuerySlowQuestions:
+    Type: AWS::Logs::QueryDefinition
+    Properties:
+      Name: !Sub research-kg-${Stage}/slow-questions
+      LogGroupNames: [!Sub "/aws/lambda/research-kg-api-${Stage}"]
+      QueryString: |
+        fields @timestamp, question, latency, facts
+        | filter ispresent(latency) and latency > 5
+        | sort latency desc
+        | limit 50
+
+  QueryIngestedPapers:
+    Type: AWS::Logs::QueryDefinition
+    Properties:
+      Name: !Sub research-kg-${Stage}/ingested-papers
+      LogGroupNames: [!Sub "/aws/lambda/research-kg-ingest-${Stage}"]
+      QueryString: |
+        fields @timestamp, ingested.doc_id, ingested.entities, ingested.relations, ingested.edges, ingested.seconds
+        | filter ispresent(ingested.doc_id)
+        | sort @timestamp desc
+        | limit 200
+
+  QueryErrors:
+    Type: AWS::Logs::QueryDefinition
+    Properties:
+      Name: !Sub research-kg-${Stage}/errors
+      LogGroupNames:
+        - !Sub "/aws/lambda/research-kg-ingest-${Stage}"
+        - !Sub "/aws/lambda/research-kg-api-${Stage}"
+      QueryString: |
+        fields @timestamp, @log, @message
+        | filter @message like /Traceback|ERROR|Failed|Exception/
+        | sort @timestamp desc
+        | limit 100
+
+Outputs:
+  ApiUrl:
+    Value: !Sub https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}
+  DataBucketName:
+    Value: !Ref DataBucket
+  NeptuneGraphId:
+    Condition: UseNeptune
+    Value: !GetAtt ResearchGraph.GraphId
+  UserPoolId:
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Value: !Ref UserPoolClient
+  CognitoDomain:
+    Value: !Sub https://research-kg-${AWS::AccountId}-${Stage}.auth.${AWS::Region}.amazoncognito.com
+  IngestDeadLetterQueue:
+    Value: !Ref IngestDLQ
