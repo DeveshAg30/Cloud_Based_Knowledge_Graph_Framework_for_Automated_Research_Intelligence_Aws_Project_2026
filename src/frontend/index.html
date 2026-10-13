@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Intelligence Graph</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="9" r="4"/><circle cx="24" cy="8" r="3"/><circle cx="16" cy="22" r="5"/><circle cx="27" cy="24" r="2.5"/><path d="M8 9 16 22 24 8M16 22 27 24M8 9 24 8"/></svg>
+      <h1>Research Intelligence Graph</h1>
+    </div>
+    <div id="user-box" hidden>
+      <span id="member-badge" class="badge" hidden>Project member</span>
+      <span id="user-name"></span>
+      <button id="logout-btn" class="ghost">Sign out</button>
+    </div>
+  </header>
+
+  <!-- ===================================================== landing + auth (signed out) -->
+  <section id="landing">
+    <canvas id="bg-graph" aria-hidden="true"></canvas>
+    <div class="hero">
+      <div class="pitch">
+        <p class="eyebrow">Cloud knowledge graph · GraphRAG</p>
+        <h2>Ask research questions.<br>Get answers grounded in the literature.</h2>
+        <p class="lead">Scientific papers turned into a knowledge graph of authors, institutions, methods, datasets
+          and tasks. Ask in plain English: every answer is built only from facts in the graph, with the source papers cited.</p>
+
+        <div class="stats" id="public-stats">
+          <div><b data-count="papers">–</b><span>papers</span></div>
+          <div><b data-count="authors">–</b><span>authors</span></div>
+          <div><b data-count="institutions">–</b><span>institutions</span></div>
+          <div><b data-count="entities">–</b><span>concepts &amp; methods</span></div>
+        </div>
+
+        <p class="try-label">Try asking</p>
+        <div class="chips">
+          <button class="chip">Which methods are used for link prediction?</button>
+          <button class="chip">Which papers use graph convolutional networks?</button>
+          <button class="chip">How is TransE connected to graph neural networks?</button>
+        </div>
+
+        <ul class="features">
+          <li><span class="dot" style="--c:#54a24b"></span><b>Ask</b>: cited answers, no hallucinated facts</li>
+          <li><span class="dot" style="--c:#4c78a8"></span><b>Explore</b>: walk the graph from any paper, author or method</li>
+          <li><span class="dot" style="--c:#f58518"></span><b>Discover</b>: multi-hop links keyword search misses</li>
+        </ul>
+      </div>
+
+      <div class="auth-card" id="auth-card">
+        <div class="tabs" role="tablist">
+          <button role="tab" data-tab="signin" class="active">Sign in</button>
+          <button role="tab" data-tab="signup">Create account</button>
+        </div>
+        <p id="auth-msg" class="msg" hidden></p>
+
+        <!-- sign in -->
+        <form id="view-signin" class="view" autocomplete="on">
+          <label>Email<input type="email" name="email" required autocomplete="username" placeholder="you@example.com"></label>
+          <label>Password
+            <span class="pw"><input type="password" name="password" required autocomplete="current-password"><button type="button" class="eye" aria-label="Show password">Show</button></span>
+          </label>
+          <div class="row">
+            <label class="check"><input type="checkbox" name="remember" checked> Keep me signed in</label>
+            <a href="#" data-goto="forgot">Forgot password?</a>
+          </div>
+          <button type="submit" class="primary">Sign in</button>
+        </form>
+
+        <!-- sign up -->
+        <form id="view-signup" class="view" hidden autocomplete="on">
+          <label>Name<input name="name" autocomplete="name" placeholder="Your name"></label>
+          <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
+          <label>Password
+            <span class="pw"><input type="password" name="password" required autocomplete="new-password"><button type="button" class="eye" aria-label="Show password">Show</button></span>
+          </label>
+          <ul class="pw-rules" data-for="signup">
+            <li data-rule="len">10+ characters</li><li data-rule="upper">uppercase letter</li>
+            <li data-rule="lower">lowercase letter</li><li data-rule="num">number</li>
+          </ul>
+          <div class="meter"><span></span></div>
+          <button type="submit" class="primary">Create account</button>
+          <p class="fine">We'll email you a 6-digit code to verify your address.</p>
+        </form>
+
+        <!-- confirm sign-up code -->
+        <form id="view-confirm" class="view" hidden>
+          <h3>Check your email</h3>
+          <p class="fine">We sent a 6-digit code to <b class="email-echo"></b>. It may take a minute; check spam too.</p>
+          <div class="code-boxes" data-target="code"></div>
+          <input type="hidden" name="code">
+          <button type="submit" class="primary">Verify &amp; sign in</button>
+          <button type="button" class="link" id="resend-btn">Resend code</button>
+        </form>
+
+        <!-- forgot password -->
+        <form id="view-forgot" class="view" hidden>
+          <h3>Reset your password</h3>
+          <label>Email<input type="email" name="email" required autocomplete="username"></label>
+          <button type="submit" class="primary">Send reset code</button>
+          <a href="#" data-goto="signin">Back to sign in</a>
+        </form>
+
+        <!-- reset password with code -->
+        <form id="view-reset" class="view" hidden>
+          <h3>Choose a new password</h3>
+          <p class="fine">Enter the code sent to <b class="email-echo"></b>.</p>
+          <div class="code-boxes" data-target="code"></div>
+          <input type="hidden" name="code">
+          <label>New password
+            <span class="pw"><input type="password" name="password" required autocomplete="new-password"><button type="button" class="eye" aria-label="Show password">Show</button></span>
+          </label>
+          <ul class="pw-rules"><li data-rule="len">10+ characters</li><li data-rule="upper">uppercase</li><li data-rule="lower">lowercase</li><li data-rule="num">number</li></ul>
+          <button type="submit" class="primary">Update password</button>
+        </form>
+
+        <!-- first login of an invited user -->
+        <form id="view-newpw" class="view" hidden>
+          <h3>Set your password</h3>
+          <p class="fine">You signed in with a temporary password. Choose your own to continue.</p>
+          <label>New password
+            <span class="pw"><input type="password" name="password" required autocomplete="new-password"><button type="button" class="eye" aria-label="Show password">Show</button></span>
+          </label>
+          <ul class="pw-rules"><li data-rule="len">10+ characters</li><li data-rule="upper">uppercase</li><li data-rule="lower">lowercase</li><li data-rule="num">number</li></ul>
+          <button type="submit" class="primary">Save &amp; continue</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== app (signed in) -->
+  <main id="app" hidden>
+    <section class="panel" id="ask-panel">
+      <form id="ask-form">
+        <input id="question" placeholder="e.g. Which methods are evaluated on WN18RR and which tasks do they address?" maxlength="1000" required>
+        <button type="submit" class="primary">Ask</button>
+      </form>
+      <div id="answer" class="answer"></div>
+      <details>
+        <summary>Retrieved graph facts</summary>
+        <ol id="facts"></ol>
+      </details>
+    </section>
+
+    <section class="panel" id="graph-panel">
+      <form id="explore-form">
+        <input id="entity" placeholder="Explore an entity: BERT, link prediction, an author…" required>
+        <button type="submit" class="primary">Explore</button>
+      </form>
+      <div id="legend"></div>
+      <div id="cy"></div>
+    </section>
+
+    <aside class="panel" id="side-panel">
+      <h2>Graph size</h2>
+      <ul id="stats"></ul>
+      <h2>Upload papers</h2>
+      <div id="upload-member" hidden>
+        <p class="hint">PDF or canonical JSON/JSONL. Papers appear in the graph after processing (about a minute).</p>
+        <input type="file" id="upload" accept=".pdf,.json,.jsonl" multiple>
+        <ul id="upload-log"></ul>
+      </div>
+      <p id="upload-public" class="hint">Uploading papers is limited to project members. You can ask questions and explore everything.</p>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
