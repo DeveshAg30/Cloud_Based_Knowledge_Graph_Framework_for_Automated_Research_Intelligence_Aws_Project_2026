@@ -1,0 +1,13 @@
+# Local graph for offline development: GRAPH_BACKEND=neo4j  (browser UI at http://localhost:7474)
+services:
+  neo4j:
+    image: neo4j:5.26
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/research-kg
+    volumes:
+      - neo4j-data:/data
+volumes:
+  neo4j-data:
