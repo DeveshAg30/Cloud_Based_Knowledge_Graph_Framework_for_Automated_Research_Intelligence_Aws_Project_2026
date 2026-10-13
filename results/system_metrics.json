@@ -1,0 +1,39 @@
+{
+  "collected_at": "2026-10-13T16:45:50+00:00",
+  "ingestion": {
+    "documents": 306,
+    "seconds_per_document": {
+      "mean": 7.88,
+      "p50": 6.07,
+      "p90": 8.39
+    },
+    "full_text_documents": 3,
+    "seconds_per_full_text_document_mean": 88.01,
+    "entities_per_document_mean": 20.9,
+    "edges_per_document_mean": 143.7,
+    "total_edges_written": 43967
+  },
+  "cloudwatch": {
+    "window_days": 7,
+    "graphrag_query_latency_s": {
+      "avg": 17.47,
+      "p90": 19.42
+    },
+    "questions_answered": 13.0,
+    "documents_ingested": 1830.0,
+    "ingest_failures": 0,
+    "api_requests": 153.0,
+    "api_5xx": 0,
+    "api_latency_ms": {
+      "avg": 2964.03,
+      "p90": 7718.53
+    },
+    "sagemaker_invocations": 1422.0,
+    "sagemaker_model_latency_ms": 1836.9,
+    "sagemaker_cold_starts": 20.0,
+    "sagemaker_errors": 1.0,
+    "lambda_ingest_duration_ms_avg": 152448.61,
+    "lambda_api_duration_ms_avg": 4203.41,
+    "lambda_errors": 1.0
+  }
+}
