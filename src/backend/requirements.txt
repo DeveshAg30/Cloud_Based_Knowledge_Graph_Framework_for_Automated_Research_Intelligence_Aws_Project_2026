@@ -1,0 +1,4 @@
+anthropic[bedrock]>=1.13,<2
+boto3>=1.35.0
+neo4j>=5.20,<7
+pypdf>=6.0,<7

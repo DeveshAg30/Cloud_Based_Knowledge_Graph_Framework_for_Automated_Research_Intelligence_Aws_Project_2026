@@ -1,0 +1,4 @@
+-r src/requirements.txt
+pytest>=8
+neo4j>=5.20
+sagemaker>=2.230,<3

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.aws-sam/
+samconfig.toml
+src/frontend/config.js
+data/
+*.tar.gz
+.venv/
