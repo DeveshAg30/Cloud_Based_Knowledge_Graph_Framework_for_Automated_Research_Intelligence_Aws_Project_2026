@@ -45,6 +45,13 @@ ONTOLOGY = [
     (METHOD, "APPLIED_TO", TASK),
     (METHOD, "EVALUATED_ON", DATASET),
     (METHOD, "MEASURED_BY", METRIC),
+    # Added by the SciBERT relation-extraction model (SciERC relation types mapped onto the ontology).
+    (TASK, "EVALUATED_ON", DATASET),
+    (TASK, "MEASURED_BY", METRIC),
+    (METHOD, "COMPARED_WITH", METHOD),
+    (METHOD, "IS_A", METHOD),
+    (TASK, "IS_A", TASK),
+    (METHOD, "PART_OF", METHOD),
 ]
 ALL_RELS = {r for _, r, _ in ONTOLOGY}
 

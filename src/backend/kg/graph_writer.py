@@ -64,9 +64,11 @@ def build_graph(doc: dict, extraction: dict):
 
     # NLP entities: Paper -> entity, weighted by mention count, plus entity -> entity relations.
     counts = Counter((e["label"], normalize_name(e["text"])) for e in extraction.get("entities", []))
-    first_sentence = {}
+    first_sentence, values = {}, {}
     for e in extraction.get("entities", []):
         first_sentence.setdefault((e["label"], normalize_name(e["text"])), e.get("sentence", ""))
+        if e.get("value"):  # reported outcome for a metric, e.g. "96.7%"
+            values.setdefault((e["label"], normalize_name(e["text"])), e["value"])
     entity_nodes = {}
     for e in extraction.get("entities", []):
         key = (e["label"], normalize_name(e["text"]))
@@ -75,7 +77,7 @@ def build_graph(doc: dict, extraction: dict):
         n = add(_node(make_uid(e["label"], e["text"]), e["label"], e["text"].strip()))
         entity_nodes[key] = n
         edges.append(_edge(paper, PAPER_REL_FOR_LABEL[e["label"]], n,
-                           mentions=counts[key], evidence=first_sentence[key][:500]))
+                           mentions=counts[key], evidence=first_sentence[key][:500], value=values.get(key)))
     for r in extraction.get("relations", []):
         h = entity_nodes.get((r["head_label"], normalize_name(r["head"])))
         t = entity_nodes.get((r["tail_label"], normalize_name(r["tail"])))
@@ -119,11 +121,13 @@ def upsert(graph, nodes, stubs, edges):
     for e in edges:
         by_rel[(e["from_label"], e["rel"], e["to_label"])].append(
             {"from": e["from"], "to": e["to"], "evidence": e["props"].get("evidence", ""),
-             "mentions": e["props"].get("mentions", 1), "doc_id": e["props"]["doc_id"]})
+             "mentions": e["props"].get("mentions", 1), "doc_id": e["props"]["doc_id"],
+             "value": e["props"].get("value")})
     for (fl, rel, tl), rows in by_rel.items():
         for chunk in _chunks(rows):
             graph.query(
                 f"UNWIND $rows AS r MATCH (a:{fl} {{uid: r.from}}) MATCH (b:{tl} {{uid: r.to}}) "
-                f"MERGE (a)-[e:{rel}]->(b) SET e.evidence = r.evidence, e.mentions = r.mentions, e.doc_id = r.doc_id",
+                f"MERGE (a)-[e:{rel}]->(b) SET e.evidence = r.evidence, e.mentions = r.mentions, e.doc_id = r.doc_id, "
+                f"e.value = r.value",
                 {"rows": chunk})
     return {"nodes": len(nodes), "stubs": len(stub_rows), "edges": len(edges)}

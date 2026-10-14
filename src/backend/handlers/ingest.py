@@ -81,7 +81,8 @@ def handler(event, context):
                 "title": doc.get("title"),
                 "authors": [a["name"] for a in doc.get("authors", [])][:8],
                 "extractor": EXTRACTOR_NAMES.get(mode, mode),
-                "entities": [{"text": e["text"], "label": e["label"]} for e in extraction["entities"][:60]],
+                "entities": [{"text": e["text"], "label": e["label"], **({"value": e["value"]} if e.get("value") else {})}
+                             for e in extraction["entities"][:60]],
                 "relations": [{"head": r["head"], "rel": r["rel"], "tail": r["tail"]} for r in extraction["relations"][:20]],
                 "edges": stats["edges"],
                 "seconds": round(time.time() - started, 1),
