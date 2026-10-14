@@ -338,3 +338,77 @@ def test_lenticular_doc_citations_are_normalized():
     from kg.retrieval import normalize_citations
 
     assert normalize_citations("by Alper 【doc:W2951159620】 and (doc:W1)", []) == "by Alper [doc:W2951159620] and [doc:W1]"
+
+
+def test_scierc_relations_map_onto_ontology():
+    from kg.extractors import map_scierc_relation
+
+    r = map_scierc_relation({"head": "accuracy", "head_label": "Metric", "rel": "EVALUATE-FOR",
+                             "tail": "BERT", "tail_label": "Method", "sentence": "s", "score": 0.9})
+    assert (r["head"], r["rel"], r["tail"]) == ("BERT", "MEASURED_BY", "accuracy")
+    r = map_scierc_relation({"head": "GCN", "head_label": "Method", "rel": "USED-FOR",
+                             "tail": "link prediction", "tail_label": "Task", "sentence": "s"})
+    assert (r["head_label"], r["rel"], r["tail_label"]) == ("Method", "APPLIED_TO", "Task")
+    assert map_scierc_relation({"head": "a", "head_label": "Generic", "rel": "CONJUNCTION",
+                                "tail": "b", "tail_label": "Method", "sentence": "s"}) is None
+
+
+def test_metric_outcomes_are_stored_on_edges():
+    from kg.extractors import extract
+
+    doc = {"doc_id": "d1", "title": "T", "abstract": "", "authors": [], "references": [], "concepts": [], "sections": []}
+    extraction = extract("Our model reaches 91.4% F1 on WN18RR for link prediction.", mode="rules")
+    nodes, stubs, edges = build_graph(doc, extraction)
+    f1 = [e for e in edges if e["rel"] == "REPORTS_METRIC" and e["to"] == make_uid("Metric", "F1")]
+    assert f1 and f1[0]["props"]["value"] == "91.4%"
+
+
+def test_connect_and_insights_routes_validate_input():
+    os.environ.setdefault("AWS_REGION", "us-east-1")
+    from handlers import api
+
+    ev = _api_event("GET /connect")
+    ev["queryStringParameters"] = {"a": "TransE"}
+    assert api.handler(ev, None)["statusCode"] == 400
+    ev = _api_event("GET /insights")
+    ev["queryStringParameters"] = {}
+    assert api.handler(ev, None)["statusCode"] == 400
+
+
+def test_sagemaker_throttling_is_retried(monkeypatch):
+    import io
+    from botocore.exceptions import ClientError
+    import kg.extractors as ex
+
+    calls = {"n": 0}
+
+    class FakeRuntime:
+        def invoke_endpoint(self, **kw):
+            calls["n"] += 1
+            if calls["n"] < 3:
+                raise ClientError({"Error": {"Code": "ThrottlingException"}}, "InvokeEndpoint")
+            return {"Body": io.BytesIO(b'{"entities": [], "relations": []}')}
+
+    monkeypatch.setattr(ex, "_sm_runtime", FakeRuntime())
+    monkeypatch.setattr(ex.time, "sleep", lambda s: None)
+    assert ex._invoke_with_backoff("ep", "{}") == b'{"entities": [], "relations": []}' and calls["n"] == 3
+
+
+def test_relation_directions_are_resolved():
+    from kg.extractors import resolve_directions, tidy
+
+    rels = [{"head": "A", "head_label": "Method", "rel": "IS_A", "tail": "B", "tail_label": "Method", "score": 0.6},
+            {"head": "B", "head_label": "Method", "rel": "IS_A", "tail": "A", "tail_label": "Method", "score": 0.9},
+            {"head": "Zeta", "head_label": "Method", "rel": "COMPARED_WITH", "tail": "Alpha", "tail_label": "Method", "score": 0.7},
+            {"head": "Alpha", "head_label": "Method", "rel": "COMPARED_WITH", "tail": "Zeta", "tail_label": "Method", "score": 0.5}]
+    out = {(r["head"], r["rel"], r["tail"]) for r in resolve_directions(rels)}
+    assert out == {("B", "IS_A", "A"), ("Alpha", "COMPARED_WITH", "Zeta")}
+    assert tidy("of protein interaction") == "protein interaction" and tidy("the BERT model of") == "BERT model"
+
+
+def test_tidy_normalises_dashes_before_dropping_leading_words():
+    from kg.extractors import tidy
+
+    assert tidy("Bioinspired Multi ‐ Agent Reasoning") == "Bioinspired Multi-Agent Reasoning"
+    assert tidy("Kolmogorov – Arnold Network") == "Kolmogorov-Arnold Network"
+    assert tidy("A ‑ B") == "A-B" and tidy("a graph network") == "graph network"
