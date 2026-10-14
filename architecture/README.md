@@ -9,6 +9,8 @@ monitor both paths.
 Graph ontology: `(Author)-[:AUTHORED]->(Paper)`, `(Author)-[:AFFILIATED_WITH]->(Institution)`, `(Paper)-[:PUBLISHED_IN]->(Venue)`,
 `(Paper)-[:CITES]->(Paper)`, `(Paper)-[:HAS_CONCEPT]->(Concept)`,
 `(Paper)-[:USES_METHOD|USES_DATASET|ADDRESSES_TASK|REPORTS_METRIC]->(entity)`,
-`(Method)-[:APPLIED_TO]->(Task)`, `(Method)-[:EVALUATED_ON]->(Dataset)`, `(Method)-[:MEASURED_BY]->(Metric)`.
+`(Method)-[:APPLIED_TO]->(Task)`, `(Method|Task)-[:EVALUATED_ON]->(Dataset)`, `(Method|Task)-[:MEASURED_BY]->(Metric)`,
+`(Method)-[:COMPARED_WITH]->(Method)`, `(Method|Task)-[:IS_A]->(Method|Task)`, `(Method)-[:PART_OF]->(Method)`.
+The last group comes from the SciBERT relation-extraction model. `REPORTS_METRIC` edges carry the reported value (`value: "96.7%"`).
 
 The diagram source is in the main [README](../README.md#architecture).

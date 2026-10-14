@@ -67,7 +67,7 @@ Answers for the guided prompts:
 | Stack Name | `research-kg` |
 | AWS Region | `us-east-1` |
 | Parameter Stage | `dev` |
-| Parameter ExtractorMode | `bedrock` (switch to `sagemaker` in Phase 5) |
+| Parameter ExtractorMode | `llm` (zero-shot extraction with the configured LLM; `bedrock` is an accepted alias). Switch to `sagemaker` in Phase 5 |
 | Parameter SageMakerEndpointName | `research-kg-ner` |
 | Parameter BedrockModelId | `anthropic.claude-opus-5-5` |
 | Parameter GraphMemory | `16` (smallest and cheapest) |
@@ -212,7 +212,7 @@ Upload PDFs from the dashboard (Phase 6), or directly with `aws s3 cp paper.pdf 
 1. Create `src/frontend/config.js` from `src/frontend/config.example.js` and fill in `apiUrl`, `cognitoDomain` and `clientId` from the stack outputs.
 2. **Test locally:** run `python -m http.server 8080 --directory src/frontend` and open http://localhost:8080. Sign in, then ask a question.
 3. **Deploy:**
-   - Zip the *contents* of `src/frontend/` with `Compress-Archive srcrontend\* dashboard.zip -Force`.
+   - Zip the *contents* of `src/frontend/` with `Compress-Archive src\frontend\* dashboard.zip -Force`.
    - Open the Amplify console → **Create new app** → **Deploy without Git** → upload `dashboard.zip`. You get a URL such as `https://main.d123abc.amplifyapp.com/`.
 4. Point Cognito at the new URL and redeploy:
    ```powershell
@@ -257,7 +257,7 @@ Evaluation numbers for the report:
 | Service | Cost driver | Notes |
 |---|---|---|
 | Neptune Analytics | Hourly, by provisioned memory, for as long as the graph exists | **Main cost.** At 16 m-NCU it is roughly $0.5/hour; check the Neptune pricing page for your region. Delete it when you are not working |
-| Bedrock (Claude) | Tokens per query or extraction | Small for a class project. `ExtractorMode=bedrock` on thousands of papers adds up, so use `sagemaker` for bulk loads |
+| Bedrock (Claude) | Tokens per query or extraction | Small for a class project. `ExtractorMode=llm` on thousands of papers adds up, so use `sagemaker` for bulk loads |
 | SageMaker | Training job (per second) + serverless endpoint (per request) | The endpoint costs nothing while idle |
 | Lambda, API Gateway, S3, Cognito, CloudWatch | Per use | Mostly within the free tier at project scale |
 

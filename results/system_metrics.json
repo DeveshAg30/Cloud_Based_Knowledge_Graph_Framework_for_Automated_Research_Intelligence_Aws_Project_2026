@@ -1,39 +1,39 @@
 {
-  "collected_at": "2026-10-13T16:45:50+00:00",
+  "collected_at": "2026-10-14T12:24:15+00:00",
   "ingestion": {
     "documents": 306,
     "seconds_per_document": {
-      "mean": 7.88,
-      "p50": 6.07,
-      "p90": 8.39
+      "mean": 15.29,
+      "p50": 10.94,
+      "p90": 19.85
     },
     "full_text_documents": 3,
-    "seconds_per_full_text_document_mean": 88.01,
-    "entities_per_document_mean": 20.9,
-    "edges_per_document_mean": 143.7,
-    "total_edges_written": 43967
+    "seconds_per_full_text_document_mean": 162.67,
+    "entities_per_document_mean": 20.7,
+    "edges_per_document_mean": 137.5,
+    "total_edges_written": 42064
   },
   "cloudwatch": {
     "window_days": 7,
     "graphrag_query_latency_s": {
-      "avg": 17.47,
-      "p90": 19.42
+      "avg": 10.1,
+      "p90": 13.31
     },
-    "questions_answered": 13.0,
-    "documents_ingested": 1830.0,
-    "ingest_failures": 0,
-    "api_requests": 153.0,
+    "questions_answered": 28.0,
+    "documents_ingested": 2484.0,
+    "ingest_failures": 3.0,
+    "api_requests": 240.0,
     "api_5xx": 0,
     "api_latency_ms": {
-      "avg": 2964.03,
-      "p90": 7718.53
+      "avg": 2426.83,
+      "p90": 5456.31
     },
-    "sagemaker_invocations": 1422.0,
-    "sagemaker_model_latency_ms": 1836.9,
-    "sagemaker_cold_starts": 20.0,
+    "sagemaker_invocations": 2225.0,
+    "sagemaker_model_latency_ms": 3528.4,
+    "sagemaker_cold_starts": 40.0,
     "sagemaker_errors": 1.0,
-    "lambda_ingest_duration_ms_avg": 152448.61,
-    "lambda_api_duration_ms_avg": 4203.41,
-    "lambda_errors": 1.0
+    "lambda_ingest_duration_ms_avg": 167670.68,
+    "lambda_api_duration_ms_avg": 4009.39,
+    "lambda_errors": 4.0
   }
 }

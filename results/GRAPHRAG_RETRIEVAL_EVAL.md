@@ -4,17 +4,17 @@
 
 | Metric | Value |
 |---|---|
-| Context recall (share of ground-truth items present in the retrieved facts) | **96%** |
-| Questions with all ground-truth items retrieved | **96%** |
-| Source precision (retrieved paper ids that support the answer) | 51% |
+| Context recall (share of ground-truth items present in the retrieved facts) | **98%** |
+| Questions with all ground-truth items retrieved | **98%** |
+| Source precision (retrieved paper ids that support the answer) | 50% |
 | Questions about non-existent entities with no matching facts | **17%** |
-| Average retrieval latency | 0.57 s |
+| Average retrieval latency | 0.535 s |
 
 | Question type | Context recall |
 |---|---|
 | Who are the authors of <paper>? | 100% |
-| Which papers use <method>? | 89% |
-| Which methods have been applied to <task>? | 100% |
+| Which papers use <method>? | 100% |
+| Which methods have been applied to <task>? | 95% |
 
 Source precision is low by design: retrieval returns up to 60 facts around the matched entities, and the LLM then selects and cites the relevant ones. Context recall is the property that matters at this stage.
 

@@ -85,7 +85,9 @@ def mentioned(item, answer, mode):
     if mode == "title":  # titles get paraphrased/shortened: require the first 5 significant words
         words = [w for w in re.findall(r"[a-z0-9]+", normalize_name(item)) if len(w) > 2][:5]
         return bool(words) and all(w in a for w in words)
-    return normalize_name(item) in a
+    # Names: ignore hyphen/dash variants and spacing ("Multi ‐ Agent" == "Multi-Agent", "Kolmogorov Arnold" == "Kolmogorov-Arnold").
+    squash = lambda s: re.sub(r"[^a-z0-9]", "", normalize_name(s))
+    return squash(item) in squash(answer)
 
 
 def score(q, answer, cited):

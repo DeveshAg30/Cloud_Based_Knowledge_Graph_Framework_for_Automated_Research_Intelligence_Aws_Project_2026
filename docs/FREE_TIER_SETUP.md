@@ -130,6 +130,24 @@ aws s3 cp "s3://$BUCKET/raw/" "s3://$BUCKET/raw/" --recursive --metadata-directi
 
 If endpoint creation is refused on the Free plan, keep `ExtractorMode=rules`. The Colab F1 scores still cover the "fine-tuned NER" part of the report.
 
+**Relation extraction (second model).** `src/ai_model/train/train_re.py` fine-tunes SciBERT to classify the relation between two
+entities in a sentence (SciERC: USED-FOR, EVALUATE-FOR, COMPARE, HYPONYM-OF, PART-OF, ...). Train it the same way as NER:
+```powershell
+trainenv\Scripts\python src\ai_model\train\train_re.py --data_dir processed_data\json --model_dir re_model --output_data_dir output
+```
+Then package both models in one archive: the NER files at the root, the RE model under `re/`, and `code/inference.py`.
+The endpoint returns entities **and** typed relations. The pipeline maps them to `APPLIED_TO`, `EVALUATED_ON`, `MEASURED_BY`,
+`COMPARED_WITH`, `IS_A` and `PART_OF` edges.
+
+## 3c. Test the deployed system end to end
+
+```powershell
+python scripts/smoke_test.py            # creates a temporary test user, checks every API route and an upload, then deletes the user
+python scripts/smoke_test.py --skip-upload
+```
+It checks Cognito sign-in, public stats, that unauthenticated calls are rejected, GraphRAG answers with citations, the
+made-up-entity question, Explore, Connect, Insights, and an upload through S3 → Lambda → SageMaker → graph.
+
 ## 4. Demo day: show Neptune and Bedrock (optional)
 
 Do this only if your instructor needs to see Neptune and Bedrock themselves. Read these first:
