@@ -83,7 +83,7 @@ def main():
     model.deploy(
         endpoint_name=args.endpoint_name,
         # 3072 MB is the default per-endpoint serverless memory quota on new accounts
-        serverless_inference_config=ServerlessInferenceConfig(memory_size_in_mb=3072, max_concurrency=5),
+        serverless_inference_config=ServerlessInferenceConfig(memory_size_in_mb=3072, max_concurrency=10),
     )
     print(f"Endpoint ready: {args.endpoint_name}. Set SageMakerEndpointName={args.endpoint_name} "
           f"and ExtractorMode=sagemaker in the SAM deployment.")

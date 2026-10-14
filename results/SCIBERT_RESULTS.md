@@ -46,10 +46,48 @@ baseline (`ExtractorMode=rules`) and once with SciBERT on SageMaker plus the dic
 | Metric nodes | 7 | **226** |
 | Method → Task / Dataset / Metric relations | ≈0 | **2630** |
 
-Deployment: SageMaker **serverless** endpoint `research-kg-ner` (3072 MB, max concurrency 5), Hugging Face
+Deployment: SageMaker **serverless** endpoint `research-kg-ner` (3072 MB, max concurrency 10), Hugging Face
 inference container (transformers 4.49, PyTorch 2.6, CPU). Latency: about 6.6 s for a cold start, about 0.5 s
 warm for a batch of sentences. Full ingestion of the 305 documents: 6 minutes, 0 failures.
 
 Post-processing applied to model output: entity canonicalisation (alias table, learned abbreviations, plural removal),
 removal of generic phrases ("dataset", "results", ...), tidying of trailing words and punctuation, and one type per name
 by majority vote. PDF text is repaired first: ligatures, hyphenation across line breaks, split small-caps.
+
+
+## Relation extraction (second SciBERT model)
+
+`src/ai_model/train/train_re.py` fine-tunes `allenai/scibert_scivocab_uncased` as a sentence-pair classifier. Each
+candidate pair of entities in a sentence is marked (`[E1] ... [/E1]`, `[E2] ... [/E2]`) and classified as one of the 7 SciERC
+relations or NONE.
+
+**Setup:** 2 epochs, learning rate 3e-5, batch size 16, max length 128. Training used all 3,215 annotated relations plus 0.7
+sampled NONE pairs per positive (5,518 examples). Dev and test use **every** candidate pair among gold entities
+(2,488 / 5,062 pairs, about 80% NONE), so precision reflects real use. Trained on the same laptop CPU in about 70 minutes.
+
+**Calibration** (`calibrate_re.py`, tuned on dev only): training saw far fewer NONE pairs than real text contains, so the
+NONE probability is re-weighted (prior correction, x2.0) and a relation must reach confidence 0.45.
+
+| SciERC test (gold entities) | Precision | Recall | F1 |
+|---|---|---|---|
+| Raw model (argmax) | 0.292 | 0.697 | 0.412 |
+| **Calibrated (deployed)** | **0.358** | **0.516** | **0.423** |
+
+| Relation | Precision | Recall | F1 | Support |
+|---|---|---|---|---|
+| USED-FOR | 0.364 | 0.473 | 0.411 | 533 |
+| FEATURE-OF | 0.297 | 0.186 | 0.229 | 59 |
+| HYPONYM-OF | 0.351 | 0.791 | 0.486 | 67 |
+| PART-OF | 0.476 | 0.159 | 0.238 | 63 |
+| COMPARE | 0.360 | 0.711 | 0.478 | 38 |
+| CONJUNCTION | 0.386 | 0.854 | 0.532 | 123 |
+| EVALUATE-FOR | 0.287 | 0.495 | 0.363 | 91 |
+
+**How the graph uses it:** only relations with a clear meaning for the ontology are kept. *Method used-for Task* becomes
+`APPLIED_TO`, *Dataset or Metric evaluate-for Method or Task* becomes `EVALUATED_ON` / `MEASURED_BY`, *compare* becomes
+`COMPARED_WITH`, *hyponym-of* becomes `IS_A` and *part-of* becomes `PART_OF`. Pairs whose direction or types don't fit a rule
+are discarded, which raises precision further in practice. Both models are served from one SageMaker serverless endpoint.
+
+**Limitations:** relation F1 is modest. SciERC relations are hard and imbalanced: FEATURE-OF and PART-OF each have about
+60 test examples and score low. Training was limited to 2 CPU epochs. More epochs on a GPU, or joint entity and relation
+training, would improve it.
