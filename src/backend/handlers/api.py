@@ -3,6 +3,8 @@
 POST /query       {"question": "..."}         -> GraphRAG answer + citations + subgraph
 GET  /graph?name= ...                         -> neighbourhood subgraph for the visualiser
 GET  /stats                                   -> node counts per label
+GET  /connect?a=...&b=...                     -> shortest multi-hop paths between two entities
+GET  /insights?name=...                       -> Research 360 profile of an entity
 POST /upload-url  {"filename": "paper.pdf"}   -> presigned S3 PUT URL into raw/uploads/
 """
 
@@ -20,6 +22,7 @@ from botocore.exceptions import ClientError
 from kg.graph_client import get_graph_client
 from kg.llm import LLMRefusal
 from kg.metrics import emit
+from kg.insights import connect, profile
 from kg.retrieval import answer_question, neighbourhood
 
 # SigV4 + regional endpoint: the default legacy SigV2 presigned URL signs the Content-Type, so a
@@ -85,6 +88,23 @@ def _counts():
     return _stats_cache["counts"]
 
 
+def handle_connect(event):
+    """Multi-hop discovery: shortest chains linking two entities (GET /connect?a=...&b=...)."""
+    q = event.get("queryStringParameters") or {}
+    a, b = (q.get("a") or "").strip(), (q.get("b") or "").strip()
+    if not a or not b or len(a) > 300 or len(b) > 300:
+        return _response(400, {"error": "a and b query parameters are required"})
+    return _response(200, connect(get_graph_client(), a, b))
+
+
+def handle_insights(event):
+    """Research 360 profile of an entity (GET /insights?name=...)."""
+    name = ((event.get("queryStringParameters") or {}).get("name") or "").strip()
+    if not name or len(name) > 300:
+        return _response(400, {"error": "name query parameter is required"})
+    return _response(200, profile(get_graph_client(), name))
+
+
 def handle_stats(event):
     return _response(200, {"counts": _counts(), "member": _is_member(event)})
 
@@ -133,6 +153,8 @@ ROUTES = {
     "POST /upload-url": handle_upload_url,
     "GET /public/stats": handle_public_stats,
     "GET /upload-status": handle_upload_status,
+    "GET /connect": handle_connect,
+    "GET /insights": handle_insights,
 }
 
 

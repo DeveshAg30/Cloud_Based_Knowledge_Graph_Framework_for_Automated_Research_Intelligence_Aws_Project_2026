@@ -410,7 +410,9 @@ let sessionGen = 0;
 function resetApp() {
   sessionGen++;
   for (const id of ["question", "entity"]) $(id).value = "";
-  for (const id of ["answer", "facts", "stats", "upload-log"]) $(id).innerHTML = "";
+  for (const id of ["conn-a", "conn-b"]) $(id).value = "";
+  for (const id of ["answer", "facts", "stats", "upload-log", "paths", "insights-body"]) $(id).innerHTML = "";
+  $("insights").hidden = true;
   $("user-name").textContent = "";
   $("member-badge").hidden = true;
   $("upload-member").hidden = true;
@@ -444,9 +446,58 @@ async function explore(evt) {
   if (evt) evt.preventDefault();
   const gen = sessionGen;
   try {
-    const r = await api(`/graph?name=${encodeURIComponent($("entity").value)}`);
+    const name = $("entity").value;
+    loadInsights(name);
+    const r = await api(`/graph?name=${encodeURIComponent(name)}`);
     if (gen === sessionGen) drawGraph(r.nodes, r.edges);
   } catch (e) { if (gen === sessionGen) alert(e.message); }
+}
+
+// Multi-hop discovery: shortest chains between two entities.
+async function connectEntities(evt) {
+  if (evt) evt.preventDefault();
+  const gen = sessionGen;
+  const list = $("paths");
+  list.innerHTML = "<li>Searching for connections…</li>";
+  try {
+    const r = await api(`/connect?a=${encodeURIComponent($("conn-a").value)}&b=${encodeURIComponent($("conn-b").value)}`);
+    if (gen !== sessionGen) return;
+    if (r.error) { list.innerHTML = `<li>${escapeHtml(r.error)}</li>`; return; }
+    if (!r.paths.length) {
+      list.innerHTML = `<li>No connection within 5 hops between <b>${escapeHtml(r.from.name)}</b> and <b>${escapeHtml(r.to.name)}</b>.</li>`;
+      return;
+    }
+    list.innerHTML = `<li><b>${escapeHtml(r.from.name)}</b> ↔ <b>${escapeHtml(r.to.name)}</b>: ${r.paths.length} shortest path(s), ${r.paths[0].length} hops</li>` +
+      r.paths.map((p) => `<li>${p.hops.map(escapeHtml).join(" → ")}${p.docs.length ? " [" + p.docs.map((d) => citeLink(escapeHtml(d))).join(", ") + "]" : ""}</li>`).join("");
+    drawGraph(r.nodes, r.edges);
+  } catch (e) { if (gen === sessionGen) list.innerHTML = `<li>${escapeHtml(e.message)}</li>`; }
+}
+
+// Research 360: aggregate profile of the entity being explored.
+async function loadInsights(name) {
+  const gen = sessionGen;
+  try {
+    const p = await api(`/insights?name=${encodeURIComponent(name)}`);
+    if (gen !== sessionGen || !p.entity) return;
+    const e = p.entity, st = p.stats || {};
+    const facts = Object.entries(st).filter(([, v]) => v !== null && v !== undefined)
+      .map(([k, v]) => `<b>${escapeHtml(String(v))}</b> ${escapeHtml(k)}`).join(" · ");
+    const years = p.timeline || [];
+    const max = Math.max(1, ...years.map((y) => y.count));
+    const timeline = years.length > 1
+      ? `<div class="timeline" title="papers per year">${years.map((y) => `<div style="height:${(y.count / max) * 100}%" title="${y.year}: ${y.count}"></div>`).join("")}</div>
+         <div class="timeline-axis"><span>${years[0].year}</span><span>papers per year</span><span>${years[years.length - 1].year}</span></div>` : "";
+    const sections = p.sections.map((s) => `<div class="ins-section"><h3>${escapeHtml(s.title)}</h3><ul>${
+      s.items.map((i) => `<li><a href="#" data-explore="${escapeHtml(i.name.replace(/^[A-Z_]+: /, ""))}" title="${escapeHtml(i.name)}">${escapeHtml(i.name)}</a>${
+        i.count !== null && i.count !== undefined ? `<span>${escapeHtml(String(i.count))}</span>` : ""}</li>`).join("")}</ul></div>`).join("");
+    $("insights-body").innerHTML = `<div class="ins-title">${escapeHtml(e.name)}</div>
+      <span class="ins-kind" style="--c:${COLORS[e.label] || "#888"}">${escapeHtml(e.label)}</span>
+      ${facts ? `<div class="ins-stats">${facts}</div>` : ""}${timeline}${sections}`;
+    $("insights").hidden = false;
+    $("insights-body").querySelectorAll("[data-explore]").forEach((a) => a.addEventListener("click", (ev) => {
+      ev.preventDefault(); $("entity").value = a.dataset.explore; explore();
+    }));
+  } catch (e) { /* insights are optional; the graph view still works */ }
 }
 
 async function loadStats() {
@@ -518,7 +569,7 @@ async function trackUpload(li, key) {
 
 function renderUploadResult(li, st) {
   const byType = {};
-  for (const e of st.entities) (byType[e.label] = byType[e.label] || []).push(e.text);
+  for (const e of st.entities) (byType[e.label] = byType[e.label] || []).push(e.value ? `${e.text} = ${e.value}` : e.text);
   const groups = Object.entries(byType).map(([label, names]) =>
     `<div class="ent-group"><span class="ent-label" style="--c:${COLORS[label] || "#888"}">${escapeHtml(label)} (${names.length})</span>
      ${names.slice(0, 12).map((n) => `<span class="ent" style="--c:${COLORS[label] || "#888"}">${escapeHtml(n)}</span>`).join("")}</div>`).join("");
@@ -551,6 +602,7 @@ async function enterApp() {
   if (!appWired) {
     $("ask-form").onsubmit = ask;
     $("explore-form").onsubmit = explore;
+    $("connect-form").onsubmit = connectEntities;
     $("upload").onchange = upload;
     appWired = true;
   }

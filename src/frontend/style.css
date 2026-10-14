@@ -115,6 +115,27 @@ a.cite:hover { text-decoration: underline; }
 #stats, #upload-log { list-style: none; padding: 0; margin: 0; font-size: 13px; }
 #stats li { display: flex; justify-content: space-between; padding: 2px 0; }
 
+/* ------------------------------------------------------------------ connect + insights */
+.connect { margin-top: 8px; align-items: center; }
+.connect span { color: var(--muted); }
+.paths { font-size: 12px; color: var(--muted); padding-left: 20px; margin: 8px 0 0; }
+.paths li { margin-bottom: 4px; }
+.paths b { color: var(--text); }
+#insights { border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 4px; }
+.ins-title { font-weight: 700; font-size: 15px; margin: 0 0 2px; word-break: break-word; }
+.ins-kind { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 999px; color: #fff; background: var(--c); margin-bottom: 6px; }
+.ins-stats { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.ins-stats b { color: var(--text); }
+.timeline { display: flex; align-items: flex-end; gap: 3px; height: 44px; margin: 4px 0 2px; }
+.timeline div { flex: 1; background: var(--accent); border-radius: 2px 2px 0 0; min-height: 2px; position: relative; }
+.timeline-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.ins-section h3 { font-size: 12px; margin: 10px 0 4px; color: var(--muted); }
+.ins-section ul { list-style: none; padding: 0; margin: 0; font-size: 12px; }
+.ins-section li { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+.ins-section li a { color: var(--text); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ins-section li a:hover { color: var(--accent); }
+.ins-section li span { color: var(--muted); flex: none; }
+
 /* ------------------------------------------------------------------ upload progress cards */
 #upload-log { display: grid; gap: 10px; margin-top: 10px; }
 .up-card { border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: var(--field); }

@@ -228,6 +228,8 @@ Resources:
         Stats: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /stats}}
         UploadUrl: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: POST, Path: /upload-url}}
         UploadStatus: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /upload-status}}
+        Connect: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /connect}}
+        Insights: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /insights}}
         PublicStats:   # landing page counters, no login needed
           Type: HttpApi
           Properties: {ApiId: !Ref HttpApi, Method: GET, Path: /public/stats, Auth: {Authorizer: NONE}}
