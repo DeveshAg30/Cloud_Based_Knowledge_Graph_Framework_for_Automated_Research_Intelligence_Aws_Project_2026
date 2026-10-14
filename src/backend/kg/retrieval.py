@@ -82,10 +82,10 @@ def link_entities(graph, question: str):
 NEIGHBOUR_QUERIES = [
     ("out", "MATCH (s {uid: $uid})-[r]->(n) RETURN type(r) AS rel, n.uid AS uid, labels(n)[0] AS label, "
             "n.name AS name, n.year AS year, n.doc_id AS doc_id, r.evidence AS evidence, "
-            "r.doc_id AS edge_doc, r.mentions AS mentions LIMIT 40"),
+            "r.doc_id AS edge_doc, r.mentions AS mentions, r.value AS value LIMIT 40"),
     ("in", "MATCH (s {uid: $uid})<-[r]-(n) RETURN type(r) AS rel, n.uid AS uid, labels(n)[0] AS label, "
            "n.name AS name, n.year AS year, n.doc_id AS doc_id, r.evidence AS evidence, "
-           "r.doc_id AS edge_doc, r.mentions AS mentions LIMIT 40"),
+           "r.doc_id AS edge_doc, r.mentions AS mentions, r.value AS value LIMIT 40"),
 ]
 
 PATH_QUERY = (
@@ -98,11 +98,11 @@ PATH_QUERY = (
 # How informative each relation is as evidence; citations and concepts are plentiful but low-signal.
 REL_WEIGHT = {"AUTHORED": 1.5, "USES_METHOD": 1.3, "USES_DATASET": 1.3, "ADDRESSES_TASK": 1.3, "REPORTS_METRIC": 1.3,
               "APPLIED_TO": 1.3, "EVALUATED_ON": 1.3, "MEASURED_BY": 1.3, "AFFILIATED_WITH": 1.2, "PUBLISHED_IN": 1.0,
-              "HAS_CONCEPT": 0.8, "CITES": 0.6}
+              "COMPARED_WITH": 1.2, "IS_A": 1.1, "PART_OF": 1.0, "HAS_CONCEPT": 0.8, "CITES": 0.6}
 # Words in the question that make a relation the likely answer.
 QUESTION_BOOSTS = [
-    (r"authors?|who|wr[io]te|written|researchers?", ("AUTHORED",), 2.5),
-    (r"institution|universit|affiliat|lab", ("AFFILIATED_WITH",), 2.5),
+    (r"\bauthors?\b|\bwho\b|\bwr[io]te\b|\bwritten\b|\bresearchers?\b", ("AUTHORED",), 2.5),
+    (r"institution|universit|affiliat|\blab\b", ("AFFILIATED_WITH",), 2.5),
     (r"datasets?|benchmarks?|evaluated on|corpus|corpora", ("USES_DATASET", "EVALUATED_ON"), 2.0),
     (r"methods?|models?|techniques?|approach|algorithms?|architectures?", ("USES_METHOD", "APPLIED_TO"), 1.5),
     (r"tasks?|problems?|used for|applied|applications?", ("ADDRESSES_TASK", "APPLIED_TO"), 1.5),
@@ -110,6 +110,8 @@ QUESTION_BOOSTS = [
     (r"cites?|citations?|cited|references?|builds? on", ("CITES",), 3.0),
     (r"venue|journal|conference|published", ("PUBLISHED_IN",), 2.5),
     (r"concepts?|topics?|fields?|areas?", ("HAS_CONCEPT",), 2.0),
+    (r"compar|versus|\bvs\.?\b|alternatives?|better than|outperform", ("COMPARED_WITH",), 2.5),
+    (r"type of|kind of|variants?|\bis an?\b|categor|family", ("IS_A", "PART_OF"), 2.0),
 ]
 
 
@@ -158,7 +160,8 @@ def expand(graph, seeds, question: str = ""):
             weight = (math.log(1 + (row.get("mentions") or 1)) + 0.5) * rel_weight.get(row["rel"], 1.0)
             facts.append({
                 "score": seed["score"] * weight,
-                "text": f"({src['label']}) {src['name']} -[{row['rel']}]-> ({dst['label']}) {dst['name']}",
+                "text": f"({src['label']}) {src['name']} -[{row['rel']}]-> ({dst['label']}) {dst['name']}"
+                        + (f" = {row['value']}" if row.get("value") else ""),
                 "doc_id": row.get("edge_doc") or row.get("doc_id"),
                 "evidence": row.get("evidence") or "",
             })

@@ -9,11 +9,13 @@ answer **only from those facts**, citing the source papers.
 | Result | Value |
 |---|---|
 | SciBERT entity recognition (SciERC test F1) | **0.618** (Methods 0.707) |
-| GraphRAG answer recall vs. the same LLM without the graph | **95.8%** vs 4.3% |
-| Hallucinated answers (confident and mostly wrong) | **0%** vs 62.5% without the graph |
-| Answers citing their sources / citation precision | **100%** / **96.5%** |
+| SciBERT relation extraction (SciERC test F1, calibrated) | **0.423** |
+| End-to-end test of the deployed system | **13/13** checks (`scripts/smoke_test.py`) |
+| GraphRAG answer recall vs. the same LLM without the graph | **100.0%** vs 2.1% |
+| Hallucinated answers (confident and mostly wrong) | **0.0%** vs 62.5% without the graph |
+| Answers citing their sources / citation precision | **100.0%** / **98.3%** |
 | Graph retrieval latency | about 0.6 s |
-| Ingestion | about 3,000 papers/hour, 0 failures in 1,830 runs |
+| Ingestion (NER + RE per paper) | 306 papers in 13.5 min (about 1,350 papers/hour), 0 failures |
 
 Full results: [results/EVALUATION.md](results/EVALUATION.md).
 
@@ -38,6 +40,19 @@ queries) and the Groq / Gemini free tiers. The SciBERT model was trained on a la
 on this account; it is **served on Amazon SageMaker**. All of these are deploy parameters in [template.yaml](template.yaml):
 `GraphBackend=neptune-analytics` and `LlmProvider=bedrock-nova` / `bedrock-claude` switch back to the original AWS design.
 
+## Features
+
+- **Automated ingestion:** OpenAlex, S2ORC and PDF uploads land in S3 and are processed automatically. PDFs are matched to
+  OpenAlex for exact authors, venues and citations.
+- **NLP on SageMaker:** SciBERT entity recognition (methods, tasks, datasets, metrics) **and** SciBERT relation extraction
+  (applied-to, evaluated-on, measured-by, compared-with, is-a, part-of), plus the **outcomes** papers report (e.g. `F1 = 91.4%`).
+- **Ask (GraphRAG):** plain-English questions answered only from graph facts, with clickable citations.
+- **Explore:** an interactive graph around any paper, author, method or institution.
+- **Connect:** the shortest multi-hop chains between any two entities (e.g. *TransE ↔ BERT*).
+- **Research 360 insights:** a profile for any entity: papers per year, collaborators and collaborating institutions,
+  related methods, tasks and datasets, top authors, reported results.
+- **Public sign-up** with email verification; uploads are limited to the `members` group. Live upload tracking.
+
 ## How GraphRAG answers a question
 1. **Entity linking:** match the question to nodes: an exact name, a paper title inside the question, or phrases of up to 4 words.
 2. **Multi-hop expansion:** collect neighbours of each matched node, plus paths of up to 3 hops between pairs of matches (27 graph
@@ -58,13 +73,13 @@ on this account; it is **served on Amazon SageMaker**. All of these are deploy p
 | [dataset/](dataset/) | Sample papers in the canonical document format |
 | [results/](results/) | Evaluation reports and raw metrics |
 | [docs/](docs/) | Setup guides: [FREE_TIER_SETUP.md](docs/FREE_TIER_SETUP.md) (as deployed) and [AWS_IMPLEMENTATION.md](docs/AWS_IMPLEMENTATION.md) (full AWS) |
-| [tests/](tests/) | 27 unit tests: `python -m pytest tests` |
+| [tests/](tests/) | 30 unit tests (`python -m pytest tests`) and `scripts/smoke_test.py`, an end-to-end test of the deployed system |
 
 ## Quick start
 
 ```powershell
 pip install -r requirements-dev.txt
-python -m pytest tests                       # 27 tests
+python -m pytest tests                       # 30 tests
 sam build --use-container                    # needs Docker running
 sam deploy --guided                          # see docs/FREE_TIER_SETUP.md for every parameter
 python scripts/fetch_openalex.py --search "knowledge graph" --limit 300

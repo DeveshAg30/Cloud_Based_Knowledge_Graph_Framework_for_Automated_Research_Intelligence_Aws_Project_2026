@@ -11,7 +11,9 @@ All return: {"entities": [{"text", "label", "sentence"}],
 
 import json
 import os
+import random
 import re
+import time
 
 from .aliases import canonicalize
 from .schema import DATASET, METHOD, METRIC, TASK, normalize_name
@@ -80,7 +82,14 @@ def tidy(text: str) -> str:
     text = re.sub(r"\s+([)\],.;:!?])", r"\1", text)
     if text.count("(") > text.count(")"):                      # unbalanced "( DSC" -> drop the dangling part
         text = text[:text.rfind("(")]
+    text = _DASHES.sub("-", text)                              # Unicode hyphens/dashes -> "-"
+    text = re.sub(r"(?<=\w) - (?=\w)", "-", text)              # "Multi - Agent" (tokenizer spacing) -> "Multi-Agent"
+    text = _LEADING_JUNK.sub("", text)                         # "of protein interaction" -> "protein interaction"
     return _TRAILING_JUNK.sub("", text).strip()
+
+
+_DASHES = re.compile("[‐‑‒–−]")
+_LEADING_JUNK = re.compile(r"^(?:(?:of|for|in|on|with|to|by|from|and|or|the|a|an|its|their|our|this|these)\s+)+", re.I)
 
 
 def dedupe_entities(entities):
@@ -170,7 +179,8 @@ _sm_runtime = None
 
 
 def extract_sagemaker(text: str, endpoint_name: str | None = None):
-    """Calls the SciBERT NER endpoint built by sagemaker/inference/inference.py."""
+    """Calls the SciBERT endpoint (src/ai_model/inference/inference.py): NER entities plus, when the RE model is
+    deployed, typed relations. Older NER-only endpoints fall back to same-sentence co-occurrence relations."""
     global _sm_runtime
     import boto3
 
@@ -182,7 +192,7 @@ def extract_sagemaker(text: str, endpoint_name: str | None = None):
         _sm_runtime = boto3.client("sagemaker-runtime", config=Config(
             read_timeout=90, connect_timeout=10, retries={"max_attempts": 8, "mode": "adaptive"}))
     endpoint_name = endpoint_name or os.environ["SAGEMAKER_ENDPOINT"]
-    entities = []
+    entities, model_relations, has_re = [], [], False
     # Serverless endpoints have a 60 s limit, so send the document in chunks of sentences.
     chunk, chunks = [], []
     for s in split_sentences(text):
@@ -193,17 +203,62 @@ def extract_sagemaker(text: str, endpoint_name: str | None = None):
     if chunk:
         chunks.append(chunk)
     for sentences in chunks:
-        resp = _sm_runtime.invoke_endpoint(
-            EndpointName=endpoint_name,
-            ContentType="application/json",
-            Body=json.dumps({"sentences": sentences}),
-        )
-        for e in json.loads(resp["Body"].read())["entities"]:
+        out = json.loads(_invoke_with_backoff(endpoint_name, json.dumps({"sentences": sentences})))
+        for e in out["entities"]:
             label = SCIERC_LABEL_MAP.get(e["label"])
             if label:
                 entities.append({"text": e["text"], "label": label, "sentence": e["sentence"]})
+        if "relations" in out:
+            has_re = True
+            model_relations += [r for r in (map_scierc_relation(x) for x in out["relations"]) if r]
     entities = dedupe_entities(entities)
-    return {"entities": entities, "relations": cooccurrence_relations(entities)}
+    relations = model_relations if has_re else cooccurrence_relations(entities)
+    return {"entities": entities, "relations": relations, "relation_source": "model" if has_re else "co-occurrence"}
+
+
+def _invoke_with_backoff(endpoint_name, body, attempts=8):
+    """Serverless endpoints cap concurrent requests; when many ingest Lambdas run at once they get
+    ThrottlingException. Botocore already retries quickly; on top of that wait with exponential backoff and
+    jitter (up to about 2 minutes in total) so a busy endpoint delays ingestion instead of failing it."""
+    from botocore.exceptions import ClientError
+
+    for attempt in range(attempts):
+        try:
+            resp = _sm_runtime.invoke_endpoint(EndpointName=endpoint_name, ContentType="application/json", Body=body)
+            return resp["Body"].read()
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") != "ThrottlingException" or attempt == attempts - 1:
+                raise
+            time.sleep(min(30.0, 2 ** attempt) + random.uniform(0, 2))
+
+
+# SciERC relation (head type, relation, tail type) -> our ontology (head, REL, tail). The model's head/tail order is kept
+# unless the ontology reads the other way round (e.g. "Metric EVALUATE-FOR Method" becomes "Method MEASURED_BY Metric").
+SCIERC_RELATION_MAP = {
+    (METHOD, "USED-FOR", TASK): ("head", "APPLIED_TO", "tail"),
+    (DATASET, "USED-FOR", METHOD): ("tail", "EVALUATED_ON", "head"),
+    (DATASET, "USED-FOR", TASK): ("tail", "EVALUATED_ON", "head"),
+    (METRIC, "EVALUATE-FOR", METHOD): ("tail", "MEASURED_BY", "head"),
+    (METRIC, "EVALUATE-FOR", TASK): ("tail", "MEASURED_BY", "head"),
+    (DATASET, "EVALUATE-FOR", METHOD): ("tail", "EVALUATED_ON", "head"),
+    (DATASET, "EVALUATE-FOR", TASK): ("tail", "EVALUATED_ON", "head"),
+    (METHOD, "COMPARE", METHOD): ("head", "COMPARED_WITH", "tail"),
+    (METHOD, "HYPONYM-OF", METHOD): ("head", "IS_A", "tail"),
+    (TASK, "HYPONYM-OF", TASK): ("head", "IS_A", "tail"),
+    (METHOD, "PART-OF", METHOD): ("head", "PART_OF", "tail"),
+}
+
+
+def map_scierc_relation(r):
+    head_label, tail_label = SCIERC_LABEL_MAP.get(r["head_label"]), SCIERC_LABEL_MAP.get(r["tail_label"])
+    rule = SCIERC_RELATION_MAP.get((head_label, r["rel"], tail_label))
+    if not rule:
+        return None
+    first, rel, second = rule
+    side = {"head": (r["head"], head_label), "tail": (r["tail"], tail_label)}
+    (h, hl), (t, tl) = side[first], side[second]
+    return {"head": h, "head_label": hl, "rel": rel, "tail": t, "tail_label": tl,
+            "evidence": r.get("sentence", "")[:500], "score": r.get("score")}
 
 
 # --------------------------------------------------------------------------- LLM (Gemini, Nova or Claude)
@@ -257,7 +312,8 @@ def extract(text: str, mode: str | None = None):
         result = extract_sagemaker(text)
         known = extract_rules(text)
         result["entities"] += known["entities"]
-        result["relations"] += known["relations"]
+        if result.get("relation_source") != "model":  # typed RE relations beat co-occurrence guesses
+            result["relations"] += known["relations"]
     elif mode in ("llm", "bedrock"):  # uses whichever LLM_PROVIDER is configured
         from .llm import LLMDisabled
 
@@ -270,11 +326,53 @@ def extract(text: str, mode: str | None = None):
     # Merge "GCN" / "GCNs" / "graph convolutional networks" into one canonical entity.
     result = canonicalize(result, text)
     result["entities"] = dedupe_entities(result["entities"])
-    seen, relations = set(), []
-    for r in result["relations"]:
-        key = (normalize_name(r["head"]), r["rel"], normalize_name(r["tail"]))
-        if key not in seen and key[0] != key[2]:
-            seen.add(key)
-            relations.append(r)
-    result["relations"] = relations
+    result["relations"] = resolve_directions(result["relations"])
+    attach_metric_values(result["entities"])
     return result
+
+
+SYMMETRIC_RELS = {"COMPARED_WITH"}
+
+
+def resolve_directions(relations):
+    """One edge per entity pair and relation. The RE model often predicts both A->B and B->A; for one-way relations
+    (IS_A, APPLIED_TO, PART_OF, ...) keep the more confident direction, and store symmetric ones in a canonical
+    (alphabetical) direction."""
+    best = {}
+    for r in relations:
+        h, t = normalize_name(r["head"]), normalize_name(r["tail"])
+        if not h or h == t:
+            continue
+        if r["rel"] in SYMMETRIC_RELS and h > t:
+            r = {**r, "head": r["tail"], "head_label": r["tail_label"], "tail": r["head"], "tail_label": r["head_label"]}
+            h, t = t, h
+        key = (r["rel"], frozenset((h, t)))
+        if key not in best or (r.get("score") or 0) > (best[key].get("score") or 0):
+            best[key] = r
+    return list(best.values())
+
+
+# A reported result next to a metric: "96.7%", "0.489", "91.4 F1", "an MRR of .52".
+_VALUE = re.compile(r"(?<![\w.])(\d{1,3}(?:\.\d+)?\s?%|\d?\.\d{2,4}|\d{1,3}\.\d{1,2})(?![\w.%])")
+
+
+def metric_value(metric: str, sentence: str, window: int = 60):
+    """The numeric value closest to a metric mention in its sentence (within `window` characters), if any."""
+    pos = sentence.lower().find(metric.lower())
+    if pos < 0:
+        return None
+    best, best_dist = None, window + 1
+    for m in _VALUE.finditer(sentence):
+        dist = min(abs(m.start() - (pos + len(metric))), abs(pos - m.end()))
+        if dist < best_dist and not re.match(r"(19|20)\d\d$", m.group(1)):
+            best, best_dist = m.group(1).replace(" ", ""), dist
+    return best
+
+
+def attach_metric_values(entities):
+    """Outcomes: give Metric entities the value the paper reports for them (stored on the REPORTS_METRIC edge)."""
+    for e in entities:
+        if e["label"] == METRIC and "value" not in e:
+            value = metric_value(e["text"], e.get("sentence", ""))
+            if value:
+                e["value"] = value

@@ -121,9 +121,15 @@ def learn_abbreviations(text: str) -> dict:
     return found
 
 
+_TRAILING_ABBR = re.compile(r"^(.{4,}?)\s*\(\s*([A-Za-z][\w-]{1,10})\s*\)$")
+
+
 def canonical(label: str, text: str, abbreviations: dict | None = None) -> str:
     """Canonical display name for an entity mention."""
     abbreviations = abbreviations or {}
+    m = _TRAILING_ABBR.match(text.strip())
+    if m:  # "graph convolutional network (GCN)" -> "graph convolutional network"
+        text = m.group(1)
     key = _key(text)
     expanded = abbreviations.get(key) or abbreviations.get(singular(key))
     if expanded:

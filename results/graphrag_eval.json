@@ -3,160 +3,161 @@
     "graphrag": {
       "questions": 28,
       "errors": 0,
-      "answer_recall": 0.958,
-      "fully_correct": 0.875,
+      "answer_recall": 1.0,
+      "fully_correct": 1.0,
       "confidently_wrong": 0.0,
       "said_dont_know": 0.0,
       "correct_refusal_on_unanswerable": 1.0,
-      "avg_latency_s": 1.857,
+      "avg_latency_s": 1.69,
       "by_type": {
         "paper_authors": 1.0,
-        "method_papers": 0.958,
-        "task_methods": 0.917
+        "method_papers": 1.0,
+        "task_methods": 1.0
       },
-      "citation_precision": 0.965,
+      "citation_precision": 0.983,
       "answers_with_citations": 1.0
     },
     "baseline": {
       "questions": 28,
       "errors": 0,
-      "answer_recall": 0.043,
+      "answer_recall": 0.021,
       "fully_correct": 0.0,
       "confidently_wrong": 0.625,
       "said_dont_know": 0.375,
       "correct_refusal_on_unanswerable": 1.0,
-      "avg_latency_s": 1.691,
+      "avg_latency_s": 1.498,
       "by_type": {
-        "paper_authors": 0.052,
-        "method_papers": 0.031,
-        "task_methods": 0.046
+        "paper_authors": 0.0,
+        "method_papers": 0.062,
+        "task_methods": 0.0
       }
     }
   },
   "results": [
     {
       "type": "paper_authors",
-      "question": "Who are the authors of the paper 'DEBrowser: interactive differential expression analysis and visualization tool for count data'?",
+      "question": "Who are the authors of the paper 'CMAverse: A Suite of Functions for Reproducible Causal Mediation Analyses'?",
       "truth": [
-        "Alper K\u00fc\u00e7\u00fckural",
-        "Onur Yukselen",
-        "Deniz Mahmut \u00d6zata",
-        "Melissa J. Moore",
-        "Manuel G. Garber"
+        "Baoyi Shi",
+        "Christine Choirat",
+        "Brent A. Coull",
+        "Tyler J. VanderWeele",
+        "Linda Valeri"
       ],
       "truth_docs": [
-        "W2951159620"
+        "W3165488072"
       ],
       "match": "surname",
       "graphrag": {
-        "answer": "The paper \u201cDEBrowser: interactive differential expression analysis and visualization tool for count data\u201d was authored by:\n\n- Alper\u202fK\u00fc\u00e7\u00fckural[doc:W2951159620]  \n- Onur\u202fYukselen[doc:W2951159620]  \n- Deniz\u202fMahmut\u202f\u00d6zata[doc:W2951159620]  \n- Melissa\u202fJ.\u202fMoore[doc:W2951159620]  \n- Manuel\u202fG.\u202fGarber[doc:W2951159620]",
+        "answer": "The paper **\u201cCMAverse: A Suite of Functions for Reproducible Causal Mediation Analyses\u201d** was authored by:\n\n- Baoyi\u202fShi  \n- Christine\u202fChoirat  \n- Brent\u202fA.\u202fCoull  \n- Tyler\u202fJ.\u202fVanderWeele  \n- Linda\u202fValeri  \n\nThese author-paper links are recorded in facts\u202fF1-F5\u202f[doc:W3165488072].",
         "citations": [
-          "W2951159620"
+          "W3165488072"
         ],
-        "seconds": 4.11,
+        "seconds": 1.21,
         "facts": 45,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have the author list for that paper.",
-        "seconds": 1.19,
+        "answer": "The paper **\u201cCMAverse: A Suite of Functions for Reproducible Causal Mediation Analyses\u201d** was authored by  \n\n- **Daniel J.\u202fMcCaffrey**  \n- **Michael J.\u202fO\u2019Neill**  \n- **Christopher J.\u202fO\u2019Neill**  \n\nThese three researchers are listed as the authors on the original publication (Journal of Statistical Software, 2022).",
+        "seconds": 0.99,
         "recall": 0.0,
-        "refused": true
-      }
-    },
-    {
-      "type": "paper_authors",
-      "question": "Who are the authors of the paper 'A Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks'?",
-      "truth": [
-        "Yuanfei Dai",
-        "Shiping Wang",
-        "Naixue N. Xiong",
-        "Wenzhong Guo"
-      ],
-      "truth_docs": [
-        "W3021393704"
-      ],
-      "match": "surname",
-      "graphrag": {
-        "answer": "The paper **\u201cA Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks\u201d** was authored by:\n\n- Yuanfei\u202fDai[doc:W3021393704]  \n- Shiping\u202fWang[doc:W3021393704]  \n- Naixue\u202fN.\u202fXiong[doc:W3021393704]  \n- Wenzhong\u202fGuo[doc:W3021393704]",
-        "citations": [
-          "W3021393704"
-        ],
-        "seconds": 4.35,
-        "facts": 49,
-        "recall": 1.0,
-        "refused": false,
-        "citation_precision": 1.0
-      },
-      "baseline": {
-        "answer": "**Paper:**  \n*\u201cA Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks\u201d*  \n\n**Authors:**  \n1. **Xiao\u202fWang**  \n2. **Yao\u202fMa**  \n3. **Zhiyuan\u202fLiu**  \n4. **Maosong\u202fSun**  \n\nThe article was published in 2020 (IEEE Transactions on Knowledge and Data Engineering) and has become one of the most-cited overview papers on knowledge-graph embedding methods, covering translational, tensor-factorization, neural-network-based, and graph-neural-network approaches, as well as a systematic benchmark suite.",
-        "seconds": 3.89,
-        "recall": 0.25,
         "refused": false
       }
     },
     {
       "type": "paper_authors",
-      "question": "Who are the authors of the paper 'Learning to Dispatch for Job Shop Scheduling via Deep Reinforcement Learning'?",
+      "question": "Who are the authors of the paper 'Virtual Knowledge Graphs: An Overview of Systems and Use Cases'?",
       "truth": [
-        "Cong Zhang",
-        "Wen Wu Song",
-        "Zhiguang Cao",
-        "Jie Zhang",
-        "Puay Siew Tan",
-        "Chi Xu"
+        "Guohui Xiao",
+        "Linfang Ding",
+        "Benjamin Cogrel",
+        "Diego Calvanese"
       ],
       "truth_docs": [
-        "W3094181369"
+        "W2945688618"
       ],
       "match": "surname",
       "graphrag": {
-        "answer": "The paper **\u201cLearning to Dispatch for Job Shop Scheduling via Deep Reinforcement Learning\u201d** was authored by:\n\n- Cong\u202fZhang[doc:W3094181369]  \n- Wen\u202fWu\u202fSong[doc:W3094181369]  \n- Zhiguang\u202fCao[doc:W3094181369]  \n- Jie\u202fZhang[doc:W3094181369]  \n- Puay\u202fSiew\u202fTan[doc:W3094181369]  \n- Chi\u202fXu[doc:W3094181369]",
+        "answer": "The paper **\u201cVirtual Knowledge Graphs: An Overview of Systems and Use Cases\u201d** was authored by:\n\n- Guohui\u202fXiao\u202f[doc:W2945688618]  \n- Linfang\u202fDing\u202f[doc:W2945688618]  \n- Benjamin\u202fCogrel\u202f[doc:W2945688618]  \n- Diego\u202fCalvanese\u202f[doc:W2945688618]",
         "citations": [
-          "W3094181369"
+          "W2945688618"
         ],
-        "seconds": 1.45,
-        "facts": 46,
+        "seconds": 1.17,
+        "facts": 45,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
         "answer": "I\u2019m sorry, but I don\u2019t have the specific author list for that paper.",
-        "seconds": 0.67,
+        "seconds": 1.08,
         "recall": 0.0,
         "refused": true
       }
     },
     {
       "type": "paper_authors",
-      "question": "Who are the authors of the paper 'Spatiotemporal Representation Learning for Translation-Based POI Recommendation'?",
+      "question": "Who are the authors of the paper 'Learning to Adapt Invariance in Memory for Person Re-identification'?",
       "truth": [
-        "Tieyun Qian",
-        "Bei Liu",
-        "Quoc Viet Hung Nguyen",
-        "Hongzhi Yin"
+        "Zhun Zhong",
+        "Liang Zheng",
+        "Zhiming Luo",
+        "Shaozi Li",
+        "Yi Ping Yang"
       ],
       "truth_docs": [
-        "W2914041468"
+        "W3008706867"
       ],
       "match": "surname",
       "graphrag": {
-        "answer": "The paper **\u201cSpatiotemporal Representation Learning for Translation-Based POI Recommendation\u201d** was authored by:\n\n- Tieyun\u202fQian  \n- Bei\u202fLiu  \n- Quoc\u202fViet\u202fHung\u202fNguyen  \n- Hongzhi\u202fYin  \n\nThese author-paper links are recorded in the knowledge graph\u202f[doc:W2914041468][doc:W2914041468].",
+        "answer": "The paper **\u201cLearning to Adapt Invariance in Memory for Person Re-identification\u201d** was authored by:\n\n- Zhun\u202fZhong[doc:W3008706867]  \n- Liang\u202fZheng[doc:W3008706867]  \n- Zhiming\u202fLuo[doc:W3008706867]  \n- Shaozi\u202fLi[doc:W3008706867]  \n- Yi\u202fPing\u202fYang[doc:W3008706867]",
         "citations": [
-          "W2914041468"
+          "W3008706867"
         ],
-        "seconds": 0.72,
+        "seconds": 0.98,
         "facts": 44,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have the specific author list for the paper titled **\u201cSpatiotemporal Representation Learning for Translation-Based POI Recommendation.\u201d** If you have access to a scholarly database (e.g., Google Scholar, DBLP, IEEE Xplore, or the ACM Digital Library), you can search the title there to retrieve the complete author information.",
-        "seconds": 0.7,
+        "answer": "I\u2019m sorry, but I don\u2019t have the specific author list for that paper.",
+        "seconds": 0.66,
+        "recall": 0.0,
+        "refused": true
+      }
+    },
+    {
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Enhanced Multi-Task Learning and Knowledge Graph-Based Recommender System'?",
+      "truth": [
+        "Min Gao",
+        "Jian-Yu Li",
+        "Chunhua Chen",
+        "Yun Li",
+        "Jun Zhang",
+        "Zhi\u2010Hui Zhan"
+      ],
+      "truth_docs": [
+        "W4323022392"
+      ],
+      "match": "surname",
+      "graphrag": {
+        "answer": "The paper **\u201cEnhanced Multi-Task Learning and Knowledge Graph-Based Recommender System\u201d** was authored by:\n\n- Min\u202fGao[doc:W4323022392]  \n- Jian-Yu\u202fLi[doc:W4323022392]  \n- Chunhua\u202fChen[doc:W4323022392]  \n- Yun\u202fLi[doc:W4323022392]  \n- Jun\u202fZhang[doc:W4323022392]  \n- Zhi-Hui\u202fZhan[doc:W4323022392]",
+        "citations": [
+          "W4323022392"
+        ],
+        "seconds": 1.46,
+        "facts": 46,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "I\u2019m sorry, but I don\u2019t have information about a paper titled **\u201cEnhanced Multi-Task Learning and Knowledge Graph-Based Recommender System,\u201d** including its authors. If you can provide additional details (e.g., conference or journal name, year of publication), I might be able to help locate the reference.",
+        "seconds": 0.65,
         "recall": 0.0,
         "refused": true
       }
@@ -181,17 +182,17 @@
         "citations": [
           "W2994860160"
         ],
-        "seconds": 1.1,
+        "seconds": 1.05,
         "facts": 48,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "The paper **\u201cGraphAF: a Flow-based Autoregressive Model for Molecular Graph Generation\u201d** was authored by:\n\n- **Yuyang Liu**  \n- **Yujia Li**  \n- **Zhaocheng Liu**  \n- **Yao Li**  \n- **Jian Tang**  \n\nThese five researchers are listed as the authors on the original conference/journal publication of GraphAF.",
-        "seconds": 1.51,
-        "recall": 0.16666666666666666,
-        "refused": false
+        "answer": "I\u2019m sorry, but I don\u2019t know the exact list of authors for that paper.",
+        "seconds": 0.85,
+        "recall": 0.0,
+        "refused": true
       }
     },
     {
@@ -213,143 +214,75 @@
         "citations": [
           "W3120491054"
         ],
-        "seconds": 1.08,
-        "facts": 54,
+        "seconds": 1.07,
+        "facts": 53,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have enough information to reliably list the authors of a paper titled **\u201cKnowledge Graph Embedding for Link Prediction.\u201d** If you can provide additional details (such as the year of publication, conference or journal, or any co-author you already know), I can try to narrow it down. Otherwise, searching a scholarly database (e.g., Google Scholar, DBLP, or the ACM/IEEE digital libraries) with the exact title should give you the author list.",
-        "seconds": 0.82,
-        "recall": 0.0,
-        "refused": true
-      }
-    },
-    {
-      "type": "paper_authors",
-      "question": "Who are the authors of the paper 'GuPPy, a Python toolbox for the analysis of fiber photometry data'?",
-      "truth": [
-        "Venus N. Sherathiya",
-        "Michael D. Schaid",
-        "Jillian L. Seiler",
-        "Gabriela C. Lopez",
-        "Talia N. Lerner"
-      ],
-      "truth_docs": [
-        "W4226059393"
-      ],
-      "match": "surname",
-      "graphrag": {
-        "answer": "The paper \u201cGuPPy, a Python toolbox for the analysis of fiber photometry data\u201d was authored by:\n\n- Venus N.\u202fSherathiya  \n- Michael D.\u202fSchaid  \n- Jillian L.\u202fSeiler  \n- Gabriela C.\u202fLopez  \n- Talia N.\u202fLerner  \n\nThese author-paper links are recorded in the knowledge graph[doc:W4226059393].",
-        "citations": [
-          "W4226059393"
-        ],
-        "seconds": 1.24,
-        "facts": 39,
-        "recall": 1.0,
-        "refused": false,
-        "citation_precision": 1.0
-      },
-      "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have the author list for that paper.",
-        "seconds": 1.19,
-        "recall": 0.0,
-        "refused": true
-      }
-    },
-    {
-      "type": "paper_authors",
-      "question": "Who are the authors of the paper 'Sparse Graph Attention Networks'?",
-      "truth": [
-        "Yang Ye",
-        "Shihao Ji"
-      ],
-      "truth_docs": [
-        "W3153880451"
-      ],
-      "match": "surname",
-      "graphrag": {
-        "answer": "The paper **\u201cSparse Graph Attention Networks\u201d** was authored by **Yang\u202fYe** and **Shihao\u202fJi**[doc:W3153880451].",
-        "citations": [
-          "W3153880451"
-        ],
-        "seconds": 0.84,
-        "facts": 42,
-        "recall": 1.0,
-        "refused": false,
-        "citation_precision": 1.0
-      },
-      "baseline": {
-        "answer": "The paper **\u201cSparse Graph Attention Networks\u201d** was authored by  \n\n**Yao\u202fMa, Suhang\u202fWang, and Jiliang\u202fTang**.  \n\nIt was presented at KDD\u202f2020 and proposes a sparsity-inducing variant of the Graph Attention Network (GAT) that learns to attend only to a small, informative subset of neighboring nodes, thereby reducing computational cost while preserving (or even improving) predictive performance.",
+        "answer": "I\u2019m sorry, but I don\u2019t have enough information to identify the authors of a paper titled **\u201cKnowledge Graph Embedding for Link Prediction.\u201d** If you can provide additional details (such as the year of publication, the venue, or any co-authors you already know), I\u2019ll do my best to locate the correct reference.",
         "seconds": 0.95,
         "recall": 0.0,
-        "refused": false
+        "refused": true
       }
     },
     {
-      "type": "method_papers",
-      "question": "Which papers use PLM?",
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'Quality Control of Orphaned Proteins'?",
       "truth": [
-        "KEPLER: A Unified Model for Knowledge Embedding and Pre-trained Language Representation",
-        "Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling",
-        "A Survey of Knowledge Enhanced Pre-Trained Language Models"
+        "Szymon Juszkiewicz",
+        "Ramanujan S. Hegde"
       ],
       "truth_docs": [
-        "W3151929433",
-        "W4391407054",
-        "W4386275705"
+        "W2886379694"
       ],
-      "match": "title",
+      "match": "surname",
       "graphrag": {
-        "answer": "- **KEPLER: A Unified Model for Knowledge Embedding and Pre-trained Language Representation** uses PLM\u202f[doc:W3151929433]  \n- **Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling** uses PLM\u202f[doc:W4391407054]  \n- **A Survey of Knowledge Enhanced Pre-Trained Language Models** uses PLM\u202f[doc:W4386275705]",
+        "answer": "The paper **\u201cQuality Control of Orphaned Proteins\u201d** was authored by **Szymon\u202fJuszkiewicz** and **Ramanujan\u202fS.\u202fHegde**[doc:W2886379694].",
         "citations": [
-          "W3151929433",
-          "W4386275705",
-          "W4391407054"
+          "W2886379694"
         ],
-        "seconds": 1.1,
-        "facts": 6,
+        "seconds": 0.86,
+        "facts": 41,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "**Pre-trained Language Models (PLMs) have become a standard tool in many areas of NLP and beyond. Below is a non-exhaustive list of influential papers (grouped by research theme) that explicitly *use* a PLM\u2014i.e., they start from a publicly released model such as BERT, RoBERTa, GPT-2/3, T5, DeBERTa, etc., and fine-tune or adapt it for a downstream task.**  \n\n---\n\n## 1. General-purpose Benchmarks & Analyses  \n\n| Paper | Year | PLM(s) Used | Main Contribution |\n|-------|------|-------------|-------------------|\n| **\u201cBERT: Pre-training of Deep Bidirectional Transformers for Language Understanding\u201d** - Devlin *et\u202fal.* | 2018 | BERT-base / BERT-large | Introduced the original PLM; all subsequent work builds on it. |\n| **\u201cRoBERTa: A Robustly Optimized BERT Pretraining Approach\u201d** - Liu *et\u202fal.* | 2019 | RoBERTa-base / RoBERTa-large | Shows that longer training, larger batches, and more data improve BERT-style PLMs. |\n| **\u201cALBERT: A Lite BERT for Self-Supervised Learning of Language Representations\u201d** - Lan *et\u202fal.* | 2019 | ALBERT-xxlarge, etc. | Parameter-sharing + factorized embeddings \u2192 smaller models with comparable performance. |\n| **\u201cELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators\u201d** - Clark *et\u202fal.* | 2020 | ELECTRA-base / ELECTRA-large | More sample-efficient pre-training; widely adopted for low-resource fine-tuning. |\n| **\u201cDeBERTa: Decoding-enhanced BERT with Disentangled Attention\u201d** - He *et\u202fal.* | 2021 | DeBERTa-v2, DeBERTa-v3 | Improves attention and positional encoding; strong GLUE scores. |\n| **\u201cT5: Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer\u201d** - Raffel *et\u202fal.* | 2020 | T5-base / T5-large / T5-11B | Casts every NLP task as seq2seq; many downstream works fine-tune T5. |\n| **\u201cGPT-3: Language Models are Few-Shot Learners\u201d** - Brown *et\u202fal.* | 2020 | GPT-3 (175\u202fB) | Demonstrates in-context learning; spurred a wave of prompt-based research. |\n| **\u201cLLaMA: Open and Efficient Foundation Language Models\u201d** - Touvron *et\u202fal.* | 2023 | LLaMA-7B, 13B, 33B, 65B | Open-source large-scale PLM; many follow-up papers fine-tune LLaMA for specific domains. |\n\n*Why they matter*: These papers **introduce** PLMs that later work \u201cuses\u201d. If you are looking for papers that **apply** an existing PLM, see the sections below.\n\n---\n\n## 2. Natural-Language Understanding (NLU)  \n\n| Task | Representative Papers (use PLM) |\n|------|---------------------------------|\n| **Sentiment / Emotion Classification** | \u2022 **\u201cFine-tuning BERT for Sentiment Analysis on Twitter\u201d** - Chen *et\u202fal.* (ACL 2019). <br>",
-        "seconds": 2.29,
+        "answer": "I\u2019m sorry, but I don\u2019t have the information about the authors of that specific paper.",
+        "seconds": 0.78,
         "recall": 0.0,
-        "refused": false
+        "refused": true
       }
     },
     {
-      "type": "method_papers",
-      "question": "Which papers use generative model?",
+      "type": "paper_authors",
+      "question": "Who are the authors of the paper 'HinCTI: A Cyber Threat Intelligence Modeling and Identification System Based on Heterogeneous Information Network'?",
       "truth": [
-        "A Systematic Survey on Deep Generative Models for Graph Generation",
-        "Deep neural network for remote-sensing image interpretation: status and perspectives",
-        "Deep generative design with 3D pharmacophoric constraints"
+        "Philip S. Yu",
+        "Yali Gao",
+        "Xiaoyong Li",
+        "Hao Ming Peng",
+        "Binxing Fang"
       ],
       "truth_docs": [
-        "W4306733841",
-        "W2943781490",
-        "W3209790821"
+        "W3017733550"
       ],
-      "match": "title",
+      "match": "surname",
       "graphrag": {
-        "answer": "The following papers are recorded as **using a generative model**:\n\n- **A Systematic Survey on Deep Generative Models for Graph Generation** - it explicitly uses the generative-model method\u202f[doc:W4306733841]  \n- **Deep neural network for remote-sensing image interpretation: status and perspectives** - it applies the generative-model method\u202f[doc:W2943781490]  \n- **Deep generative design with 3D pharmacophoric constraints** - it employs the generative-model method\u202f[doc:W3209790821]",
+        "answer": "The paper **\u201cHinCTI: A Cyber Threat Intelligence Modeling and Identification System Based on Heterogeneous Information Network\u201d** was authored by:\n\n- Philip S.\u202fYu  \n- Yali\u202fGao  \n- Xiaoyong\u202fLi  \n- Hao\u202fMing\u202fPeng  \n- Binxing\u202fFang  \n\nThese author-paper links are recorded in the knowledge graph\u202f[doc:W3017733550].",
         "citations": [
-          "W2943781490",
-          "W3209790821",
-          "W4306733841"
+          "W3017733550"
         ],
-        "seconds": 2.34,
-        "facts": 45,
+        "seconds": 1.03,
+        "facts": 47,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have enough context to answer your question. Could you clarify what research area or application you\u2019re interested in (e.g., computer vision, natural-language processing, drug discovery, physics simulations, etc.)? That will help me point you to the most relevant papers that use generative models.",
+        "answer": "I\u2019m sorry, but I don\u2019t have the author list for that specific paper.",
         "seconds": 0.63,
         "recall": 0.0,
         "refused": true
@@ -357,185 +290,112 @@
     },
     {
       "type": "method_papers",
-      "question": "Which papers use ChatGPT?",
+      "question": "Which papers use graph convolution?",
       "truth": [
-        "Leveraging Medical Knowledge Graphs Into Large Language Models for Diagnosis Prediction: Design and Application Study",
-        "Unifying Large Language Models and Knowledge Graphs: A Roadmap",
-        "Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling"
+        "Improvement in ADMET Prediction with Multitask Deep Featurization",
+        "A graph convolutional neural network for classification of building patterns using spatial vector data",
+        "Adversarial Attacks on Graph Neural Networks",
+        "Connecting the Dots: Multivariate Time Series Forecasting with Graph Neural Networks"
       ],
       "truth_docs": [
-        "W4404138521",
-        "W4390692489",
-        "W4391407054"
+        "W3015208165",
+        "W2920964209",
+        "W3038342492",
+        "W3028192203"
       ],
       "match": "title",
       "graphrag": {
-        "answer": "- **Leveraging Medical Knowledge Graphs Into Large Language Models for Diagnosis Prediction: Design and Application Study** uses ChatGPT\u202f[doc:W4404138521]  \n- **Unifying Large Language Models and Knowledge Graphs: A Roadmap** uses ChatGPT\u202f[doc:W4390692489]  \n- **Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling** uses ChatGPT\u202f[doc:W4391407054]",
+        "answer": "- **Improvement in ADMET Prediction with Multitask Deep Featurization** - uses graph convolution[doc:W3015208165]  \n- **A graph convolutional neural network for classification of building patterns using spatial vector data** - uses graph convolution[doc:W2920964209]  \n- **Adversarial Attacks on Graph Neural Networks** - uses graph convolution[doc:W3038342492]  \n- **Connecting the Dots: Multivariate Time Series Forecasting with Graph Neural Networks** - uses graph convolution[doc:W3028192203]  \n- **Deep Learning with Graph Convolutional Networks: An Overview and Latest Applications in Computational Intelligence** - uses graph convolution operator (a form of graph convolution)[doc:W4322627364]",
         "citations": [
-          "W4390692489",
-          "W4391407054",
-          "W4404138521"
+          "W2920964209",
+          "W3015208165",
+          "W3028192203",
+          "W3038342492",
+          "W4322627364"
         ],
-        "seconds": 2.24,
-        "facts": 6,
+        "seconds": 1.7,
+        "facts": 19,
         "recall": 1.0,
         "refused": false,
-        "citation_precision": 1.0
+        "citation_precision": 0.8
       },
       "baseline": {
-        "answer": "Below is a (non-exhaustive) list of peer-reviewed papers and pre-prints that explicitly report using **ChatGPT** (the OpenAI large-language model released in November\u202f2022) as a tool in their research workflow\u2014either for data generation, analysis, writing assistance, or evaluation.  I have grouped the works by the primary purpose for which ChatGPT was employed and included the citation details (authors, year, venue, and a DOI or arXiv identifier when available).\n\n---\n\n## 1.  Using ChatGPT for **Scientific Writing / Editing**\n\n| Paper | Year | Venue / Pre-print | How ChatGPT was used |\n|-------|------|-------------------|----------------------|\n| **\u201cChatGPT as a scientific writing assistant: A systematic evaluation\u201d** | 2023 | *arXiv:2305.14971* | Authors asked ChatGPT to draft sections (abstract, introduction, methods) of a mock manuscript and then compared the output to human-written text. |\n| **\u201cLarge Language Models in Academic Writing: Benefits, Risks, and Recommendations\u201d** | 2023 | *Nature Machine Intelligence* (doi:10.1038/s42256-023-00673-5) | Survey of 200 researchers; includes a case study where ChatGPT edited a manuscript for grammar and style. |\n| **\u201cCan ChatGPT replace a human reviewer? A pilot study on manuscript peer review\u201d** | 2023 | *IEEE Transactions on Knowledge and Data Engineering* (doi:10.1109/TKDE.2023.3324567) | ChatGPT generated reviewer comments for 30 submitted papers; authors compared them to human reviewer reports. |\n| **\u201cChatGPT-assisted manuscript preparation in biomedical research\u201d** | 2024 | *BMC Medical Research Methodology* (doi:10.1186/s12874-024-01987-x) | Used ChatGPT to rewrite the \u201cMethods\u201d section for clarity and to generate a lay-summary. |\n\n---\n\n## 2.  Using ChatGPT for **Data Generation / Annotation**\n\n| Paper | Year | Venue | Use case |\n|-------|------|-------|----------|\n| **\u201cSynthetic clinical notes generated by ChatGPT for training de-identification models\u201d** | 2023 | *Journal of the American Medical Informatics Association* (JAMIA) (doi:10.1093/jamia/ocad123) | Generated 10\u202fk realistic clinical notes; used them to pre-train a named-entity-recognition system. |\n| **\u201cChatGPT-augmented dataset for low-resource language sentiment analysis\u201d** | 2023 | *ACL Findings* (doi:10.18653/v1/2023.findings-acl.45) | Prompted ChatGPT to translate English sentiment sentences into Swahili and Yoruba, expanding the training set. |\n| **\u201cPrompt-based generation of chemistry reaction equations with ChatGPT\u201d** | 2024 | *ChemRxiv pre-print* (arXiv:2402.01873) | Produced balanced reaction equations for a set of organic transformations to test LLM reasoning in chemistry. |\n| **\u201cChatGPT for creating realistic dialogue corpora in social robotics\u201d** | 2024 | *Robotics and Autonomous Systems* (doi:10.1016/j.robot.2024.104567) | Generated multi-turn conversational scripts for training dialogue managers. |\n\n---\n\n## 3.  Using ChatGPT for **Code / Algorithm Development**\n\n| Paper | Year | Venue | How ChatGPT helped |\n|-------|------|-------|--------------------|\n| **\u201cAccelerating bioinformatics pipelines with ChatGPT-generated Python scripts\u201d** |",
-        "seconds": 2.29,
-        "recall": 0.0,
-        "refused": false
-      }
-    },
-    {
-      "type": "method_papers",
-      "question": "Which papers use Machine Learning (ML)?",
-      "truth": [
-        "From development to deployment: dataset shift, causality, and shift-stable models in health AI",
-        "Machine Learning for Large-Scale Optimization in 6G Wireless Networks",
-        "Graph Neural Networks for Intrusion Detection: A Survey"
-      ],
-      "truth_docs": [
-        "W2990519034",
-        "W4385453555",
-        "W4376480418"
-      ],
-      "match": "title",
-      "graphrag": {
-        "answer": "The following papers are recorded as **using Machine\u202fLearning**:\n\n- *Deep Learning and Explainable Artificial Intelligence Techniques Applied for Detecting Money Laundering-A Critical Review*\u202f[doc:W3171973514] [doc:W3171973514]  \n- *Building attention and edge message passing neural networks for bioactivity and physical-chemical property prediction*\u202f[doc:W3000478925] [doc:W3000478925]  \n- *From development to deployment: dataset shift, causality, and shift-stable models in health AI*\u202f[doc:W2990519034] [doc:W2990519034]  \n- *Machine Learning for Large-Scale Optimization in 6G Wireless Networks*\u202f[doc:W4385453555] [doc:W4385453555]  \n- *IoT-Enabled Soil Nutrient Analysis and Crop Recommendation Model for Precision Agriculture*\u202f[doc:W4324057917] [doc:W4324057917]  \n- *A review of biomedical datasets relating to drug discovery: a knowledge graph perspective*\u202f[doc:W3132689447] [doc:W3132689447]  \n- *On the role of knowledge graphs in explainable AI*\u202f[doc:W2982378168] [doc:W2982378168]  \n- *Explaining decisions of graph convolutional neural networks: patient-specific molecular subnetworks responsible for metastasis prediction in breast cancer*\u202f[doc:W3133653953] [doc:W3133653953]  \n- *Using Machine Learning and Data Mining to Leverage Community Knowledge for the Engineering of Stable Metal-Organic Frameworks*\u202f[doc:W3175436502] [doc:W3175436502]  \n- *Predicting materials properties without crystal structure: deep representation learning from stoichiometry*\u202f[doc:W2978707075] [doc:W2978707075]  \n- *Graph representation learning in bioinformatics: trends, methods and applications*\u202f[doc:W3198168376] [doc:W3198168376]  \n- *Importance of Engineered and Learned Molecular Representations in Predicting Organic Reactivity, Selectivity, and Chemical Properties*\u202f[doc:W3126568646] [doc:W3126568646]  \n- *Neuro-symbolic approaches in artificial intelligence*\u202f[doc:W4213454368] [doc:W4213454368]",
-        "citations": [
-          "W2978707075",
-          "W2982378168",
-          "W2990519034",
-          "W3000478925",
-          "W3126568646",
-          "W3132689447",
-          "W3133653953",
-          "W3171973514",
-          "W3175436502",
-          "W3198168376",
-          "W4213454368",
-          "W4324057917",
-          "W4385453555"
-        ],
-        "seconds": 3.1,
-        "facts": 60,
-        "recall": 0.6666666666666666,
-        "refused": false,
-        "citation_precision": 0.15384615384615385
-      },
-      "baseline": {
-        "answer": "I\u2019m sorry, but I need a bit more context to give you a useful answer. \u201cWhich papers use Machine Learning (ML)?\u201d could refer to any number of fields\u2014biology, physics, chemistry, social sciences, engineering, etc.\u2014and to many different types of ML approaches (deep learning, reinforcement learning, kernel methods, etc.). \n\nCould you let me know:\n\n1. **The research domain or topic** you\u2019re interested in (e.g., drug discovery, climate modeling, computer vision, natural language processing, materials science, etc.)  \n2. **The time frame** you care about (e.g., recent papers from the last 2-3 years, seminal works from the 1990s-2000s, etc.)  \n3. **Any specific ML techniques** you\u2019re looking for (e.g., convolutional neural networks, graph neural networks, random forests, Bayesian optimization, etc.)  \n4. **Whether you need survey/review papers, methodological papers, or application papers**  \n\nWith that information I can point you to the most relevant papers, authors, and methods.",
-        "seconds": 1.22,
-        "recall": 0.0,
-        "refused": true
-      }
-    },
-    {
-      "type": "method_papers",
-      "question": "Which papers use Long Short-Term Memory?",
-      "truth": [
-        "Deep Learning Architecture for Short-Term Passenger Flow Forecasting in Urban Rail Transit",
-        "Time series forecasting of new cases and new deaths rate for COVID-19 using deep learning methods",
-        "KG-CF: Knowledge Graph Completion with Context Filtering under the Guidance of Large Language Models",
-        "Knowledge-Guided Multi-Label Few-Shot Learning for General Image Recognition"
-      ],
-      "truth_docs": [
-        "W2998652672",
-        "W3159754351",
-        "sample-002",
-        "W3087020912"
-      ],
-      "match": "title",
-      "graphrag": {
-        "answer": "- **Deep Learning Architecture for Short-Term Passenger Flow Forecasting in Urban Rail Transit** - uses Long Short-Term Memory (LSTM)[doc:W2998652672]  \n- **Time series forecasting of new cases and new deaths rate for COVID-19 using deep learning methods** - uses LSTM[doc:W3159754351]  \n- **KG-CF: Knowledge Graph Completion with Context Filtering under the Guidance of Large Language Models** - uses an LSTM sequence classifier[doc:sample-002]  \n- **Knowledge-Guided Multi-Label Few-Shot Learning for General Image Recognition** - mentions utilization of RNN/LSTM[doc:W3087020912]  \n- **Deep Learning Architecture for Short-Term Passenger Flow Forecasting in Urban Rail Transit** (explicit LSTM mention)[doc:W2998652672]   (duplicate of the first entry)",
-        "citations": [
-          "W2998652672",
-          "W3087020912",
-          "W3159754351",
-          "sample-002"
-        ],
-        "seconds": 2.17,
-        "facts": 27,
-        "recall": 1.0,
-        "refused": false,
-        "citation_precision": 1.0
-      },
-      "baseline": {
-        "answer": "Below is a (non-exhaustive) list of influential research papers that **employ Long Short-Term Memory (LSTM) networks** as a core component of their methodology.  I have grouped them by application domain and included the citation details (authors, year, venue) and a brief note on how LSTM is used in each work.\n\n---\n\n## 1. Foundational & Method-Development Papers\n| Year | Citation | Venue | How LSTM is Used |\n|------|----------|-------|------------------|\n| 1997 | **Hochreiter, S., & Schmidhuber, J.** - *Long Short-Term Memory* | Neural Computation | The original LSTM architecture (the \u201cvanilla\u201d LSTM) that introduced memory cells and gating mechanisms. |\n| 2000 | **Gers, F. A., Schmidhuber, J., & Cummins, F.** - *Learning to Forget: Continual Prediction with LSTM* | Neural Computation | Introduced the **peephole connections** and the **forget gate**, which are now standard in most LSTM variants. |\n| 2015 | **Greff, K., Srivastava, R. K., Koutn\u00edk, J., Steunebrink, B. R., & Schmidhuber, J.** - *LSTM: A Search Space Odyssey* | IEEE Transactions on Neural Networks and Learning Systems | Systematic empirical study of many LSTM variants; provides a solid baseline for later work. |\n| 2016 | **Zhou, H., & Troyanskaya, O. G.** - *Predicting effects of noncoding variants with deep learning-based sequence model* | Nature Methods | Introduced **Bidirectional LSTM (Bi-LSTM)** for modeling genomic sequences. |\n\n---\n\n## 2. Natural Language Processing (NLP)\n\n| Year | Citation | Venue | Application |\n|------|----------|-------|-------------|\n| 2014 | **Sutskever, I., Vinyals, O., & Le, Q. V.** - *Sequence to Sequence Learning with Neural Networks* | NIPS | Encoder-decoder framework using **two LSTM layers** (one for encoder, one for decoder) for machine translation. |\n| 2015 | **Bahdanau, D., Cho, K., & Bengio, Y.** - *Neural Machine Translation by Jointly Learning to Align and Translate* | ICLR | First **attention-augmented LSTM** encoder-decoder for translation. |\n| 2016 | **Hochreiter, S., & Schmidhuber, J.** - *Learning to Forget* (re-used) - *Speech Recognition* | Interspeech | Deep **unidirectional LSTM** acoustic models for large-vocabulary speech recognition. |\n| 2017 | **Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K.** - *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding* | NA (Transformer-based) | **Not LSTM**, but the paper cites LSTM as the dominant prior method; included for context. |\n| 2018 | **Peters, M. E., et al.** - *Deep contextualized word representations (ELMo)* | NAACL | Stacked **bidirectional LSTM** language model that yields contextual word embeddings. |\n| 2020 | **Wang, A., et al.** - *GLUECoS: A General Language Understanding Evaluation for Code-Switched Text* | ACL | Uses **Bi-LSTM + attention",
-        "seconds": 2.01,
+        "answer": "Below is a (non-exhaustive) list of well-known research papers that explicitly employ **graph convolutional networks (GCNs)** or closely related **graph convolution** operators.  I have grouped them by the type of problem they address and included the citation details (authors, year, venue) so you can look them up easily.\n\n---\n\n## 1. Foundational / General-Purpose Graph Convolution Papers  \n\n| # | Paper (Citation) | Main Contribution / Graph-Convolution Variant |\n|---|------------------|-----------------------------------------------|\n| 1 | **Kipf & Welling, \u201cSemi-Supervised Classification with Graph Convolutional Networks,\u201d** *ICLR 2017* (arXiv:1609.02907) | The seminal first-order approximation of spectral graph convolutions (the \u201cKipf-Welling GCN\u201d). |\n| 2 | **Defferrard, Bresson & Vandergheynst, \u201cConvolutional Neural Networks on Graphs with Fast Localized Spectral Filtering,\u201d** *NIPS 2016* (arXiv:1606.09375) | Introduces Chebyshev polynomial filters (ChebNet) - a spectral-based graph convolution. |\n| 3 | **Henaff, Bruna & LeCun, \u201cDeep Convolutional Networks on Graphs Using Spectral Domains,\u201d** *ICLR 2015* (arXiv:1506.05163) | Early spectral-filtering formulation; basis for later ChebNet and GCN. |\n| 4 | **Hamilton, Ying & Leskovec, \u201cInductive Representation Learning on Large Graphs (GraphSAGE),\u201d** *NeurIPS 2017* (arXiv:1706.02216) | Neighborhood-sampling based aggregation that can be interpreted as a spatial graph convolution. |\n| 5 | **Velickovic et al., \u201cGraph Attention Networks (GAT),\u201d** *ICLR 2018* (arXiv:1710.10903) | Introduces attention-weighted graph convolution. |\n| 6 | **Xu et al., \u201cHow Powerful are Graph Neural Networks?\u201d** *ICLR 2019* (arXiv:1810.00826) | Theoretical analysis of the expressive power of message-passing/graph-convolutional models (includes GCN, GAT, etc.). |\n| 7 | **Morris et al., \u201cWeisfeiler-Lehman Graph Kernels,\u201d** *JMLR 2019* (arXiv:1806.08804) | Not a neural model but shows the connection between WL graph isomorphism test and the expressive power of many GCN variants. |\n\n---\n\n## 2. Applications in **Node Classification / Semi-Supervised Learning**  \n\n| # | Paper | Domain / Dataset |\n|---|-------|------------------|\n| 1 | Kipf & Welling (2017) - Cora, Citeseer, Pubmed |\n| 2 | **Yang et al., \u201cRevisiting Semi-Supervised Learning with Graph Embeddings,\u201d** *ICLR 2016* - uses GCN-style propagation. |\n| 3 | **Zhou et al., \u201cGraph Convolutional Networks for Text Classification,\u201d** *AAAI 2018* - applies GCN to word-document graphs. |\n| 4 | **Yuan et al., \u201cGraph Convolutional Networks for Fraud Detection,\u201d** *KDD 2020* - heterogeneous graph convolution. |\n\n---\n\n## 3. **Graph Classification / Whole-Graph Prediction**  \n\n| # | Paper | Graph-Convolution Variant |\n|---|-------|",
+        "seconds": 2.55,
         "recall": 0.25,
         "refused": false
       }
     },
     {
       "type": "method_papers",
-      "question": "Which papers use Deep Generative Model?",
+      "question": "Which papers use pretrained language model?",
       "truth": [
-        "Deep Generative Models for 3D Linker Design",
-        "A Systematic Survey on Deep Generative Models for Graph Generation",
-        "GraphAF: a Flow-based Autoregressive Model for Molecular Graph Generation"
+        "SciBERT: A Pretrained Language Model for Scientific Text",
+        "Dynamic Neuro-Symbolic Knowledge Graph Construction for Zero-shot Commonsense Question Answering",
+        "(Comet-) Atomic 2020: On Symbolic and Neural Commonsense Knowledge Graphs"
       ],
       "truth_docs": [
-        "W3011847211",
-        "W4306733841",
-        "W2994860160"
+        "W2970771982",
+        "W3174660442",
+        "W3174464510"
       ],
       "match": "title",
       "graphrag": {
-        "answer": "- **Deep Generative Models for 3D Linker Design** uses a Deep Generative Model\u202f[doc:W3011847211]  \n- **A Systematic Survey on Deep Generative Models for Graph Generation** uses a Deep Generative Model\u202f[doc:W4306733841]  \n- **GraphAF: a Flow-based Autoregressive Model for Molecular Graph Generation** uses a Deep Generative Model\u202f[doc:W2994860160]",
+        "answer": "- **SciBERT: A Pretrained Language Model for Scientific Text** uses a pretrained language model\u202f[doc:W2970771982] [doc:W2970771982].  \n- **Dynamic Neuro-Symbolic Knowledge Graph Construction for Zero-shot Commonsense Question Answering** uses a pretrained language model\u202f[doc:W3174660442] [doc:W3174660442].  \n- **(Comet-) Atomic\u202f2020: On Symbolic and Neural Commonsense Knowledge Graphs** uses a pretrained language model\u202f[doc:W3174464510] [doc:W3174464510].",
         "citations": [
-          "W2994860160",
-          "W3011847211",
-          "W4306733841"
+          "W2970771982",
+          "W3174464510",
+          "W3174660442"
         ],
-        "seconds": 1.62,
+        "seconds": 1.63,
         "facts": 42,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "Below is a (non-exhaustive) list of well-known research papers that explicitly employ **deep generative models**\u2014i.e., neural-network-based probabilistic models that can sample new data points from a learned distribution.  The list is organized by the major families of deep generative models (Variational Auto-encoders, Generative Adversarial Networks, Normalizing Flows, Diffusion Models, Energy-Based Models, etc.) and includes the citation information (authors, year, venue) as well as a brief note on the application domain.\n\n---\n\n## 1. Variational Auto-Encoders (VAEs) and Their Extensions  \n\n| # | Paper (Citation) | Year | Venue | Key Contribution / Application |\n|---|------------------|------|-------|---------------------------------|\n| 1 | **Kingma, D.\u202fP., & Welling, M. - \u201cAuto-Encoding Variational Bayes.\u201d** | 2013 | ICLR (pre-print) | Introduced the VAE framework; foundational for many later deep generative works. |\n| 2 | **Rezende, D.\u202fJ., Mohamed, S., & Wierstra, D. - \u201cStochastic Backpropagation and Approximate Inference in Deep Generative Models.\u201d** | 2014 | ICML | First VAE-style model with multiple stochastic layers. |\n| 3 | **Burgess, C.\u202fP., et al. - \u201cUnderstanding Disentangling in \u03b2-VAE.\u201d** | 2018 | ICLR | Shows how a simple \u03b2-VAE learns disentangled latent factors. |\n| 4 | **Higgins, I., et al. - \u201c\u03b2-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework.\u201d** | 2017 | ICLR | Introduced the \u03b2-VAE objective for disentanglement. |\n| 5 | **Duan, Y., et al. - \u201cLearning Hierarchical Representations for Efficient Planning.\u201d** | 2020 | NeurIPS | Hierarchical VAE (HVAE) for model-based RL. |\n| 6 | **Vahdat, A., & Kautz, J. - \u201cNVAE: Deep Hierarchical Variational Autoencoders.\u201d** | 2020 | CVPR | State-of-the-art image synthesis with a deep hierarchical VAE. |\n| 7 | **Makhzani, A., et al. - \u201cAdversarial Autoencoders.\u201d** | 2015 | ICLR | Combines VAE reconstruction loss with GAN-style adversarial regularization. |\n| 8 | **Sohn, K., et al. - \u201cLearning Structured Output Representation using Deep Conditional Generative Models.\u201d** | 2015 | NIPS | Conditional VAE for structured prediction (e.g., image captioning). |\n| 9 | **Zhao, S., et al. - \u201cInfoVAE: Information Maximizing Variational Autoencoders.\u201d** | 2017 | ICML | Adds mutual-information term to improve latent usage. |\n|10| **Kumar, A., et al. - \u201cVariational Autoencoders for Collaborative Filtering.\u201d** | 2017 | WWW | VAE applied to recommender systems. |\n\n---\n\n## 2. Generative Adversarial Networks (GANs) and Variants  \n\n| # | Paper (Citation) | Year | Venue | Key Contribution / Application |\n|---|------------------|------|-------|---------------------------------|\n| 1 | **Goodfellow, I., et al. - \u201cGenerative Adversarial Networks.\u201d** | 2014 | NIPS | The original GAN formulation.",
-        "seconds": 2.08,
+        "answer": "Below is a (non-exhaustive) list of influential research papers that explicitly **use a pretrained language model** as a core component of their methodology.  I have grouped them by the primary research area and, where possible, noted the model that was pretrained, the pretraining corpus, and the citation details (authors, year, venue).  This should give you a quick reference for the most commonly-cited works across NLP, computer vision-language multimodal tasks, and a few adjacent fields.\n\n---\n\n## 1. General-purpose Language Understanding / Transfer Learning  \n\n| Paper | Pretrained Model(s) | Pretraining Corpus | Key Contribution |\n|-------|--------------------|--------------------|------------------|\n| **BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding**  | BERT-base (12-layer, 768-dim), BERT-large (24-layer, 1024-dim) | BooksCorpus (800\u202fM words) + English Wikipedia (2.5\u202fB words) | Introduced masked-language-model (MLM) and next-sentence-prediction (NSP) objectives; set new SOTA on GLUE, SQuAD, etc. |\n| **RoBERTa: A Robustly Optimized BERT Pretraining Approach** | RoBERTa-base / RoBERTa-large (same architecture as BERT) | 160\u202fGB of text (CC-News, OpenWebText, Books, Wikipedia) | Showed that longer training, larger batch sizes, and removal of NSP improve BERT\u2019s performance. |\n| **ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations** | ALBERT-base / ALBERT-xxlarge (parameter-sharing, factorized embedding) | Same as BERT (Books + Wiki) + CC-News | Demonstrated that parameter-efficient scaling yields comparable or better results with far fewer parameters. |\n| **XLNet: Generalized Autoregressive Pretraining for Language Understanding** | XLNet-base / XLNet-large (Transformer-XL backbone) | Same as BERT + additional web data (ClueWeb) | Permutation-based language modeling that captures bidirectional context while preserving autoregressive factorization. |\n| **ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators** | ELECTRA-small / base / large | Same as BERT (Books + Wiki) + CC-News | Replaces MLM with a replaced-token detection task, achieving higher sample efficiency. |\n| **DeBERTa: Decoding-enhanced BERT with Disentangled Attention** | DeBERTa-base / large | Same as RoBERTa + additional web data | Introduces disentangled attention and enhanced mask decoder; strong GLUE/SuperGLUE results. |\n| **GPT-2 / GPT-3 (and later GPT-4)** | GPT-2 (124\u202fM-1.5\u202fB), GPT-3 (175\u202fB) | WebText (GPT-2) / Common Crawl + filtered web (GPT-3) | Autoregressive language models used for zero-shot/few-shot prompting across many tasks. |\n| **T5: Text-to-Text Transfer Transformer** | T5-Small \u2026 T5-XXL (up to 11\u202fB) | C4 (Colossal Clean Crawled Corpus, ~750\u202fGB) | Casts every NLP task as a text-to-text problem; pretraining on a span-corruption objective. |\n| **BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension** | B",
+        "seconds": 2.37,
         "recall": 0.0,
         "refused": false
       }
     },
     {
       "type": "method_papers",
-      "question": "Which papers use prediction model?",
+      "question": "Which papers use model architecture?",
       "truth": [
-        "Could graph neural networks learn better molecular representation for drug discovery? A comparison study of descriptor-based and graph-based models",
-        "Guidelines for Reporting of Statistics for Clinical Research in Urology",
-        "Domain Adaptation With Neural Embedding Matching"
+        "Deep Learning Architecture for Short-Term Passenger Flow Forecasting in Urban Rail Transit",
+        "Deep learning models for price forecasting of financial time series: A review of recent advancements: 2020\u20132022",
+        "Bringing Light Into the Dark: A Large-Scale Evaluation of Knowledge Graph Embedding Models Under a Unified Framework",
+        "Highly accurate protein structure prediction with AlphaFold"
       ],
       "truth_docs": [
-        "W3116202926",
-        "W4238494775",
-        "W2973077827"
+        "W2998652672",
+        "W4387121164",
+        "W3037161253",
+        "W3177828909"
       ],
       "match": "title",
       "graphrag": {
-        "answer": "- **Could graph neural networks learn better molecular representation for drug discovery? A comparison study of descriptor-based and graph-based models** uses a prediction model\u202f[doc:W3116202926]  \n- **Guidelines for Reporting of Statistics for Clinical Research in Urology** uses a prediction model\u202f[doc:W4238494775]  \n- **Domain Adaptation With Neural Embedding Matching** uses a prediction model\u202f[doc:W2973077827]",
+        "answer": "- **Deep Learning Architecture for Short-Term Passenger Flow Forecasting in Urban Rail Transit** - uses a model architecture\u202f[doc:W2998652672]  \n- **Deep learning models for price forecasting of financial time series: A review of recent advancements: 2020-2022** - uses a model architecture\u202f[doc:W4387121164]  \n- **Bringing Light Into the Dark: A Large-Scale Evaluation of Knowledge Graph Embedding Models Under a Unified Framework** - uses a model architecture\u202f[doc:W3037161253]  \n- **Highly accurate protein structure prediction with AlphaFold** - uses a model architecture\u202f[doc:W3177828909]  \n- **SciBERT: A Pretrained Language Model for Scientific Text** - uses the BERT model architecture (a type of model architecture)\u202f[doc:W2970771982]",
         "citations": [
-          "W2973077827",
-          "W3116202926",
-          "W4238494775"
+          "W2970771982",
+          "W2998652672",
+          "W3037161253",
+          "W3177828909",
+          "W4387121164"
         ],
-        "seconds": 2.33,
-        "facts": 26,
+        "seconds": 1.69,
+        "facts": 19,
         "recall": 1.0,
         "refused": false,
-        "citation_precision": 1.0
+        "citation_precision": 0.8
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I need a bit more information to give you a useful answer.\u202f\u201cPrediction model\u201d is a very broad term that appears in many fields (e.g., epidemiology, machine learning, economics, climate science, etc.) and can refer to many different types of models (logistic regression, random forests, deep neural networks, Bayesian hierarchical models, etc.).\n\nCould you let me know:\n\n1. **The research domain** you\u2019re interested in (e.g., medical prognosis, financial forecasting, climate modeling, natural-language processing, etc.)?  \n2. **The type of prediction model** you have in mind (e.g., logistic regression, survival analysis, time-series ARIMA, deep learning, ensemble methods, etc.)?  \n3. **Any specific application or outcome** you\u2019re looking for (e.g., predicting disease risk, stock prices, protein structures, weather events, etc.)?  \n\nWith those details I can point you to the most relevant papers, authors, and methods.",
-        "seconds": 1.5,
-        "recall": 0.0,
-        "refused": true
+        "answer": "Below is a (non-exhaustive) list of well-known research papers that are **centered on proposing, analyzing, or extending a neural-network model architecture**.  I have grouped them by the broad family of architectures they introduced or modified, and for each entry I give the full citation (authors, year, venue) and a one-sentence summary of the architectural contribution.\n\n---\n\n## 1. Convolutional Neural Networks (CNNs)\n\n| Paper | Year / Venue | Architectural Innovation |\n|-------|--------------|---------------------------|\n| **AlexNet** - *ImageNet Classification with Deep Convolutional Neural Networks* (Krizhevsky, Sutskever, Hinton) | 2012, NIPS | First deep CNN that demonstrated the power of GPUs and ReLU activations on ImageNet; introduced overlapping pooling and dropout. |\n| **VGG** - *Very Deep Convolutional Networks for Large-Scale Image Recognition* (Simonyan, Zisserman) | 2014, ICLR | Showed that depth (16-19 layers) with only 3\u00d73 convolutions yields strong performance; introduced a simple, uniform architecture. |\n| **GoogLeNet / Inception** - *Going Deeper with Convolutions* (Szegedy et al.) | 2015, CVPR | Introduced the Inception module (parallel filters of different sizes) and the concept of \u201cnetwork-in-network\u201d 1\u00d71 convolutions for dimensionality reduction. |\n| **ResNet** - *Deep Residual Learning for Image Recognition* (He et al.) | 2015, CVPR | Proposed residual (skip) connections that enable training of >100-layer networks; the \u201cbottleneck\u201d block is now a standard building block. |\n| **DenseNet** - *Densely Connected Convolutional Networks* (Huang et al.) | 2017, CVPR | Connected each layer to every other layer via concatenation, improving feature reuse and gradient flow. |\n| **MobileNetV1/V2/V3** - *MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications* (Howard et al.) and follow-ups | 2017-2019, arXiv / CVPR | Introduced depthwise separable convolutions and inverted residuals + linear bottlenecks for lightweight models. |\n| **EfficientNet** - *EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks* (Tan, Le) | 2019, ICML | Systematically scales depth, width, and resolution using a compound coefficient; introduced the MBConv block. |\n| **RegNet** - *Designing Network Design Spaces* (Radosavovic et al.) | 2020, CVPR | Proposed a simple, quantifiable design space for CNNs and identified \u201cregular\u201d networks that outperform many hand-crafted designs. |\n\n---\n\n## 2. Recurrent / Sequence Models\n\n| Paper | Year / Venue | Architectural Innovation |\n|-------|--------------|---------------------------|\n| **LSTM** - *Long Short-Term Memory* (Hochreiter & Schmidhuber) | 1997, Neural Computation | Introduced gated memory cells that solve the vanishing-gradient problem in RNNs. |\n| **GRU** - *Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation* (Cho et al.) | 2014, EMNLP | Proposed a simpler gated recurrent unit with fewer parameters than LSTM. |\n| **Seq2Seq** - *Sequence to Sequence Learning with Neural Networks* (Sutske",
+        "seconds": 1.98,
+        "recall": 0.25,
+        "refused": false
       }
     },
     {
@@ -553,287 +413,416 @@
       ],
       "match": "title",
       "graphrag": {
-        "answer": "- **From development to deployment: dataset shift, causality, and shift-stable models in health AI** - uses a learning algorithm\u202f[doc:W2990519034]  \n- **Generalized Incomplete Multiview Clustering With Flexible Locality Structure Diffusion** - uses a learning algorithm\u202f[doc:W3021342796]  \n- **Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics** - uses a learning algorithm\u202f[doc:W2965374788]",
+        "answer": "- **From development to deployment: dataset shift, causality, and shift-stable models in health AI** uses a learning algorithm\u202f[doc:W2990519034]  \n- **Generalized Incomplete Multiview Clustering With Flexible Locality Structure Diffusion** uses a learning algorithm\u202f[doc:W3021342796]  \n- **Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics** uses a learning algorithm\u202f[doc:W2965374788]",
         "citations": [
           "W2965374788",
           "W2990519034",
           "W3021342796"
         ],
-        "seconds": 1.67,
-        "facts": 17,
+        "seconds": 1.5,
+        "facts": 13,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "Below is a (non-exhaustive) list of well-known research papers that explicitly **introduce, analyze, or apply a learning algorithm** (i.e., a method that automatically improves its performance from data).  I have grouped them by the broad family of algorithms they focus on, and for each entry I give the citation, a short description of the learning algorithm used, and a link to the original source (when publicly available).\n\n---\n\n## 1. Classical Supervised Learning (Regression / Classification)\n\n| Paper | Year | Learning Algorithm(s) | Key Contribution |\n|-------|------|-----------------------|------------------|\n| **\u201cA Theory of the Learnable\u201d** - Valiant | 1984 | **Probably-Approximately-Correct (PAC) learning** framework | First formal definition of what it means for a class of concepts to be learnable from examples. |\n| **\u201cLearning Internal Representations by Error Propagation\u201d** - Rumelhart, Hinton, Williams | 1986 | **Back-propagation** for multilayer perceptrons | Popularized gradient-based learning in feed-forward neural nets. |\n| **\u201cSupport-Vector Networks\u201d** - Cortes & Vapnik | 1995 | **Support-Vector Machines (SVM)** (max-margin linear classifier, kernel trick) | Introduced the large-margin principle and kernel methods. |\n| **\u201cRandom Forests\u201d** - Breiman | 2001 | **Random Forests** (bagged decision trees with random feature selection) | Showed strong empirical performance and theoretical consistency. |\n| **\u201cGradient Boosting Machine\u201d** - Friedman | 2001 | **Gradient Boosting** (stage-wise additive modeling) | Formalized boosting as gradient descent in function space. |\n| **\u201cDeep Residual Learning for Image Recognition\u201d** - He et al. | 2015 | **Residual Networks (ResNet)** - deep CNN trained with stochastic gradient descent (SGD) + batch norm | Demonstrated that very deep nets (\u22651000 layers) can be trained reliably. |\n| **\u201cAttention Is All You Need\u201d** - Vaswani et al. | 2017 | **Transformer** architecture trained with Adam optimizer | Replaced recurrence with self-attention; now the default for NLP and many vision tasks. |\n\n---\n\n## 2. Unsupervised / Self-Supervised Learning\n\n| Paper | Year | Learning Algorithm(s) | Key Contribution |\n|-------|------|-----------------------|------------------|\n| **\u201cAuto-Encoding Variational Bayes\u201d** - Kingma & Welling | 2013 | **Variational Auto-Encoder (VAE)** (stochastic gradient variational inference) | Introduced a principled probabilistic framework for learning latent representations. |\n| **\u201cGenerative Adversarial Nets\u201d** - Goodfellow et al. | 2014 | **GAN** (min-max two-player game, stochastic gradient descent) | Opened a new class of generative models based on adversarial training. |\n| **\u201cContrastive Predictive Coding\u201d** - Oord, Li, Vinyals | 2018 | **Contrastive learning** with a predictive loss (InfoNCE) | Showed how to learn useful representations from raw sequential data without labels. |\n| **\u201cSimCLR: A Simple Framework for Contrastive Learning of Visual Representations\u201d** - Chen et al. | 2020 | **Contrastive learning** with data augmentation, linear projection head, and NT-Xent loss | Set a strong baseline for self-supervised vision models. |\n| **\u201cBERT: Pre-training of Deep Bidirectional Transformers for Language Understanding\u201d** - Devlin et al",
-        "seconds": 2.08,
+        "answer": "I\u2019m not sure which particular domain or type of \u201clearning algorithm\u201d you have in mind, so I\u2019ll give a brief overview of some well-known research papers that explicitly employ learning algorithms across a few major areas of machine learning. If you can narrow the scope (e.g., reinforcement learning, deep learning for vision, graph-based learning, etc.), I can provide a more targeted list.\n\n---\n\n## 1.  Supervised Deep Learning (CNNs, Transformers, etc.)\n\n| Paper | Year | Learning Algorithm | Key Contribution |\n|-------|------|--------------------|------------------|\n| **Krizhevsky, Sutskever & Hinton - \u201cImageNet Classification with Deep Convolutional Neural Networks\u201d** | 2012 | Stochastic Gradient Descent (SGD) with momentum, dropout | First breakthrough CNN on ImageNet; introduced AlexNet. |\n| **He et al. - \u201cDeep Residual Learning for Image Recognition\u201d** | 2015 | SGD with weight decay; batch normalization | Introduced ResNet, enabling very deep networks. |\n| **Vaswani et al. - \u201cAttention Is All You Need\u201d** | 2017 | Adam optimizer (adaptive learning rate) | Introduced the Transformer architecture, now standard for NLP and many vision tasks. |\n| **Dosovitskiy et al. - \u201cAn Image is Worth 16\u00d716 Words: Transformers for Image Recognition at Scale\u201d (ViT)** | 2020 | AdamW (Adam with decoupled weight decay) | Applied pure Transformers to image classification. |\n| **Brown et al. - \u201cLanguage Models are Few-Shot Learners\u201d (GPT-3)** | 2020 | AdamW with learning-rate warm-up and cosine decay | Scaled up autoregressive language models to 175\u202fB parameters. |\n\n---\n\n## 2.  Reinforcement Learning (RL)\n\n| Paper | Year | Learning Algorithm | Key Contribution |\n|-------|------|--------------------|------------------|\n| **Mnih et al. - \u201cHuman-level control through deep reinforcement learning\u201d (DQN)** | 2015 | Q-learning with experience replay, RMSProp | First deep RL algorithm to play Atari games at human level. |\n| **Schulman et al. - \u201cProximal Policy Optimization Algorithms\u201d (PPO)** | 2017 | On-policy policy gradient with clipped surrogate objective | Simple, robust policy-gradient method widely adopted. |\n| **Silver et al. - \u201cMastering the game of Go with deep neural networks and tree search\u201d (AlphaGo)** | 2016 | Policy-value network trained with supervised learning + RL (REINFORCE) + Monte-Carlo Tree Search | Combined deep learning with search to defeat top Go players. |\n| **Haarnoja et al. - \u201cSoft Actor-Critic: Off-Policy Maximum Entropy Deep RL\u201d** | 2018 | Off-policy actor-critic with entropy regularization, Adam | Sample-efficient continuous-control algorithm. |\n| **OpenAI et al. - \u201cLearning Dexterous In-Hand Manipulation\u201d** | 2018 | Distributed PPO + domain randomization | Demonstrated complex manipulation with a simulated hand. |\n\n---\n\n## 3.  Unsupervised / Self-Supervised Learning\n\n| Paper | Year | Learning Algorithm | Key Contribution |\n|-------|------|--------------------|------------------|\n| **Hinton & Salakhutdinov - \u201cReducing the Dimensionality of Data with Neural Networks\u201d (Autoencoders)** | 2006 | Stochastic gradient descent on reconstruction loss | Popularized deep autoencoders. |\n| **Chen et al. - \u201c",
+        "seconds": 2.15,
         "recall": 0.0,
         "refused": false
       }
     },
     {
-      "type": "task_methods",
-      "question": "Which methods have been applied to KG task?",
+      "type": "method_papers",
+      "question": "Which papers use pre-trained language model?",
       "truth": [
-        "KG-enhanced LLM",
-        "LLM-augmented KGs",
-        "LLMs + KGs",
-        "GNN-based technology"
+        "A Comprehensive Survey on Relation Extraction: Recent Advances and New Frontiers",
+        "ERNIE: Enhanced Language Representation with Informative Entities",
+        "KG-BERT: BERT for Knowledge Graph Completion",
+        "Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling",
+        "Commonsense Knowledge Base Completion with Structural and Semantic Context",
+        "ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation",
+        "A Survey of Knowledge Enhanced Pre-Trained Language Models",
+        "Enriching contextualized language model from knowledge graph for biomedical information extraction"
       ],
       "truth_docs": [
-        "W4390692489",
-        "W4285818445"
+        "W4399978597",
+        "W2946345909",
+        "W2972167903",
+        "W4391407054",
+        "W2997545008",
+        "W3182414949",
+        "W4386275705",
+        "W3037979089"
       ],
-      "match": "name",
+      "match": "title",
       "graphrag": {
-        "answer": "The following methods are reported as being applied to knowledge-graph (KG) tasks:\n\n- **KG-enhanced LLMs** - a framework that incorporates knowledge graphs during LLM pre-training and inference\u202f[doc:W4390692489]  \n- **LLM-augmented KGs** - a complementary approach that uses large language models to enrich KG processing\u202f[doc:W4390692489]  \n- **LLMs\u202f+\u202fKGs** - a combined method that jointly leverages LLMs and knowledge graphs for KG tasks\u202f[doc:W4390692489]  \n- **GNN-based technology** - graph neural network techniques surveyed for solving various KG tasks\u202f[doc:W4285818445]",
+        "answer": "- **A Comprehensive Survey on Relation Extraction: Recent Advances and New Frontiers** uses a pre-trained language model\u202f[doc:W4399978597]  \n- **ERNIE: Enhanced Language Representation with Informative Entities** uses a pre-trained language model\u202f[doc:W2946345909]  \n- **KG-BERT: BERT for Knowledge Graph Completion** uses a pre-trained language model\u202f[doc:W2972167903]  \n- **Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling** uses a pre-trained language model\u202f[doc:W4391407054]  \n- **Commonsense Knowledge Base Completion with Structural and Semantic Context** uses a pre-trained language model\u202f[doc:W2997545008]  \n- **ERNIE\u202f3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation** uses a pre-trained language model\u202f[doc:W3182414949]  \n- **A Survey of Knowledge Enhanced Pre-Trained Language Models** uses a pre-trained language model\u202f[doc:W4386275705]  \n- **Enriching contextualized language model from knowledge graph for biomedical information extraction** uses a pre-trained language model\u202f[doc:W3037979089]  ",
         "citations": [
-          "W4285818445",
-          "W4390692489"
+          "W2946345909",
+          "W2972167903",
+          "W2997545008",
+          "W3037979089",
+          "W3182414949",
+          "W4386275705",
+          "W4391407054",
+          "W4399978597"
         ],
-        "seconds": 1.69,
+        "seconds": 2.55,
+        "facts": 56,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "Below is a (non-exhaustive) list of influential research papers that explicitly **use pre-trained language models (PLMs)** as a core component of their methodology.  I have grouped them by the type of PLM they start from (e.g., BERT-style masked-language models, autoregressive models, encoder-decoder models, domain-specific adaptations, etc.) and highlighted the main contribution of each work.\n\n---\n\n## 1.  BERT-style (masked-language-model) pre-training\n\n| Year | Paper (Citation) | PLM(s) Used / Built Upon | Main Use of the PLM |\n|------|------------------|--------------------------|----------------------|\n| 2018 | **BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding**  (Devlin et\u202fal.) | **BERT-base / BERT-large** (introduced) | Baseline; fine-tuned on GLUE, SQuAD, etc. |\n| 2019 | **RoBERTa: A Robustly Optimized BERT Pretraining Approach** (Liu et\u202fal.) | **RoBERTa-base / large** (re-trained BERT) | Showed that longer training + more data improves downstream performance. |\n| 2019 | **ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations** (Lan et\u202fal.) | **ALBERT-base / large** (parameter-sharing) | Demonstrated efficiency gains while keeping performance. |\n| 2019 | **SpanBERT: Improving Pre-training by Representing and Predicting Spans** (Joshi et\u202fal.) | **SpanBERT** (extension of BERT) | Better coreference and QA performance. |\n| 2020 | **ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators** (Clark et\u202fal.) | **ELECTRA-base / large** | Used a generator-discriminator pre-training; fine-tuned on many tasks. |\n| 2020 | **DeBERTa: Decoding-enhanced BERT with Disentangled Attention** (He et\u202fal.) | **DeBERTa-base / large** | Improves attention modeling; strong GLUE results. |\n| 2021 | **StructBERT: Incorporating Language Structures into Pre-training for Deep Language Understanding** (Wang et\u202fal.) | **StructBERT** (BERT-style) | Adds sentence-order prediction and phrase-level masking. |\n| 2022 | **MiniLM: Deep Self-Attention Distillation for Task-Agnostic Compression of Pre-trained Transformers** (Wang et\u202fal.) | **MiniLM-v2** (distilled from BERT/ RoBERTa) | Shows that a tiny PLM can match larger ones on many benchmarks. |\n| 2023 | **BERT-GNN: Jointly Learning Graph Neural Networks and BERT for Text Classification** (Zhang et\u202fal.) | **BERT-base** (as encoder) + GNN | Uses BERT embeddings as node features for graph-based classification. |\n\n---\n\n## 2.  Autoregressive (decoder-only) PLMs\n\n| Year | Paper | PLM(s) Used / Built Upon | Main Use |\n|------|-------|--------------------------|----------|\n| 2018 | **GPT: Improving Language Understanding by Generative Pre-Training** (Radford et\u202fal.) | **GPT-1** | Zero-shot and fine-tuned language tasks. |\n| 2019 | **GPT-2: Language Models are Unsuper",
+        "seconds": 2.2,
+        "recall": 0.0,
+        "refused": false
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use recommendation system?",
+      "truth": [
+        "A unified drug\u2013target interaction prediction framework based on knowledge graph and recommendation system",
+        "A survey of research hotspots and frontier trends of recommendation systems from the perspective of knowledge graph",
+        "A Comprehensive Survey of Knowledge Graph-Based Recommender Systems: Technologies, Development, and Contributions"
+      ],
+      "truth_docs": [
+        "W3217681006",
+        "W3043178100",
+        "W3167434385"
+      ],
+      "match": "title",
+      "graphrag": {
+        "answer": "- **\u201cA unified drug-target interaction prediction framework based on knowledge graph and recommendation system\u201d** uses a recommendation system\u202f[doc:W3217681006]  \n- **\u201cA survey of research hotspots and frontier trends of recommendation systems from the perspective of knowledge graph\u201d** uses a recommendation system\u202f[doc:W3043178100]  \n- **\u201cA Comprehensive Survey of Knowledge Graph-Based Recommender Systems: Technologies, Development, and Contributions\u201d** uses a recommendation system\u202f[doc:W3167434385]",
+        "citations": [
+          "W3043178100",
+          "W3167434385",
+          "W3217681006"
+        ],
+        "seconds": 1.79,
+        "facts": 20,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "Below is a (non-exhaustive) list of influential research papers that **develop, evaluate, or apply recommendation-system techniques** across a variety of domains (e-commerce, media, social networks, scientific literature, etc.).  I have grouped them by the primary methodological family they belong to, and for each paper I note the core idea, the dataset (when relevant), and the venue/year so you can locate the full text easily.\n\n---\n\n## 1. Classic Collaborative-Filtering Foundations  \n\n| Paper | Authors | Year / Venue | Core Contribution |\n|-------|---------|--------------|-------------------|\n| **\u201cItem-Based Collaborative Filtering Recommendation Algorithms\u201d** | Badrul Sarwar, George Karypis, Joseph Konstan, John Riedl | *WWW* 2001 | Introduced the now-standard item-based CF model (cosine similarity, adjusted cosine) and showed it scales better than user-based CF. |\n| **\u201cEmpirical Analysis of Predictive Algorithms for Collaborative Filtering\u201d** | John S. Breese, David Heckerman, Carl Kadie | *UAI* 1998 | Early systematic comparison of memory-based (user-based, item-based) vs. model-based CF (Bayesian networks). |\n| **\u201cMatrix Factorization Techniques for Recommender Systems\u201d** | Yehuda Koren, Robert Bell, Chris Volinsky | *IEEE Computer* 2009 (survey) | Survey of MF methods (SVD, FunkSVD, biased MF) that later became the backbone of the Netflix Prize solution. |\n| **\u201cThe Netflix Prize\u201d** | Yehuda Koren, Robert Bell, Chris Volinsky | *KDD* 2009 | Describes the winning ensemble (biased MF + neighborhood models) that achieved 10.06\u202f% RMSE improvement. |\n\n---\n\n## 2. Model-Based / Latent-Factor Methods  \n\n| Paper | Authors | Year / Venue | Core Contribution |\n|-------|---------|--------------|-------------------|\n| **\u201cFactorization Machines\u201d** | Steffen Rendle | *ICDM* 2010 | Generalizes MF to arbitrary sparse feature vectors; widely used for click-through-rate (CTR) prediction and hybrid recommenders. |\n| **\u201cNeural Collaborative Filtering\u201d** | Xiangnan He, Lizi Liao, Hanwang Zhang, Liqiang Nie, Xia Hu, Tat-Seng Chua | *WWW* 2017 | Replaces inner-product MF with a multi-layer perceptron (MLP) to learn non-linear user-item interactions. |\n| **\u201cVariational Autoencoders for Collaborative Filtering\u201d** | Dawen Liang, Rahul G. Krishnan, Matthew D. Hoffman, Tony Jebara | *ICML* 2018 | Introduces **Mult-VAE**, a probabilistic VAE that models implicit feedback (e.g., clicks). |\n| **\u201cSelf-Attentive Sequential Recommendation\u201d** | Wang-Cheng Kang, Julian McAuley | *ICDM* 2018 | Uses self-attention (Transformer) to capture long-range item dependencies in session-based recommendation. |\n| **\u201cBERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformers\u201d** | Fei Sun, Jun Liu, Jian Wu, et al. | *CIKM* 2019 | Adapts BERT\u2019s masked language modeling to item sequences, achieving state-of-the-art results on several benchmarks. |\n\n---\n\n## 3. Content-Based & Hybrid Approaches  \n\n| Paper | Authors | Year / Venue | Core Contribution |\n|-------|---------|--------------|-------------------|\n| **\u201cLearning",
+        "seconds": 1.99,
+        "recall": 0.0,
+        "refused": false
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use statistical model?",
+      "truth": [
+        "From development to deployment: dataset shift, causality, and shift-stable models in health AI",
+        "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+        "Deep learning methods for flood mapping: a review of existing applications and future research directions"
+      ],
+      "truth_docs": [
+        "W2990519034",
+        "W4238494775",
+        "W4293226370"
+      ],
+      "match": "title",
+      "graphrag": {
+        "answer": "The following papers are recorded as using a **statistical model**:\n\n- *From development to deployment: dataset shift, causality, and shift-stable models in health AI*\u202f\u2014\u202fuses a statistical model\u202f[doc:W2990519034]  \n- *Guidelines for Reporting of Statistics for Clinical Research in Urology*\u202f\u2014\u202fuses a statistical model\u202f[doc:W4238494775]  \n- *Deep learning methods for flood mapping: a review of existing applications and future research directions*\u202f\u2014\u202fuses a statistical model\u202f[doc:W4293226370]  \n\n(These papers are identified in facts\u202fF2,\u202fF3, and\u202fF4.)",
+        "citations": [
+          "W2990519034",
+          "W4238494775",
+          "W4293226370"
+        ],
+        "seconds": 1.63,
+        "facts": 15,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "I\u2019m sorry, but I don\u2019t have enough information to answer your question. Could you please clarify what topic, field, or specific type of statistical model you\u2019re interested in? That will help me point you to the most relevant papers.",
+        "seconds": 0.61,
+        "recall": 0.0,
+        "refused": true
+      }
+    },
+    {
+      "type": "method_papers",
+      "question": "Which papers use digital twin?",
+      "truth": [
+        "A framework for manufacturing system reconfiguration and optimisation utilising digital twins and modular artificial intelligence",
+        "The emergence of cognitive digital twin: vision, challenges and opportunities",
+        "Digital Twin of Experimental Smart Manufacturing Assembly System for Industry 4.0 Concept"
+      ],
+      "truth_docs": [
+        "W4317772700",
+        "W4200415632",
+        "W3023812992"
+      ],
+      "match": "title",
+      "graphrag": {
+        "answer": "- **\u201cA framework for manufacturing system reconfiguration and optimisation utilising digital twins and modular artificial intelligence\u201d** uses the digital twin method[doc:W4317772700].  \n- **\u201cThe emergence of cognitive digital twin: vision, challenges and opportunities\u201d** uses the digital twin method[doc:W4200415632].  \n- **\u201cDigital Twin of Experimental Smart Manufacturing Assembly System for Industry 4.0 Concept\u201d** uses the digital twin method[doc:W3023812992].",
+        "citations": [
+          "W3023812992",
+          "W4200415632",
+          "W4317772700"
+        ],
+        "seconds": 1.62,
         "facts": 60,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "Below is a (non-exhaustive) catalogue of the most-cited families of methods that have been applied to **knowledge-graph (KG) tasks** such as link-prediction / KG completion, entity classification, relation extraction, KG-enhanced question answering, and KG-based recommendation.  For each family I give a short description, the canonical papers (with year and venue), and a few representative follow-up works that extend or combine the idea.\n\n---\n\n## 1. Translational Embedding Models  \n*Idea:*  Model a relation **r** as a translation vector that moves a head entity **h** toward a tail entity **t** (or a more complex geometric operation).  \n\n| Model | Core Paper | Key Features / Extensions |\n|-------|------------|---------------------------|\n| **TransE** | Bordes *et\u202fal.* 2013, *NIPS* | Simple -\u202f\u2016h\u202f+\u202fr\u202f\u2212\u202ft\u2016\u2082 scoring. Works well for 1-to-1 relations. |\n| **TransH** | Wang *et\u202fal.* 2014, *AAAI* | Projects entities onto relation-specific hyperplanes before translation (handles many-to-many). |\n| **TransR / CTransR** | Lin *et\u202fal.* 2015, *AAAI* | Embeds entities and relations in separate spaces; uses a projection matrix per relation. |\n| **TransD** | Ji *et\u202fal.* 2015, *AAAI* | Dynamically generates projection matrices from entity and relation embeddings (fewer parameters). |\n| **TransSparse** | Gu *et\u202fal.* 2020, *ICLR* | Sparse relation-specific projection matrices for very large KGs. |\n| **RotatE** | Sun *et\u202fal.* 2019, *ICLR* | Interprets relations as rotations in complex space (still a translational-style scoring). |\n| **HAKE** | Xiao *et\u202fal.* 2020, *ICLR* | Decomposes each relation into a \u201chierarchy\u201d (modulus) and \u201corientation\u201d (phase) component. |\n\n**Why they matter:**  Translational models were the first that scaled to millions of triples and remain strong baselines for link-prediction benchmarks such as FB15k-237, WN18RR, YAGO3-10, and Open-KGs (e.g., Wikidata5M).\n\n---\n\n## 2. Semantic-Matching (Bilinear / Tensor) Models  \n*Idea:*  Score a triple by a similarity (dot-product, bilinear, or tensor) between transformed embeddings of **h**, **r**, and **t**.\n\n| Model | Core Paper | Highlights |\n|-------|------------|------------|\n| **RESCAL** | Nickel *et\u202fal.* 2011, *ICML* | Full relation-specific matrix; expressive but O(d\u00b2) parameters per relation. |\n| **DistMult** | Yang *et\u202fal.* 2015, *ICLR* | Diagonal relation matrix \u2192 simple dot-product; works well for symmetric relations. |\n| **ComplEx** | Trouillon *et\u202fal.* 2016, *ICLR* | Extends DistMult to complex numbers; can model antisymmetric relations. |\n|",
-        "seconds": 2.71,
+        "answer": "Below is a (non-exhaustive) list of peer-reviewed papers that explicitly develop, apply, or evaluate **digital-twin** concepts across a variety of domains.  I have grouped them by research area and included the citation details (authors, year, title, venue) so you can look them up directly.\n\n---\n\n## 1. Manufacturing & Production Engineering  \n\n| Year | Authors | Title | Venue / Journal | Digital-Twin Focus |\n|------|---------|-------|-----------------|--------------------|\n| 2020 | Tao, F.; Qi, Q.; Liu, A.; Kusiak, A. | \u201cData-Driven Smart Manufacturing: Past, Present, and Future\u201d | *Journal of Manufacturing Systems* 54 | Survey that defines the digital-twin framework for smart factories and gives several case studies. |\n| 2021 | Liu, Y.; Zhang, L.; Liu, J.; Wang, J. | \u201cA Digital Twin-Based Real-Time Monitoring System for CNC Machining\u201d | *IEEE Transactions on Industrial Informatics* 17(5) | Implements a twin of a CNC machine using OPC-UA, PLC data, and a physics-based model. |\n| 2022 | Kaur, H.; Singh, S. P.; Singh, M. | \u201cDigital Twin for Predictive Maintenance of Industrial Robots\u201d | *Robotics and Computer-Integrated Manufacturing* 73 | Uses a hybrid data-driven/physics model to predict robot joint wear. |\n| 2023 | Wang, J.; Zhang, Y.; Liu, Y.; et\u202fal. | \u201cDigital Twin-Enabled Adaptive Scheduling in a Flexible Manufacturing System\u201d | *Computers & Industrial Engineering* 181 | Demonstrates a twin that updates scheduling decisions in response to real-time shop-floor data. |\n| 2024 | Zhou, X.; Li, H.; Sun, Y.; et\u202fal. | \u201cA Cloud-Edge Digital Twin Architecture for Smart Factories\u201d | *IEEE Internet of Things Journal* 11(12) | Proposes a hierarchical twin architecture (cloud-level, edge-level, device-level). |\n\n---\n\n## 2. Aerospace & Automotive  \n\n| Year | Authors | Title | Venue | Digital-Twin Focus |\n|------|---------|-------|-------|--------------------|\n| 2019 | Brun, P.; Glaessgen, E.; Kuhlmann, H.; et\u202fal. | \u201cA Digital Twin for the NASA Orion Spacecraft\u201d | *AIAA/ASME/ASCE/AHS/ASC Structures, Structural Dynamics and Materials Conference* | Full-physics twin of thermal-structural behavior for mission-phase analysis. |\n| 2020 | Glaessgen, E.; Stargel, D. | \u201cDigital Twin: A New Paradigm for Aerospace Engineering\u201d | *AIAA Journal* 58(9) | Conceptual paper with several aerospace case studies (engine health monitoring, wing load prediction). |\n| 2021 | Liu, C.; Wang, H.; Liu, J.; et\u202fal. | \u201cDigital Twin-Based Vehicle Dynamics Control for Autonomous Cars\u201d | *IEEE Transactions on Vehicular Technology* 70(6) | Real-time twin of vehicle dynamics used for model-predictive control. |\n| 2022 | Kim, J.; Lee, J.; Park, S.; et\u202fal. | \u201cDigital Twin for Battery Health Management in Electric Vehicles\u201d | *Applied Energy* 311 | Physics-based electrochemical twin coupled with data-driven degradation models. |\n| 2023 | Sun, Y.; Wang, X.; Liu, Y.; et\u202fal. | \u201cA Multi-Physics Digital Twin for Aircraft Wing Flutter Prediction\u201d | *Aeros",
+        "seconds": 2.01,
         "recall": 0.0,
         "refused": false
       }
     },
     {
       "type": "task_methods",
-      "question": "Which methods have been applied to Fault Diagnosis?",
+      "question": "Which methods have been applied to social recommendation?",
       "truth": [
-        "Joint Knowledge Graph and Large Language Model",
-        "Graph Convolutional Network-Based Method",
-        "Measurement"
+        "decentralized framework",
+        "federated learning framework"
       ],
       "truth_docs": [
-        "W4392607872",
-        "W3135695944"
+        "W3217045679"
       ],
       "match": "name",
       "graphrag": {
-        "answer": "- **Joint Knowledge Graph and Large Language Model** - applied to the Fault Diagnosis task[doc:W4392607872]  \n- **Graph Convolutional Network-Based Method** - applied to the Fault Diagnosis task[doc:W3135695944]  \n- **Measurement** - applied to the Fault Diagnosis task[doc:W3135695944]",
+        "answer": "- **Decentralized framework** - applied to the social-recommendation task\u202f[doc:W3217045679]  \n- **Federated learning framework** - applied to the social-recommendation task\u202f[doc:W3217045679]  \n- **Federated learning recommender system** - applied to the social-recommendation task (as a \u201csocial recommendation task\u201d)\u202f[doc:W3217045679]",
         "citations": [
-          "W3135695944",
-          "W4392607872"
+          "W3217045679"
         ],
-        "seconds": 1.79,
+        "seconds": 2.35,
         "facts": 34,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "**Fault diagnosis** (also called fault detection, isolation, and identification -\u202fFDI) is a mature research area that spans many engineering domains (manufacturing, aerospace, power systems, process control, robotics, etc.).  Over the past three decades a large toolbox of analytical, statistical, and data-driven techniques has been developed.  Below is a non-exhaustive but representative catalogue of the most-used methods, grouped by the underlying paradigm, together with key references (papers, books, or seminal authors) that introduced or popularized each approach.\n\n---\n\n## 1. Model-Based (Analytical) Methods  \n\n| Method | Core Idea | Typical Applications | Representative References |\n|--------|-----------|----------------------|----------------------------|\n| **Parity-space / Observer-based residual generation** | Build a mathematical model (state-space, transfer function).  Residuals are generated by comparing measured outputs with model predictions (e.g., Luenberger observer, Kalman filter).  Faults are detected when residuals exceed thresholds. | Aerospace systems, industrial process plants, motor drives. | *Patton, G. (1999). \u201cGeneralized observer-based fault detection.\u201d*; *Isermann, A. (2006). \u201cFault-diagnosis systems: An introduction from fault detection to fault tolerance.\u201d* |\n| **Extended Kalman Filter (EKF) / Unscented KF (UKF) based diagnosis** | Non-linear state estimation; the filter\u2019s innovation sequence is used as a residual. | Robotics, UAV navigation, chemical reactors. | *Grewal, M. & Andrews, A. (2001). \u201cKalman Filtering Theory and Practice.\u201d* |\n| **Sliding-mode observers** | Robust to bounded uncertainties; generate residuals that are insensitive to disturbances. | Power converters, motor drives. | *Edwards, C., & Spurgeon, S. (1998). \u201cSliding Mode Control: Theory and Applications.\u201d* |\n| **Parameter estimation / Adaptive observers** | Identify changes in model parameters (e.g., stiffness, resistance) that indicate a fault. | Gearbox health monitoring, hydraulic systems. | *Liu, Y., & Wang, J. (2008). \u201cAdaptive observer based fault detection for nonlinear systems.\u201d* |\n| **Analytical Redundancy Relations (ARRs)** | Derive algebraic equations that must hold for a healthy system; violations signal faults. | Chemical process plants, aircraft engines. | *Venkatasubramanian, V., et al. (2003). \u201cA review of process fault detection and diagnosis.\u201d* |\n| **Bond-graph / Energy-based modeling** | Use physical-law based bond-graph models to generate residuals that respect energy conservation. | Mechanical systems, mechatronics. | *Gawronski, W. (1990). \u201cBond Graphs: Modeling, Analysis and Simulation.\u201d* |\n\n---\n\n## 2. Signal-Processing / Feature-Extraction Methods  \n\n| Method | What It Does | Typical Signals | Key Papers |\n|--------|--------------|----------------|------------|\n| **Wavelet Transform (WT) & Wavelet Packet** | Decompose non-stationary signals into time-frequency atoms; fault signatures appear as localized energy bursts. | Vibration, acoustic emission, current. | *Donoho, D. (1995). \u201cDe-noising by soft-thresholding.\u201d*; *Zhang, Z., et al. (2005). \u201cWavelet-based fault diagnosis for rolling element bearings.\u201d* |\n| **Empirical Mode Decomposition (EMD) / Hilbert-Huang Transform** | Adaptive decomposition into Intrinsic Mode Functions (IMFs); useful for highly non-linear, non-stationary data",
-        "seconds": 2.08,
+        "answer": "**Social recommendation** is the class of recommender-system techniques that explicitly exploit *social information* (friendship links, trust statements, user-generated content, community structures, etc.) in addition to the usual user-item interaction data.  Since the first wave of papers in the mid-2000s, a surprisingly diverse toolbox has been built.  Below is a (non-exhaustive) taxonomy of the major methodological families that have been applied, together with representative publications, key ideas, and typical strengths/limitations.\n\n---\n\n## 1. Matrix-Factorization-Based Approaches with Social Regularization  \n\n| Method | Core Idea | Representative Papers |\n|--------|-----------|------------------------|\n| **Social MF (SoMF)** | Adds a social-regularization term that forces the latent vectors of socially connected users to be close. | Ma, H., Zhou, D., Liu, C., Lyu, M. R., & King, I. (2008). *Recommender systems with social regularization*. KDD. |\n| **TrustMF / TrustSVD** | Extends MF by weighting the social regularizer with explicit trust scores (or inferred trust). | Guo, G., Zhang, J., & Thalmann, D. (2015). *Trust-aware collaborative filtering*. WWW. |\n| **Social Bayesian Personalized Ranking (SBPR)** | Bayesian ranking loss + social regularizer for implicit feedback. | Liu, Q., Wu, J., & Zhou, J. (2015). *Social Bayesian personalized ranking*. IJCAI. |\n| **Collective Matrix Factorization (CMF)** | Jointly factorizes the user-item rating matrix and the user-user social adjacency matrix. | Singh, A. P., & Gordon, G. J. (2008). *Relational learning via collective matrix factorization*. KDD. |\n| **Social Regularized Tensor Factorization** | Extends to context-aware or time-aware tensors while still imposing social smoothness. | Zhang, Y., & Chen, X. (2015). *Social regularized tensor factorization for context-aware recommendation*. TKDE. |\n\n**Why it matters:**  MF-style models are still the workhorse for large-scale industrial systems because they are linear-time in the number of observed interactions and can be trained with stochastic gradient descent (SGD) or alternating least squares (ALS).  The social regularizer is easy to plug in and often yields a modest but consistent lift (\u2248\u202f2-5\u202f% in NDCG) when the social graph is dense.\n\n---\n\n## 2. Graph-Based Diffusion / Propagation Models  \n\n| Method | Core Idea | Representative Papers |\n|--------|-----------|------------------------|\n| **Social Diffusion (Heat Diffusion, Random Walk with Restart)** | Propagates preference scores over the social network (or a combined user-item-social tripartite graph). | Zhou, T., Ren, J., Medo, M., & Zhang, Y.-C. (2007). *Bipartite network projection and recommendation*. Phys. Rev. E. |\n| **Social Influence Propagation (SIP)** | Models influence as a cascade; the final recommendation is the steady-state of the cascade. | Liu, N., & Ma, H. (2010). *Social influence based recommendation*. WSDM. |\n| **Social Network-aware PageRank (SN-PR)** | Runs PageRank on a graph where edges are weighted by interaction strength and social trust. | Liu, J., & Ma, H. (2011). *Social network aware recommendation using PageRank",
+        "seconds": 2.0,
         "recall": 0.0,
         "refused": false
       }
     },
     {
       "type": "task_methods",
-      "question": "Which methods have been applied to generalization?",
+      "question": "Which methods have been applied to action recognition?",
       "truth": [
-        "Pre-trained model",
-        "policy network",
-        "deep-learning technique"
+        "GCN method",
+        "GCN technique"
       ],
       "truth_docs": [
-        "W2943781490",
-        "W3094181369"
+        "W3160967194"
       ],
       "match": "name",
       "graphrag": {
-        "answer": "- **Pre-trained model** - applied to the task of generalization[doc:W2943781490]  \n- **Policy network** - applied to the task of generalization[doc:W3094181369]  \n- **Deep-learning technique** - applied to the task of generalization[doc:W2943781490]",
+        "answer": "- **GCN method** - applied to the task of action recognition[doc:W3160967194]  \n- **GCN technique** - applied to the task of action recognition[doc:W3160967194]  \n- **Graph Convolutional Neural Network** - applied to Human Action Recognition (a form of action recognition)[doc:W3160967194]  \n- **Deep learning method** - applied to Human Action Recognition (a form of action recognition)[doc:W3160967194]",
         "citations": [
-          "W2943781490",
-          "W3094181369"
+          "W3160967194"
         ],
-        "seconds": 1.1,
-        "facts": 29,
+        "seconds": 1.8,
+        "facts": 55,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "Below is a (non-exhaustive) catalogue of the most widely-cited **methods that have been proposed or empirically studied for improving the *generalization* ability of machine-learning models**.  I have grouped them by the broad research tradition they belong to, and for each group I list a few seminal or representative papers (with authors, year, and a short description of the contribution).  When a method spans several traditions I note that as well.\n\n---\n\n## 1. Classical Statistical-Learning Techniques  \n\n| Method | Core Idea | Representative Papers |\n|--------|-----------|------------------------|\n| **Capacity control / Structural Risk Minimization** | Choose hypothesis class with bounded VC-dimension or Rademacher complexity to obtain uniform convergence guarantees. | Vapnik, *Statistical Learning Theory* (1998); Bartlett & Mendelson, \u201cRademacher and Gaussian Complexities: Risk Bounds and Structural Results\u201d, *JMLR* 2002. |\n| **\u2113\u2082 / \u2113\u2081 regularization (weight decay, Lasso)** | Penalize large weights \u2192 smoother functions, sparsity. | Ng, \u201cFeature selection, L1 vs L2 regularization, and rotational invariance\u201d, *ICML* 2004; Tibshirani, \u201cRegression Shrinkage and Selection via the Lasso\u201d, *J. R. Stat. Soc.* 1996. |\n| **Early stopping** | Stop training before the empirical risk reaches its minimum; acts as an implicit regularizer. | Prechelt, \u201cEarly Stopping \u2014 But When?\u201d, *Neural Networks* 1998; Yang et al., \u201cA Theoretical Study of Early Stopping in Gradient Descent\u201d, *ICLR* 2021. |\n| **Cross-validation / Hold-out** | Empirically estimate out-of-sample error and select hyper-parameters that minimize it. | Kohavi, \u201cA Study of Cross-Validation and Bootstrap for Accuracy Estimation\u201d, *IJCAI* 1995. |\n| **Bagging (Bootstrap Aggregating)** | Average predictions of many bootstrap-sampled learners to reduce variance. | Breiman, \u201cBagging Predictors\u201d, *Machine Learning* 1996. |\n| **Boosting (AdaBoost, Gradient Boosting)** | Sequentially re-weight examples to focus on hard cases; can improve margins and thus generalization. | Freund & Schapire, \u201cA Decision-Theoretic Generalization of On-Line Learning and an Application to Boosting\u201d, *JCSS* 1997; Friedman, \u201cGreedy Function Approximation: A Gradient Boosting Machine\u201d, *Annals of Statistics* 2001. |\n\n---\n\n## 2. Deep-Learning-Specific Regularization  \n\n| Method | Core Idea | Key Papers |\n|--------|-----------|------------|\n| **Dropout** | Randomly zero out hidden units during training; approximates an ensemble of thinned networks. | Srivastava et al., \u201cDropout: A Simple Way to Prevent Neural Networks from Overfitting\u201d, *JMLR* 2014. |\n| **DropConnect / Stochastic Depth** | Randomly drop connections (DropConnect) or whole layers (Stochastic Depth) to increase model robustness. | Wan et al., \u201cRegularization of Neural Networks using DropConnect\u201d, *ICML* 2013; Huang et al., \u201cDeep Networks with Stochastic Depth\u201d, *ECCV* 2016. |\n| **Batch / Layer / Instance Normalization** | Normalizing activations reduces internal covari",
-        "seconds": 2.09,
+        "answer": "Below is a (non-exhaustive) survey of the major families of methods that have been applied to video-based **human action recognition** since the early 2000s.  I have grouped them by the type of representation or learning paradigm they use, and for each group I list a few of the most-cited or historically important papers (with authors and year) that introduced or popularised the approach.\n\n---\n\n## 1. Hand-crafted feature pipelines (pre-deep-learning era)\n\n| Approach | Core Idea | Representative Papers |\n|----------|-----------|------------------------|\n| **Space-Time Interest Points (STIP)** | Detect spatio-temporal interest points (corners in 3-D) and describe them with local descriptors. | *Laptev* \u201cOn space-time interest points\u201d (2005); *Mikolajczyk & Schmid* \u201cA performance evaluation of local descriptors\u201d (2005). |\n| **Dense Trajectories (DT) / Improved Dense Trajectories (iDT)** | Sample dense points, track them with optical flow, and compute trajectory-aligned descriptors (HOG, HOF, MBH). | *Wang et al.* \u201cAction recognition by dense trajectories\u201d (CVPR 2011); *Wang & Schmid* \u201cAction recognition with improved trajectories\u201d (ICCV 2013). |\n| **Histogram of Oriented Gradients (HOG) / HOG3D** | Extend 2-D HOG to spatio-temporal volumes. | *Dalal & Triggs* (original HOG, 2005); *Klaser et al.* \u201cA spatio-temporal descriptor based on 3-D gradients\u201d (BMVC 2008). |\n| **Motion Boundary Histograms (MBH)** | Compute gradients of optical flow to capture motion boundaries, robust to camera motion. | *Dalal et al.* \u201cMotion boundary descriptors for action recognition\u201d (ECCV 2008). |\n| **Covariance descriptors, Fisher Vectors, VLAD** | Encode a set of local descriptors into a fixed-length vector. | *Perronnin et al.* \u201cImproving the fisher kernel for large-scale image classification\u201d (ECCV 2010); *Jiang et al.* \u201cAction recognition using Fisher vectors on dense trajectories\u201d (ICCV 2013). |\n| **Bag-of-Visual-Words (BoVW) on video patches** | Quantise local descriptors and build a histogram. | *Soomro et al.* \u201cAction recognition using a bag-of-words model\u201d (CVPR 2005). |\n\n*Why they matter*: These pipelines set the benchmark for many early datasets (UCF101, HMDB51, Hollywood2) and are still used as strong baselines or as complementary cues in hybrid systems.\n\n---\n\n## 2. Early deep-learning models (2-D CNNs + temporal aggregation)\n\n| Approach | Core Idea | Representative Papers |\n|----------|-----------|------------------------|\n| **Two-Stream Convolutional Networks** | One stream processes RGB frames (spatial), the other processes stacked optical-flow fields (temporal). Late fusion (average or SVM). | *Simonyan & Zisserman* \u201cTwo-Stream Convolutional Networks for Action Recognition\u201d (NIPS 2014). |\n| **Temporal Segment Networks (TSN)** | Sample a few short snippets from the whole video, process each with a 2-D CNN (spatial or temporal), and aggregate via consensus (average, max",
+        "seconds": 2.18,
         "recall": 0.0,
         "refused": false
       }
     },
     {
       "type": "task_methods",
-      "question": "Which methods have been applied to prediction task?",
+      "question": "Which methods have been applied to drug discovery?",
       "truth": [
-        "expert-guided \" engineered \" descriptor",
-        "deep learning approache"
+        "Molecular Representation",
+        "KPGT)"
       ],
       "truth_docs": [
-        "W3126568646",
-        "W3133653953"
+        "W3116202926",
+        "W4388845139"
       ],
       "match": "name",
       "graphrag": {
-        "answer": "- **Expert-guided \u201cengineered\u201d descriptor** - applied to prediction tasks[doc:W3126568646]  \n- **Deep learning approaches** - applied to prediction tasks[doc:W3133653953]",
+        "answer": "- **Molecular Representation** - applied to drug discovery\u202f[doc:W3116202926]  \n- **KPGT** - applied to drug discovery\u202f[doc:W4388845139]",
         "citations": [
-          "W3126568646",
-          "W3133653953"
+          "W3116202926",
+          "W4388845139"
         ],
-        "seconds": 1.67,
-        "facts": 20,
-        "recall": 0.5,
+        "seconds": 2.44,
+        "facts": 44,
+        "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "A surprisingly large and diverse toolbox has been brought to bear on \u201cprediction\u201d problems in the scientific-literature domain over the past decade.  Below is a non-exhaustive but well-organized snapshot of the most frequently cited **method families**, together with **representative papers**, **key authors**, and **typical sub-tasks** (e.g., citation-count forecasting, impact-factor prediction, paper-topic evolution, author-h-index estimation, etc.).  I have grouped the methods by the underlying paradigm because most recent work combines several of them (e.g., a graph-neural network that also uses a language model).\n\n---\n\n## 1. Classical Statistical & Time-Series Models  \n\n| Method | Core Idea | Representative Works | Typical Use-Cases |\n|--------|-----------|----------------------|-------------------|\n| **Linear / Poisson Regression** | Treat future citations (or other counts) as a linear function of past counts, author-level covariates, venue, etc. | *Wang, Yu, and Yu (2013)* \u201cQuantifying Long-Term Scientific Impact\u201d (Science) - uses a **log-linear** model for citation trajectories. | Short-term citation count prediction, early-stage impact estimation. |\n| **ARIMA / SARIMA** | Autoregressive Integrated Moving Average models capture temporal autocorrelation in citation streams. | *Gao, Liu, and Wang (2015)* \u201cTime-Series Modeling of Paper Citations\u201d (JASIST). | Forecasting yearly citation counts for a given paper. |\n| **Survival / Hazard Models** | Model the \u201ctime-to-first-citation\u201d or \u201ctime-to-peak-citation\u201d as a survival process. | *Merton (1973)* \u201cThe Theory of the Growth of the Firm\u201d (adapted by *Kumar et al., 2019* \u201cSurvival Analysis of Scientific Papers\u201d, *Scientometrics*). | Predicting when a paper will receive its first citation, or the decay of attention. |\n| **Hawkes Processes** | Self-exciting point processes where each citation can trigger further citations. | *Zhou, Khosla, and Lerman (2013)* \u201cLearning Hawkes Processes for Modeling Citation Cascades\u201d (KDD). | Modeling citation cascades, early-stage citation burst prediction. |\n\n---\n\n## 2. Feature-Based Machine-Learning (Shallow)  \n\n| Method | Typical Features | Representative Works |\n|--------|------------------|----------------------|\n| **Random Forests / Gradient Boosted Trees (XGBoost, LightGBM)** | Paper metadata (venue, author h-index, references), early citation counts, textual embeddings (e.g., TF-IDF). | *Cao, Shen, and Liu (2016)* \u201cPredicting Long-Term Citation Impact with Gradient Boosting\u201d (WSDM). |\n| **Support Vector Regression (SVR)** | Same feature set as above, often with kernel tricks for non-linearity. | *Yan, Ding, and Liu (2014)* \u201cCitation Prediction Using SVR\u201d (ICDM). |\n| **Logistic Regression (binary classification)** | Predict \u201chigh-impact vs. low-impact\u201d (e.g., top-10% citations). | *Kumar, Ghosh, and Singh (2018)* \u201cBinary Classification of Influential Papers\u201d (ECIR). |\n\n*Why they matter*: These models are still the baseline in many comparative studies because they are easy to interpret and require relatively little data preprocessing.\n\n---\n\n## 3. Graph-Based Methods  \n\nScientific literature is naturally a **heterogeneous graph** (",
-        "seconds": 3.53,
+        "answer": "Below is a concise, literature-backed overview of the major methodological families that have been applied to modern drug discovery.  For each family I list the most-cited or historically important papers (or review articles) that introduced or popularized the approach, the key technical steps, and the typical types of targets or disease areas where the method has been most successful.\n\n---\n\n## 1. High-Throughput Screening (HTS)\n\n| Representative papers / reviews | Core idea | Typical workflow | Notable successes |\n|--------------------------------|----------|------------------|-------------------|\n| **M. J. Hughes, et\u202fal., *J. Biomol. Screen.* 2008, 13, 1-14** - \u201cAssay Development and High-Throughput Screening\u201d | Large-scale testing of 10\u2074-10\u2076 compounds against a biochemical or cell-based assay in micro-titer plates. | 1. Mini-aturized assay (fluorescence, luminescence, absorbance, etc.) 2. Automated liquid handling & plate readers 3. Primary hit identification \u2192 confirmatory dose-response \u2192 counter-screening | Discovery of **vemurafenib** (BRAF V600E inhibitor) via a 200\u202fk compound HTS campaign (Bollag et\u202fal., *Nature* 2010). |\n| **M. A. Inglese, et\u202fal., *Nat. Rev. Drug Discov.* 2007, 6, 211-225** - \u201cHigh-Throughput Screening Assays for the Discovery of Small-Molecule Modulators of Protein-Protein Interactions\u201d | Emphasizes assay design for \u201chard\u201d targets (PPIs). | Same as above, but often uses AlphaScreen, TR-FRET, or NanoBRET readouts. | Identification of **navitoclax** (BCL-2 family inhibitor) from a 300\u202fk HTS set (Oltersdorf et\u202fal., *Nat. Chem. Biol.* 2005). |\n\n**Take-away:** HTS remains the work-horse for *phenotypic* and *target-based* discovery when a robust, mini-aturizable assay exists. Recent advances integrate robotics with real-time data analytics (e.g., Bayesian active learning) to reduce library size while preserving hit rates (see **M. R. Glick et\u202fal., *ACS Chem. Biol.* 2022**).\n\n---\n\n## 2. Virtual Screening (VS) & Structure-Based Drug Design (SBDD)\n\n| Representative papers / reviews | Core idea | Typical workflow | Notable successes |\n|--------------------------------|----------|------------------|-------------------|\n| **J. J. Irwin & B. K. Shoichet, *J. Med. Chem.* 2005, 48, 5912-5931** - \u201cZINC: A Free Database of Commercially Available Compounds for Virtual Screening\u201d | Large-scale docking of millions of purchasable compounds into a protein structure. | 1. Obtain high-resolution crystal or cryo-EM structure 2. Prepare protein (add hydrogens, define binding site) 3. Dock library (e.g., DOCK, AutoDock Vina, Glide) 4. Rank by scoring function \u2192 visual inspection \u2192 purchase & test | **BMS-986165** (TYK2 inhibitor) discovered via docking of ~1\u202fM ZINC compounds (Kumar et\u202fal., *Nat. Chem.* 2020). |\n| **M. J. Keiser, et\u202fal., *Nat. Rev. Drug Discov",
+        "seconds": 2.87,
         "recall": 0.0,
         "refused": false
       }
     },
     {
       "type": "task_methods",
-      "question": "Which methods have been applied to language understanding?",
+      "question": "Which methods have been applied to accurate?",
       "truth": [
-        "deep bidirectional transformer",
-        "recommender model",
-        "pre-trained language model",
-        "neural network",
-        "Deep Learning"
+        "Graph Attention Spatial-Temporal Network",
+        "Molecular Graph Convolutional Network",
+        "Computational method",
+        "deep learning framework"
       ],
       "truth_docs": [
-        "W3177828909",
-        "W4210334834",
-        "W2946345909"
+        "W3082935815",
+        "W2957050889",
+        "W4221143219"
       ],
       "match": "name",
       "graphrag": {
-        "answer": "- **Deep bidirectional transformer** - applied to language understanding\u202f[doc:W3177828909]  \n- **Recommender model** - applied to language understanding\u202f[doc:W4210334834]  \n- **Pre-trained language model** - applied to language understanding\u202f[doc:W2946345909]  \n- **Neural network** - applied to language understanding\u202f[doc:W4210334834]  \n- **Deep Learning** - applied to language understanding\u202f[doc:W4210334834]  ",
+        "answer": "- Graph Attention Spatial-Temporal Network - applied to the \u201caccurate\u201d task[doc:W3082935815]  \n- Molecular Graph Convolutional Network - applied to the \u201caccurate\u201d task[doc:W2957050889]  \n- Computational method - applied to the \u201caccurate\u201d task[doc:W4221143219]  \n- Deep learning framework - applied to the \u201caccurate\u201d task[doc:W3082935815]",
         "citations": [
-          "W2946345909",
-          "W3177828909",
-          "W4210334834"
+          "W2957050889",
+          "W3082935815",
+          "W4221143219"
         ],
-        "seconds": 1.96,
-        "facts": 30,
+        "seconds": 2.71,
+        "facts": 60,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "Below is a (non-exhaustive) survey of the major families of methods that have been applied to **natural-language understanding (NLU)** in the research literature, together with representative papers, key authors, and the typical tasks on which they were evaluated.\n\n| Year (first major paper) | Methodological family | Core idea / architecture | Representative papers (authors, venue) | Typical NLU tasks where the method shone |\n|--------------------------|-----------------------|--------------------------|----------------------------------------|------------------------------------------|\n| **1970s-80s** | **Rule-based / Symbolic grammars** | Hand-crafted syntactic/semantic rules (e.g., context-free grammars, unification grammars, semantic-role grammars). | *Winograd, 1972* \u201cUnderstanding Natural Language\u201d (MIT AI Lab); *Shieber, 1986* \u201cAn Introduction to Unification-Based Grammars\u201d (Computational Linguistics). | Early question answering, command-following systems (e.g., SHRDLU). |\n| **1990s** | **Statistical NLP (n-gram, HMM, Maximum Entropy)** | Probabilistic models of word sequences, POS tagging, parsing; feature-rich linear models. | *Brown et\u202fal., 1992* \u201cClass-based n-gram models\u201d (ACL); *Berger et\u202fal., 1996* \u201cA maximum entropy approach to natural language processing\u201d (ACL); *Manning, 1999* \u201cFoundations of Statistical Natural Language Processing\u201d (book). | POS tagging, chunking, early named-entity recognition (NER), speech-to-text. |\n| **1998-2003** | **Support Vector Machines / Kernel Methods** | Large-margin classifiers with engineered lexical/syntactic features. | *Joachims, 1999* \u201cText categorization with SVMs\u201d (ICML); *Collins, 2002* \u201cDiscriminative training methods for hidden Markov models\u201d (ACL). | Text classification, NER, parsing (e.g., SVM-based constituency parsers). |\n| **2003-2014** | **Conditional Random Fields (CRFs) & Structured Prediction** | Graphical models that predict label sequences jointly (e.g., BIO tagging). | *Lafferty et\u202fal., 2001* \u201cConditional Random Fields\u201d (ICML); *Sha & Pereira, 2003* \u201cShallow parsing with CRFs\u201d (ACL). | NER, chunking, POS tagging, semantic role labeling. |\n| **2006-2012** | **Neural Word Embeddings** | Distributed vector representations learned from large corpora (skip-gram, CBOW). | *Mikolov et\u202fal., 2013* \u201cEfficient Estimation of Word Representations in Vector Space\u201d (ICLR); *Pennington et\u202fal., 2014* \u201cGloVe: Global Vectors for Word Representation\u201d (EMNLP). | All downstream NLU tasks (as input features). |\n| **2011-2015** | **Recurrent Neural Networks (RNNs) & LSTMs** | Sequence models that capture long-range dependencies; later augmented with attention. | *Hochreiter & Schmidhuber, 1997* (original LSTM); *Sutskever et\u202fal., 2014* \u201cSequence to Sequence Learning\u201d (NIPS); *Bahdanau et\u202fal., 2015* \u201cNeural Machine Translation by Jointly Learning to Align and Translate\u201d (ICLR). | Machine translation, reading-comprehension, dialog state tracking, sentiment analysis.",
-        "seconds": 2.86,
-        "recall": 0.2,
-        "refused": false
-      }
-    },
-    {
-      "type": "task_methods",
-      "question": "Which methods have been applied to understanding?",
-      "truth": [
-        "DLs",
-        "KG-enhanced LLM",
-        "LLM-augmented KGs",
-        "LLMs + KGs"
-      ],
-      "truth_docs": [
-        "W3093463288",
-        "W4390692489"
-      ],
-      "match": "name",
-      "graphrag": {
-        "answer": "- **DLs** (deep learning systems) - applied to the task of *understanding*\u202f[doc:W3093463288]  \n- **KG-enhanced LLM** (knowledge-graph-enhanced large language models) - applied to *understanding*\u202f[doc:W4390692489]  \n- **LLM-augmented KGs** (large language models augmenting knowledge graphs) - applied to *understanding*\u202f[doc:W4390692489]  \n- **LLMs\u202f+\u202fKGs** (combined large language models and knowledge graphs) - applied to *understanding*\u202f[doc:W4390692489]",
-        "citations": [
-          "W3093463288",
-          "W4390692489"
-        ],
-        "seconds": 2.28,
-        "facts": 30,
-        "recall": 1.0,
-        "refused": false,
-        "citation_precision": 1.0
-      },
-      "baseline": {
-        "answer": "I\u2019m sorry, but I\u2019m not sure what specific topic or domain you\u2019re asking about. Could you please clarify what you\u2019d like to understand (e.g., a particular scientific phenomenon, a cognitive process, a disease, a material, etc.)? Once I know the subject, I can list the research methods that have been applied to study it and cite relevant papers.",
-        "seconds": 0.64,
+        "answer": "I\u2019m sorry, but your question is incomplete or unclear. Could you please provide more context or specify the particular problem, domain, or type of \u201caccuracy\u201d you are interested in (e.g., accurate prediction in genomics, accurate measurement in physics, accurate classification in machine learning, etc.)? With a bit more detail I\u2019ll be able to point you to the relevant methods and the key papers that describe them.",
+        "seconds": 0.73,
         "recall": 0.0,
         "refused": true
       }
     },
     {
       "type": "task_methods",
-      "question": "Which methods have been applied to healthcare?",
+      "question": "Which methods have been applied to machine learning application?",
       "truth": [
-        "Machine Learning (ML)",
-        "statistical model",
-        "non-interpretable black-box model",
-        "Large Language Model",
-        "Deep Learning",
-        "deep learning method"
+        "Knowledge Representation technique",
+        "knowledge graph reasoning"
       ],
       "truth_docs": [
-        "W2990519034",
-        "W3133653953",
-        "W4406152291"
+        "W3210179814",
+        "W3157651462"
       ],
       "match": "name",
       "graphrag": {
-        "answer": "- Machine Learning (ML)\u202f\u2192\u202fhealthcare\u202f[doc:W2990519034]  \n- Statistical model\u202f\u2192\u202fhealthcare\u202f[doc:W2990519034]  \n- Non-interpretable black-box model\u202f\u2192\u202fhealthcare\u202f[doc:W3133653953]  \n- Large Language Model\u202f\u2192\u202fhealthcare\u202f[doc:W4406152291]  \n- Deep Learning\u202f\u2192\u202fhealthcare\u202f[doc:W3133653953]  \n- Deep-learning method\u202f\u2192\u202fhealthcare\u202f[doc:W3133653953]",
+        "answer": "- **Knowledge Representation technique** - applied to machine-learning applications\u202f[doc:W3210179814]  \n- **Knowledge graph reasoning** - applied to machine-learning applications\u202f[doc:W3157651462]",
         "citations": [
-          "W2990519034",
-          "W3133653953",
-          "W4406152291"
+          "W3157651462",
+          "W3210179814"
         ],
-        "seconds": 2.31,
-        "facts": 33,
-        "recall": 0.8333333333333334,
-        "refused": false,
-        "citation_precision": 1.0
-      },
-      "baseline": {
-        "answer": "Below is a concise, literature-based overview of the major methodological families that have been applied to problems in health-care (clinical, public-health, biomedical research, and health-system management).  For each family I list the most-cited or otherwise seminal papers, the typical application domains, and the key strengths/limitations that the community has reported.\n\n---\n\n## 1. Classical Statistical Modeling  \n\n| Method | Typical Health-Care Applications | Representative Papers |\n|--------|----------------------------------|------------------------|\n| **Logistic / Linear Regression** | Risk prediction (e.g., cardiovascular disease, readmission), dose-response modeling, health-economics cost analyses | *Framingham Heart Study* (D\u2019Agostino et\u202fal., 2008, **JAMA**); *Charlson Comorbidity Index* (Charlson et\u202fal., 1987, **J Chronic Dis**) |\n| **Cox Proportional Hazards & Survival Models** | Time-to-event outcomes (mortality, disease progression, device failure) | *Cox Model for Breast Cancer Survival* (Harrell et\u202fal., 1984, **Biometrics**); *Competing Risks in Hospital Readmission* (Fine & Gray, 1999, **JASA**) |\n| **Generalized Linear Mixed Models (GLMMs)** | Hierarchical data (patients within hospitals, repeated measures) | *Multilevel Modeling of ICU Mortality* (Khalili et\u202fal., 2016, **Intensive Care Med**) |\n| **Propensity-Score Methods & Causal Inference** | Observational treatment effect estimation (e.g., drug safety, surgical technique) | *Propensity Score Matching in Observational Studies* (Austin, 2011, **Stat Med**); *Targeted Maximum Likelihood Estimation* (van der Laan & Rubin, 2006, **Statistical Science**) |\n\n**Why they matter:** These methods remain the backbone of clinical epidemiology because they provide interpretable effect estimates, confidence intervals, and are well-validated for regulatory submissions.\n\n---\n\n## 2. Machine-Learning (ML) Algorithms  \n\n| Algorithm | Health-Care Use Cases | Key Papers |\n|-----------|----------------------|------------|\n| **Random Forests / Gradient Boosting (XGBoost, LightGBM)** | Predictive diagnostics (e.g., sepsis, AKI), readmission risk, imaging triage | *Predicting Sepsis with Gradient Boosting* (Desautels et\u202fal., 2016, **JAMA**) ; *XGBoost for Mortality Prediction* (Rajkomar et\u202fal., 2018, **Nature Medicine**) |\n| **Support Vector Machines (SVM)** | Classification of high-dimensional omics data, ECG arrhythmia detection | *SVM for Cancer Gene Expression* (Guyon et\u202fal., 2002, **Bioinformatics**) |\n| **k-Nearest Neighbors & Na\u00efve Bayes** | Simple triage tools, early warning scores | *Na\u00efve Bayes for Hospital-Acquired Infection* (Kumar et\u202fal., 2019, **BMC Med Inform Decis Mak**) |\n| **Ensemble Stacking** | Combining heterogeneous predictors (clinical + imaging) | *Stacked Ensembles for COVID-19 Outcome Prediction* (Yan et\u202fal., 2021, **Lancet Digital Health**) |\n\n**Strengths:** Often outperform traditional regression on large, heterogeneous EHR datasets; handle non-linear interactions automatically.  \n**Limitations:** Reduced interpretability (though SHAP, LIME, and counterfactual",
-        "seconds": 2.12,
-        "recall": 0.16666666666666666,
-        "refused": false
-      }
-    },
-    {
-      "type": "task_methods",
-      "question": "Which methods have been applied to policy?",
-      "truth": [
-        "heterogeneous GNN",
-        "homogeneous GNN",
-        "Mediation analysis"
-      ],
-      "truth_docs": [
-        "W3189854358",
-        "W3165488072"
-      ],
-      "match": "name",
-      "graphrag": {
-        "answer": "- Heterogeneous Graph Neural Networks (heterogeneous GNN) have been applied to the policy task[doc:W3189854358].  \n- Homogeneous Graph Neural Networks (homogeneous GNN) have also been applied to the policy task[doc:W3189854358].  \n- Mediation analysis has been applied to the policy task[doc:W3165488072].",
-        "citations": [
-          "W3165488072",
-          "W3189854358"
-        ],
-        "seconds": 1.66,
-        "facts": 12,
+        "seconds": 1.94,
+        "facts": 29,
         "recall": 1.0,
         "refused": false,
         "citation_precision": 1.0
       },
       "baseline": {
-        "answer": "Below is a concise, literature-based overview of the major quantitative and qualitative methods that have been **applied to the design, evaluation, and implementation of public policy**.  For each method I list the most-cited or seminal papers (or research programs) that illustrate how the method has been used, the typical policy domains in which it appears, and a brief note on its strengths/limitations.  The list is not exhaustive, but it captures the approaches that dominate contemporary policy research across economics, political science, public administration, health, education, and environmental studies.\n\n---\n\n## 1. Econometric / Statistical Causal-Inference Methods  \n\n| Method | Core Idea | Representative Applications & Key Papers | Typical Policy Areas |\n|--------|-----------|------------------------------------------|----------------------|\n| **Difference-in-Differences (DiD)** | Compare changes over time between a treated group and a comparable control group. | \u2022 Card, D., & Krueger, A. (1994). *Minimum Wages and Employment: A Case Study of the Fast-Food Industry.* *American Economic Review.*  <br>\u2022 Angrist, J. D., & Pischke, J.-S. (2009). *Mostly Harmless Econometrics* (Ch.\u202f5). | Labor market reforms, tax policy, education subsidies. |\n| **Regression Discontinuity Design (RDD)** | Exploit a sharp cutoff (e.g., eligibility threshold) to identify causal effects. | \u2022 Lee, D. S., & Lemieux, T. (2010). *Regression Discontinuity Designs in Economics.* *Journal of Economic Literature.* <br>\u2022 Jacob, B. A., & Lefgren, L. (2004). *The Impact of School Accountability on Student Achievement.* *American Economic Review.* | School finance, welfare eligibility, environmental regulation thresholds. |\n| **Instrumental Variables (IV)** | Use an exogenous instrument correlated with treatment but not directly with outcome. | \u2022 Angrist, J. D., & Krueger, A. B. (1991). *Does Compulsory School Attendance Affect Schooling and Earnings?* *Quarterly Journal of Economics.* <br>\u2022 Acemoglu, D., & Angrist, J. (2001). *The Effect of Compulsory Schooling on Earnings.* *American Economic Review.* | Education policy, health insurance expansions, infrastructure spending. |\n| **Synthetic Control Method (SCM)** | Construct a weighted combination of control units that mimics the pre-treatment trajectory of the treated unit. | \u2022 Abadie, A., Diamond, A., & Hainmueller, J. (2010). *Synthetic Control Methods for Comparative Case Studies: Estimating the Effect of California\u2019s Tobacco Control Program.* *Journal of the American Statistical Association.* <br>\u2022 Cavallo, E., Galiani, S., Noy, I., & Pantano, J. (2013). *Catastrophic Natural Disasters and Economic Growth.* *Review of Economics and Statistics.* | Tobacco control, trade agreements, disaster relief, fiscal decentralization. |\n| **Panel Data Fixed-Effects / Random-Effects Models** | Control for time-invariant unobserved heterogeneity across units. | \u2022 Wooldridge, J. M. (2010). *Econometric Analysis of Cross Section and Panel Data.* (Ch.\u202f9). <br>\u2022 Hsiao, C. (2003). *Analysis of Panel Data.* | Long-run policy impact studies (e.g., health reforms, tax changes). |\n| **Event-Study / Dynamic DiD** | Estimate treatment effects at multiple leads/lags to",
-        "seconds": 2.27,
+        "answer": "Below is a concise, literature-backed overview of the major families of **methods that have been applied to machine-learning (ML) problems** across a wide range of domains (computer vision, natural-language processing, speech, reinforcement learning, bio-informatics, etc.).  For each family I list the most representative algorithms, a few landmark papers (with full citations), and the typical kinds of tasks where they have been successful.\n\n---\n\n## 1. Classical \u201cShallow\u201d Learning Algorithms  \n\n| Method | Core Idea | Representative Papers / References | Typical Applications |\n|--------|-----------|------------------------------------|----------------------|\n| **Linear Models** (Linear/Logistic Regression, Ridge, Lasso) | Linear decision boundary or probability model; regularization to avoid over-fit. | Tibshirani (1996) *Regression Shrinkage and Selection via the Lasso*; Ng (2004) *Feature selection, L1 vs L2 regularization* | Text classification, click-through-rate prediction, genomics (eQTL mapping). |\n| **Support Vector Machines (SVM)** | Max-margin hyperplane; kernel trick for non-linear decision surfaces. | Cortes & Vapnik (1995) *Support-Vector Networks*; Joachims (1998) *Text categorization with SVMs* | Image categorization, bio-sequence classification, handwriting recognition. |\n| **Decision Trees & Ensembles** (Random Forests, Gradient Boosting Machines) | Tree-based partitioning; ensembles reduce variance/bias. | Breiman (2001) *Random Forests*; Friedman (2001) *Greedy Function Approximation: Gradient Boosting Machine*; Chen & Guestrin (2016) *XGBoost* | Tabular data (finance, healthcare), ranking, fraud detection. |\n| **k-Nearest Neighbors (k-NN)** | Instance-based learning; label by majority vote of nearest points. | Cover & Hart (1967) *Nearest neighbor pattern classification* | Low-dimensional pattern recognition, recommendation systems. |\n| **Na\u00efve Bayes** | Probabilistic generative model assuming feature independence. | McCallum & Nigam (1998) *A comparison of event models for naive Bayes text classification* | Spam filtering, sentiment analysis. |\n| **Principal Component Analysis (PCA) & Linear Discriminant Analysis (LDA)** | Unsupervised (PCA) or supervised (LDA) linear dimensionality reduction. | Jolliffe (2002) *Principal Component Analysis*; Fisher (1936) *The use of multiple measurements in taxonomic problems* | Pre-processing for visualization, compression, face recognition. |\n\n**Why they matter:** Even after the deep-learning era, these methods remain the baseline for many Kaggle competitions, for interpretability-critical domains (medicine, finance), and for situations with limited data or compute.\n\n---\n\n## 2. Neural-Network-Based Deep Learning  \n\n| Sub-family | Core Architecture | Key Papers (chronological milestones) | Notable Use-Cases |\n|------------|-------------------|---------------------------------------|-------------------|\n| **Feed-forward Fully Connected Networks (MLP)** | Stacked dense layers with non-linear activations. | Rumelhart, Hinton & Williams (1986) *Learning representations by back-propagation* | Tabular data, early speech recognition, function approximation. |\n| **Convolutional Neural Networks (CNNs)** | Local receptive fields + weight sharing \u2192 translation-invariant feature maps. | LeCun et\u202fal. (1998) *Gradient-based learning applied to document recognition*; Kr",
+        "seconds": 2.18,
+        "recall": 0.0,
+        "refused": false
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to Smart Grid?",
+      "truth": [
+        "Knowledge Graph",
+        "big knowledge graph platform"
+      ],
+      "truth_docs": [
+        "W3108475832"
+      ],
+      "match": "name",
+      "graphrag": {
+        "answer": "- **Knowledge Graph** - applied to the Smart\u202fGrid task[doc:W3108475832]  \n- **big knowledge graph platform** - applied to the Smart\u202fGrid task[doc:W3108475832]",
+        "citations": [
+          "W3108475832"
+        ],
+        "seconds": 1.76,
+        "facts": 60,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "Below is a non-exhaustive but well-documented list of the major methodological families that have been applied to **Smart-Grid research and implementation** over the past decade (\u22482010-2024).  For each family I give a short description of the typical problem it addresses, the most common concrete techniques, and a few representative peer-reviewed papers (including authors, year, and venue) that have become citation \u201canchors\u201d for that line of work.\n\n---\n\n## 1. Optimization-Based Methods  \n\n| Sub-area | Typical problems | Core techniques | Representative papers |\n|----------|------------------|----------------|------------------------|\n| **Unit Commitment & Economic Dispatch** | Scheduling generation units, minimizing fuel cost while respecting ramping, reserve, and network constraints. | Mixed-Integer Linear Programming (MILP), Mixed-Integer Quadratic Programming (MIQP), Lagrangian relaxation, Benders decomposition. | \u2022\u202fM. Carrion & J. Arroyo, \u201cA computationally efficient mixed-integer linear formulation for the thermal unit commitment problem,\u201d *IEEE Trans. Power Syst.*, 2006 (still heavily cited). <br>\u2022\u202fJ. Wang, Y. Li, \u201cStochastic unit commitment with renewable uncertainty using scenario-based MILP,\u201d *IEEE Power & Energy Soc. General Meeting*, 2015. |\n| **Optimal Power Flow (OPF)** | Minimizing generation cost / losses while satisfying AC power-flow equations. | Convex relaxations (SDP, SOCP), linearized DC-OPF, interior-point methods, distributed ADMM. | \u2022\u202fJ. Lavaei & S. H. Low, \u201cZero duality gap in optimal power flow problem,\u201d *IEEE Trans. Power Syst.*, 2012. <br>\u2022\u202fS. H. Low, \u201cConvex relaxation of optimal power flow\u2014Part I: Formulations and equivalence,\u201d *IEEE Trans. Control Netw. Syst.*, 2014. |\n| **Demand-Side Management (DSM) & Load Shifting** | Scheduling flexible loads, minimizing peak-to-average ratio, reducing electricity bills. | Linear programming, integer programming, model predictive control (MPC). | \u2022\u202fM. K. H. Leung, \u201cOptimal demand response scheduling using mixed-integer linear programming,\u201d *IEEE Trans. Smart Grid*, 2017. |\n| **Network Reconfiguration & Restoration** | Switching lines to minimize losses or restore service after faults. | Heuristic search (genetic algorithms, particle swarm), MILP, branch-and-cut. | \u2022\u202fA. R. Al-Ammar, \u201cA hybrid genetic-particle swarm algorithm for distribution network reconfiguration,\u201d *Electric Power Systems Research*, 2018. |\n| **Energy Storage Sizing & Dispatch** | Determining optimal capacity and charging/discharging schedule. | Stochastic programming, robust optimization, dynamic programming. | \u2022\u202fJ. Zhang, \u201cRobust optimization of battery energy storage for frequency regulation,\u201d *Applied Energy*, 2020. |\n\n**Why it matters:**  Optimization provides the *deterministic* backbone of most grid-operation tools (e.g., EMS, DMS, market clearing).  The field has moved from centralized MILP formulations to **distributed** and **convex-relaxed** approaches that can be solved in near-real-time.\n\n---\n\n## 2. Stochastic & Robust Approaches  \n\n| Sub-area | Typical problems | Core techniques | Representative papers |\n|----------|------------------|----------------|------------------------|\n| **Uncertainty Modeling (Renewables, Load)** | Handling forecast errors of wind/solar and demand. | Scenario-based stochastic programming, chance-constrained programming, distribution",
+        "seconds": 1.96,
+        "recall": 0.0,
+        "refused": false
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to Artificial Intelligence?",
+      "truth": [
+        "Neuro-symbolic approache",
+        "neural and symbolic approache"
+      ],
+      "truth_docs": [
+        "W4213454368"
+      ],
+      "match": "name",
+      "graphrag": {
+        "answer": "- Neuro-symbolic approaches\u202f\u2192\u202fArtificial Intelligence\u202f[doc:W4213454368]  \n- Neural and symbolic approaches\u202f\u2192\u202fArtificial Intelligence\u202f[doc:W4213454368]",
+        "citations": [
+          "W4213454368"
+        ],
+        "seconds": 1.44,
+        "facts": 60,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "Below is a (non-exhaustive) catalogue of the major families of methods that have been applied to **Artificial Intelligence (AI)** over the past several decades, together with representative papers, books, or research groups that introduced or popularised each approach.\n\n| **Method / Paradigm** | **Core Idea / What It Does** | **Key References (papers, books, surveys)** |\n|-----------------------|------------------------------|--------------------------------------------|\n| **Symbolic / Classical AI** | Manipulates explicit symbols and logical rules (e.g., production systems, theorem proving, planning). | - Newell & Simon, *Logic Theorist* (1956) & *General Problem Solver* (1957). <br> - Russell & Norvig, *Artificial Intelligence: A Modern Approach* (3rd\u202fed., 2010) - chapters on search, knowledge representation, planning. |\n| **Expert Systems** | Rule-based inference engines that encode domain expertise (e.g., MYCIN, DENDRAL). | - Shortliffe, *MYCIN* (1976). <br> - Buchanan & Shortliffe, *Rule-Based Expert Systems* (1984). |\n| **Bayesian Networks & Probabilistic Graphical Models** | Represent uncertain knowledge with directed/undirected graphs; inference via belief propagation. | - Pearl, *Probabilistic Reasoning in Intelligent Systems* (1988). <br> - Koller & Friedman, *Probabilistic Graphical Models* (2009). |\n| **Neural Networks (Connectionism)** | Networks of weighted units that learn from data via gradient-based updates. Early work focused on shallow, fully-connected nets. | - Rosenblatt, *Perceptrons* (1958). <br> - Rumelhart, Hinton & Williams, \u201cLearning representations by back-propagating errors\u201d (Nature, 1986). |\n| **Deep Learning** | Stacked multilayer architectures (CNNs, RNNs, Transformers) that learn hierarchical representations from large datasets. | - Krizhevsky, Sutskever & Hinton, \u201cImageNet Classification with Deep Convolutional Neural Networks\u201d (NIPS\u202f2012). <br> - Vaswani et\u202fal., \u201cAttention Is All You Need\u201d (NeurIPS\u202f2017). |\n| **Reinforcement Learning (RL)** | Agents learn policies by interacting with an environment and receiving scalar rewards. | - Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd\u202fed., 2018). <br> - Mnih et\u202fal., \u201cHuman-level control through deep reinforcement learning\u201d (Nature\u202f2015). |\n| **Evolutionary Computation (EC)** | Population-based search inspired by natural evolution (genetic algorithms, evolution strategies, genetic programming). | - Holland, *Adaptation in Natural and Artificial Systems* (1975). <br> - Koza, *Genetic Programming* (1992). |\n| **Swarm Intelligence** | Collective behavior of simple agents (e.g., ant colony optimization, particle swarm optimization). | - Dorigo & Di Caro, \u201cAnt Colony Optimization\u201d (IEEE\u202f1999). <br> - Kennedy & Eberhart, \u201cParticle Swarm Optimization\u201d (1995). |\n| **Fuzzy Logic & Approximate Reasoning** | Handles vagueness by using degrees of truth rather than binary logic. | - Zadeh, \u201cFuzzy Sets\u201d (1965). <br> - Kosko, *Fuzzy Thinking* (1993).",
+        "seconds": 2.07,
+        "recall": 0.0,
+        "refused": false
+      }
+    },
+    {
+      "type": "task_methods",
+      "question": "Which methods have been applied to Scientific Discovery?",
+      "truth": [
+        "Bioinspired Multi \u2010 Agent Intelligent Graph Reasoning",
+        "Kolmogorov Arnold Network"
+      ],
+      "truth_docs": [
+        "W4405599065",
+        "W4417268310"
+      ],
+      "match": "name",
+      "graphrag": {
+        "answer": "- **Bioinspired Multi-Agent Intelligent Graph Reasoning** - applied to the task of Scientific Discovery\u202f[doc:W4405599065]  \n- **Kolmogorov-Arnold Network** - applied to the task of Scientific Discovery\u202f[doc:W4417268310]",
+        "citations": [
+          "W4405599065",
+          "W4417268310"
+        ],
+        "seconds": 1.63,
+        "facts": 54,
+        "recall": 1.0,
+        "refused": false,
+        "citation_precision": 1.0
+      },
+      "baseline": {
+        "answer": "Below is a (non-exhaustive) catalogue of the major computational and methodological approaches that have been applied\u2014either directly or as supporting tools\u2014to **scientific discovery** across the natural and engineering sciences.  The list is organized by broad methodological families, with representative papers, key authors, and brief notes on what each method contributed to the discovery process.\n\n---\n\n## 1. Symbolic Regression & Genetic Programming  \n\n| Method / Variant | Representative Papers & Authors | What It Achieved |\n|------------------|----------------------------------|------------------|\n| **Genetic Programming (GP) for symbolic regression** | Koza, J. R. (1992). *Genetic Programming: On the Programming of Computers by Means of Natural Selection*. MIT Press. | Introduced the idea of evolving closed-form equations that fit data, a direct analogue of \u201cdiscovering\u201d physical laws. |\n| **Eureqa / AI Feynman** | Schmidt, M. & Lipson, H. (2009). \u201cDistilling free-form natural laws from experimental data.\u201d *Science* 324, 81-85. <br>Martinez-Luna, R. et al. (2020). \u201cAI Feynman: A physics-inspired method for symbolic regression.\u201d *Science Advances* 6, eaba3619. | Demonstrated that symbolic regression can rediscover known laws (e.g., Kepler\u2019s laws, Hamiltonian dynamics) from raw measurements and even propose new compact expressions. |\n| **Sparse Identification of Nonlinear Dynamics (SINDy)** | Brunton, S. L., Proctor, J. L., & Kutz, J. N. (2016). \u201cDiscovering governing equations from data by sparse identification of nonlinear dynamical systems.\u201d *PNAS* 113, 3932-3937. | Uses a library of candidate functions and \u2113\u2081-regularized regression to pick a parsimonious set of terms that explain observed dynamics. Applied to fluid-flow, epidemiology, and robotics. |\n| **Deep Symbolic Regression (DSR)** | Petersen, P., et al. (2021). \u201cDeep symbolic regression: Interpretable machine learning with tree-based genetic programming.\u201d *NeurIPS* 2021. | Couples neural networks for feature extraction with a GP-style search for symbolic forms, improving scalability to high-dimensional data. |\n\n**Why it matters:** Symbolic regression directly yields human-readable equations, making it a natural bridge between data-driven inference and the traditional \u201claw-finding\u201d aspect of scientific discovery.\n\n---\n\n## 2. Automated Theorem Proving (ATP) & Formal Methods  \n\n| Method | Key Papers / Systems | Achievements |\n|--------|----------------------|--------------|\n| **Resolution-based ATP (e.g., Otter, Prover9)** | McCune, W. (1997). *Otter*. (Various papers on automated reasoning). | First systems to prove non-trivial theorems automatically; later used to verify conjectures in combinatorics and group theory. |\n| **Higher-order ATP (e.g., Isabelle/HOL, Coq, Lean)** | Avigad, J., & others (2020). \u201cThe Lean theorem prover.\u201d *J. Formalized Reasoning* 13, 1-30. | Formal verification of large bodies of mathematics (e.g., the Feit-Thompson theorem in Coq, the Kepler conjecture in HOL Light/Isabelle). |\n| **Machine-learning-guided ATP** | Bansal, K., et al. (2019). \u201cHOList: An automated theorem prover for",
+        "seconds": 2.14,
         "recall": 0.0,
         "refused": false
       }
@@ -845,16 +834,16 @@
       "truth_docs": [],
       "match": "refusal",
       "graphrag": {
-        "answer": "The provided facts do not contain any information about a \u201cQuantumFrobnicator\u201d embedding, nor do they mention any papers that evaluate it or report results. Consequently, the answer cannot be derived from the given data.",
+        "answer": "The provided facts do not contain any information about a \u201cQuantumFrobnicator\u201d embedding\u2014no paper is listed as evaluating it, nor are any results reported. Consequently, the answer cannot be derived from the given data.",
         "citations": [],
-        "seconds": 1.68,
-        "facts": 41,
+        "seconds": 2.97,
+        "facts": 37,
         "recall": null,
         "refused": true
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have any information about a \u201cQuantumFrobnicator\u201d embedding or any papers that evaluate it. If you can provide more context or clarify the term, I\u2019d be happy to try to help further.",
-        "seconds": 1.12,
+        "answer": "I\u2019m sorry, but I don\u2019t have any information on a \u201cQuantumFrobnicator embedding,\u201d and I\u2019m not aware of any papers that evaluate it. If you can provide more context or clarify the terminology, I\u2019d be happy to try to help further.",
+        "seconds": 0.62,
         "recall": null,
         "refused": true
       }
@@ -868,14 +857,14 @@
       "graphrag": {
         "answer": "I couldn't match any entity in the knowledge graph to this question. Try naming a method, dataset, task, author or paper title.",
         "citations": [],
-        "seconds": 1.41,
+        "seconds": 0.62,
         "facts": 0,
         "recall": null,
         "refused": true
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have information about any papers that evaluate a \u201cZelkova-9\u201d benchmark, nor about the results they reported. If you can provide more context (e.g., the research field, the full name of the benchmark, or related keywords), I can try to help you locate the relevant literature.",
-        "seconds": 1.17,
+        "answer": "I\u2019m sorry, but I don\u2019t have any information on papers that evaluate a \u201cZelkova-9\u201d benchmark, nor on the results they reported. If you can provide more context (e.g., the research field, the full name of the benchmark, or related keywords), I can try to help you locate the relevant literature.",
+        "seconds": 0.6,
         "recall": null,
         "refused": true
       }
@@ -887,16 +876,16 @@
       "truth_docs": [],
       "match": "refusal",
       "graphrag": {
-        "answer": "The provided facts contain no information about a \u201cHyperLattice\u202fTransformer\u202fv7\u201d\u2014none of the listed papers mention this model, nor do they report any evaluation results for it. Consequently, the answer cannot be derived from the given data.",
+        "answer": "The provided facts contain no information about any paper that evaluates a \u201cHyperLattice\u202fTransformer\u202fv7,\u201d nor do they report any results for such an evaluation. Consequently, the answer cannot be derived from the given data.",
         "citations": [],
-        "seconds": 1.52,
-        "facts": 21,
+        "seconds": 1.47,
+        "facts": 17,
         "recall": null,
         "refused": true
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have any information on papers that evaluate a \u201cHyperLattice Transformer\u202fv7.\u201d If you can provide more context or details (e.g., authors, conference, or a link to the model\u2019s repository), I can try to help locate relevant literature.",
-        "seconds": 0.66,
+        "answer": "I\u2019m sorry, but I don\u2019t have any information on papers that evaluate a \u201cHyperLattice Transformer\u202fv7.\u201d If you can provide more context or a different name for the model, I\u2019d be happy to try to help further.",
+        "seconds": 1.43,
         "recall": null,
         "refused": true
       }
@@ -908,16 +897,16 @@
       "truth_docs": [],
       "match": "refusal",
       "graphrag": {
-        "answer": "The provided facts contain no information about any paper evaluating the Morvane reasoning dataset, nor do they report any results on that dataset. Consequently, the answer cannot be derived from the given evidence.",
+        "answer": "The provided facts do not contain any information about a \u201cMorvane reasoning dataset\u201d or about papers that evaluate it, nor do they report any results related to such an evaluation. Consequently, the answer cannot be derived from the given facts.",
         "citations": [],
-        "seconds": 1.47,
-        "facts": 18,
+        "seconds": 3.26,
+        "facts": 10,
         "recall": null,
         "refused": true
       },
       "baseline": {
-        "answer": "I\u2019m sorry, but I don\u2019t have information on any papers that evaluate a \u201cMorvane reasoning dataset,\u201d nor on the results they reported. If you have additional context (e.g., a different spelling of the dataset name, the research area it belongs to, or the authors who introduced it), I can try to help locate the relevant literature.",
-        "seconds": 1.09,
+        "answer": "I\u2019m sorry, but I don\u2019t have information on any papers that evaluate a \u201cMorvane reasoning dataset,\u201d nor on the results they reported. If you have additional context (e.g., a different spelling of the dataset name, the research area it belongs to, or the authors involved), I can try to help locate the relevant literature.",
+        "seconds": 0.71,
         "recall": null,
         "refused": true
       }

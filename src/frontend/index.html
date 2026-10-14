@@ -152,11 +152,22 @@
         <input id="entity" placeholder="Explore an entity: BERT, link prediction, an author…" required>
         <button type="submit" class="primary">Explore</button>
       </form>
+      <form id="connect-form" class="connect">
+        <input id="conn-a" placeholder="Connect: e.g. TransE" required>
+        <span aria-hidden="true">↔</span>
+        <input id="conn-b" placeholder="…with: e.g. BERT" required>
+        <button type="submit" class="ghost">Find connection</button>
+      </form>
+      <ol id="paths" class="paths"></ol>
       <div id="legend"></div>
       <div id="cy"></div>
     </section>
 
     <aside class="panel" id="side-panel">
+      <section id="insights" hidden>
+        <h2>Insights</h2>
+        <div id="insights-body"></div>
+      </section>
       <h2>Graph size</h2>
       <ul id="stats"></ul>
       <h2>Upload papers</h2>

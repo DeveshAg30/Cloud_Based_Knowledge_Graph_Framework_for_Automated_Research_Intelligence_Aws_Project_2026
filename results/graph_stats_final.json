@@ -1,0 +1,23 @@
+{
+  "total_nodes": 29349,
+  "relationships": 42217,
+  "Paper": 20747,
+  "Author": 1677,
+  "Institution": 555,
+  "Venue": 148,
+  "Concept": 1021,
+  "Method": 2430,
+  "Task": 1725,
+  "Dataset": 782,
+  "Metric": 264,
+  "typed_relations": {
+    "APPLIED_TO": 393,
+    "IS_A": 203,
+    "EVALUATED_ON": 123,
+    "MEASURED_BY": 85,
+    "COMPARED_WITH": 52,
+    "PART_OF": 24
+  },
+  "metric_values": 68,
+  "two_way_duplicates": 0
+}
