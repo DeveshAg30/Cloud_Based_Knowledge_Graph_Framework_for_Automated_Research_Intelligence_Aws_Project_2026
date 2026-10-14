@@ -65,7 +65,10 @@ class Neo4jClient:
 
         # Newer AuraDB instances name both the user and the database after the instance id.
         self.database = database or None
-        self.driver = GraphDatabase.driver(uri, auth=(user, password))
+        try:  # schema notices ("relationship type does not exist yet") are expected and only add log noise
+            self.driver = GraphDatabase.driver(uri, auth=(user, password), notifications_min_severity="OFF")
+        except TypeError:  # older drivers without notification filtering
+            self.driver = GraphDatabase.driver(uri, auth=(user, password))
         self._labels = sorted(ALL_LABELS)
         self._schema_ready = False
 
