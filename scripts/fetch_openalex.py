@@ -36,7 +36,8 @@ ARXIV_SOURCE = "S4306400194"  # OpenAlex source id of arXiv
 
 
 def fetch(args):
-    filters = [f"title_and_abstract.search:{args.search}", "has_abstract:true", "type:article|preprint"]
+    # is_retracted:false: the proposal's data-quality step (OpenAlex retraction handling is inconsistent upstream).
+    filters = [f"title_and_abstract.search:{args.search}", "has_abstract:true", "type:article|preprint", "is_retracted:false"]
     if args.from_year:
         filters.append(f"from_publication_date:{args.from_year}-01-01")
     if args.min_references:
