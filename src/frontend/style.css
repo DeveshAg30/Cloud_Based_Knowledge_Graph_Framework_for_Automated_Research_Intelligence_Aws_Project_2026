@@ -3,12 +3,14 @@
   --accent: #2f6fde; --accent-hover: #2459b8; --accent-text: #ffffff; --accent-soft: #e6eefc;
   --ok: #2e8b57; --err: #c0392b; --err-soft: #fdecea; --ok-soft: #e7f5ec;
   --field: #f6f7f9; --shadow: 0 12px 40px rgba(20, 30, 50, .12);
+  --link-on-field: #2a63c8;  /* small text on --field needs 4.5:1; --accent gives 4.4:1 */
+  color-scheme: light dark;  /* native controls (file picker, checkbox) follow the theme */
 }
 @media (prefers-color-scheme: dark) {
   :root { --bg: #14171c; --panel: #1d2128; --text: #e6e9ee; --muted: #9aa3b2; --border: #2e343e;
           --accent: #6b9cf0; --accent-hover: #8bb2f4; --accent-text: #0e1116; --accent-soft: #1f2a3d;
           --ok: #5cc98a; --err: #f08075; --err-soft: #3a2224; --ok-soft: #1d3326;
-          --field: #14171c; --shadow: 0 12px 40px rgba(0, 0, 0, .45); }
+          --field: #14171c; --shadow: 0 12px 40px rgba(0, 0, 0, .45); --link-on-field: #6b9cf0; }
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }  /* keep hidden views hidden even when a rule sets display */
@@ -79,7 +81,7 @@ input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px 
 .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; flex-wrap: wrap; }
 .pw { position: relative; display: block; }
 .pw input { padding-right: 64px !important; }
-.eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; color: #2a63c8; font-size: 13px; padding: 6px; } /* darker than --accent: 4.5:1 on the input field */
+.eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; color: var(--link-on-field); font-size: 13px; padding: 6px; }
 .pw-rules { list-style: none; padding: 0; margin: -4px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 13px; color: var(--muted); }
 .pw-rules li::before { content: "○"; margin-right: 6px; }
 .pw-rules li.ok { color: var(--ok); }

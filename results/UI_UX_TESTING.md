@@ -38,7 +38,7 @@ Functional API coverage is in [EVALUATION.md](EVALUATION.md) section 9 (`scripts
 
 | ID | Finding | Severity | Status |
 |---|---|---|---|
-| F1 | Contrast of the password **Show** button 4.4:1 (WCAG AA needs 4.5:1) | Low | **Fixed** in `src/frontend/style.css` (now 5.27:1); live after the next Amplify deploy |
+| F1 | Contrast of the password **Show** button 4.4:1 (WCAG AA needs 4.5:1) | Low | **Fixed** in `src/frontend/style.css`: 5.27:1 in the light theme, 6.53:1 in the dark theme; native controls (file picker) now follow the dark theme too; live after the next Amplify deploy |
 | F2 | Connect listed the same path several times when parallel edges linked the same nodes | Medium | **Fixed** in `src/backend/kg/insights.py` (each path shown once); deployed 15 Oct 2026 (Connect TransE to BERT now returns 1 path) |
 | F3 | At phone width the empty graph panel fills a whole screen before the first query | Low | Open: collapse the panel until there is something to draw |
 | F4 | Sample papers in `dataset/sample_papers.jsonl` had placeholder authors and venues, so an answer named "Sample Author C" as the author of a real paper | High (trust) | **Fixed** in the repository (real authors and venues); the live graph still holds the old placeholder nodes until they are removed and the sample file is re-ingested |
