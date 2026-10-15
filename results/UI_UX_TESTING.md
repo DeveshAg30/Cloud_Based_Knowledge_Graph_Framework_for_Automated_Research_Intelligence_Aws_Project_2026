@@ -31,14 +31,14 @@ Functional API coverage is in [EVALUATION.md](EVALUATION.md) section 9 (`scripts
 
 | Page | Violations |
 |---|---|
-| Landing page with sign-in form | 1: the password **Show** button had a contrast ratio of 4.4:1 against the field (minimum 4.5:1) |
+| Landing page with sign-in form (light theme) | 1: the password **Show** button had a contrast ratio of 4.4:1 against the field (minimum 4.5:1) |
 | Signed-in app | none |
 
 ## 4. Findings and fixes
 
 | ID | Finding | Severity | Status |
 |---|---|---|---|
-| F1 | Contrast of the password **Show** button 4.4:1 (WCAG AA needs 4.5:1) | Low | **Fixed** in `src/frontend/style.css`: 5.27:1 in the light theme, 6.53:1 in the dark theme; native controls (file picker) now follow the dark theme too; live after the next Amplify deploy |
+| F1 | Contrast of the password **Show** button 4.4:1 (WCAG AA needs 4.5:1) | Low | **Resolved**: the dashboard now uses one dark theme for every visitor (`src/frontend/style.css`), in which the button's contrast is 6.53:1 and axe finds no violations; live after the next Amplify deploy |
 | F2 | Connect listed the same path several times when parallel edges linked the same nodes | Medium | **Fixed** in `src/backend/kg/insights.py` (each path shown once); deployed 15 Oct 2026 (Connect TransE to BERT now returns 1 path) |
 | F3 | At phone width the empty graph panel fills a whole screen before the first query | Low | Open: collapse the panel until there is something to draw |
 | F4 | Sample papers in `dataset/sample_papers.jsonl` had placeholder authors and venues, so an answer named "Sample Author C" as the author of a real paper | High (trust) | **Fixed** in the repository (real authors and venues); the live graph still holds the old placeholder nodes until they are removed and the sample file is re-ingested |
