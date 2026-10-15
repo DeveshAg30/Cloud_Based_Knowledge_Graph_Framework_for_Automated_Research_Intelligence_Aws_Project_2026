@@ -1,6 +1,7 @@
 """SageMaker Hugging Face inference handler: SciBERT NER and (optionally) SciBERT relation extraction.
 
-model.tar.gz layout:  <NER model files>  re/<RE model files>  code/inference.py
+model.tar.gz layout:  <NER model files>  re/<RE model: encoder, tokenizer, head.pt, re_config.json>
+                      code/inference.py  code/re_model.py
 The RE model is optional; without re/ the endpoint returns entities only.
 
 Request:  {"sentences": ["We apply BERT to relation extraction on SciERC.", ...]}
@@ -12,14 +13,17 @@ Response: {"entities":  [{"text": "BERT", "label": "Method", "sentence": "..."},
 import json
 import os
 import re
+import sys
 
 import torch
-from transformers import AutoModelForSequenceClassification, AutoModelForTokenClassification, AutoTokenizer
+from transformers import AutoModelForTokenClassification, AutoTokenizer
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # re_model.py ships next to this file
+import re_model as rm  # noqa: E402
 
 WORD = re.compile(r"\w+(?:[-.@/]\w+)*|[^\w\s]")
 RE_TYPES = {"Method", "Task", "Metric", "Material"}   # entity types worth relating in the knowledge graph
 MAX_PAIRS_PER_SENTENCE = 20
-RE_THRESHOLD = 0.5
 
 
 def model_fn(model_dir):
@@ -27,8 +31,7 @@ def model_fn(model_dir):
               "ner": AutoModelForTokenClassification.from_pretrained(model_dir).eval()}
     re_dir = os.path.join(model_dir, "re")
     if os.path.isdir(re_dir):
-        models["re_tok"] = AutoTokenizer.from_pretrained(re_dir)
-        models["re"] = AutoModelForSequenceClassification.from_pretrained(re_dir).eval()
+        models["re"], models["re_tok"], models["re_config"] = rm.load(re_dir)
     return models
 
 
@@ -57,22 +60,6 @@ def _spans(words, tags):
     return spans
 
 
-def _mark(words, head, tail):
-    """Same entity-marker format as train_re.py ([E1] head [/E1] ... [E2] tail [/E2]); spans are end-exclusive."""
-    out = []
-    for i, w in enumerate(words):
-        if i == head[0]:
-            out.append("[E1]")
-        if i == tail[0]:
-            out.append("[E2]")
-        out.append(w)
-        if i == head[1] - 1:
-            out.append("[/E1]")
-        if i == tail[1] - 1:
-            out.append("[/E2]")
-    return " ".join(out)
-
-
 def _ner(models, sentences):
     tok, model = models["ner_tok"], models["ner"]
     per_sentence = []
@@ -95,31 +82,27 @@ def _ner(models, sentences):
 def _relations(models, per_sentence):
     if "re" not in models:
         return []
-    tok, model = models["re_tok"], models["re"]
+    config = models["re_config"]
     candidates = []
     for sentence, words, spans in per_sentence:
         ents = [s for s in spans if s[2] in RE_TYPES]
-        pairs = [(h, t) for h in ents for t in ents if h != t][:MAX_PAIRS_PER_SENTENCE]
-        for h, t in pairs:
-            candidates.append((sentence, words, h, t, _mark(words, h, t)))
+        for h, t in [(h, t) for h in ents for t in ents if h != t][:MAX_PAIRS_PER_SENTENCE]:
+            candidates.append((sentence, words, h, t))
+    if not candidates:
+        return []
+    probs = rm.predict_proba(models["re"], models["re_tok"], [rm.mark(c[1], c[2], c[3]) for c in candidates])
+    # Calibrated on the dev set by calibrate_re.py: prior correction for NONE, then a confidence threshold.
+    adjusted = probs.clone()
+    adjusted[:, 0] *= config.get("none_weight", 1.0)
+    indices = adjusted.argmax(dim=-1)
+    values = probs.gather(1, indices.unsqueeze(1)).squeeze(1)
     out = []
-    for start in range(0, len(candidates), 32):
-        batch = candidates[start:start + 32]
-        enc = tok([c[4] for c in batch], truncation=True, max_length=128, padding=True, return_tensors="pt")
-        with torch.no_grad():
-            probs = torch.softmax(model(**enc).logits, dim=-1)
-        # Calibrated on the dev set by calibrate_re.py: prior correction for NONE, then a confidence threshold.
-        adjusted = probs.clone()
-        adjusted[:, 0] *= getattr(model.config, "re_none_weight", 1.0)
-        indices = adjusted.argmax(dim=-1)
-        values = probs.gather(1, indices.unsqueeze(1)).squeeze(1)
-        threshold = getattr(model.config, "re_threshold", RE_THRESHOLD)
-        for (sentence, words, h, t, _), score, idx in zip(batch, values.tolist(), indices.tolist()):
-            label = model.config.id2label[idx]
-            if label != "NONE" and score >= threshold:
-                out.append({"head": " ".join(words[h[0]:h[1]]), "head_label": h[2], "rel": label,
-                            "tail": " ".join(words[t[0]:t[1]]), "tail_label": t[2], "score": round(score, 3),
-                            "sentence": sentence})
+    for (sentence, words, h, t), score, idx in zip(candidates, values.tolist(), indices.tolist()):
+        label = rm.LABELS[idx]
+        if label != "NONE" and score >= config.get("threshold", 0.5):
+            out.append({"head": " ".join(words[h[0]:h[1]]), "head_label": h[2], "rel": label,
+                        "tail": " ".join(words[t[0]:t[1]]), "tail_label": t[2], "score": round(score, 3),
+                        "sentence": sentence})
     return out
 
 
