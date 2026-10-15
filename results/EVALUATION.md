@@ -10,8 +10,10 @@ Source: [SCIBERT_RESULTS.md](SCIBERT_RESULTS.md) (`src/ai_model/train/train.py`,
 |---|---|---|---|
 | NER, all entity types | 0.593 | 0.645 | **0.618** |
 | NER, Method | 0.699 | 0.714 | **0.707** |
-| Relation extraction (7 types, gold entities, calibrated on dev) | 0.358 | 0.516 | **0.423** |
+| Relation extraction (7 types, gold entities, calibrated on dev) | 0.658 | 0.664 | **0.661** |
 
+The relation model was retrained with typed entity markers and entity-start pooling (previously 0.358 / 0.516 / 0.423).
+Its scores come from `train_re.py` and `calibrate_re.py`; the endpoint serves it once the archive is redeployed.
 Both models are served from one SageMaker serverless endpoint. Model relations are mapped to typed graph edges
 (APPLIED_TO, EVALUATED_ON, MEASURED_BY, COMPARED_WITH, IS_A, PART_OF). Pairs that don't fit the ontology are discarded.
 The extractor also records **outcomes**: the value reported next to a metric (e.g. `Precision = 90%`) is stored on the

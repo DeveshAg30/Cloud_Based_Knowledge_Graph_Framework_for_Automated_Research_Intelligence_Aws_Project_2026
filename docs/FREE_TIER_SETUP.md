@@ -133,9 +133,12 @@ If endpoint creation is refused on the Free plan, keep `ExtractorMode=rules`. Th
 **Relation extraction (second model).** `src/ai_model/train/train_re.py` fine-tunes SciBERT to classify the relation between two
 entities in a sentence (SciERC: USED-FOR, EVALUATE-FOR, COMPARE, HYPONYM-OF, PART-OF, ...). Train it the same way as NER:
 ```powershell
-trainenv\Scripts\python src\ai_model\train\train_re.py --data_dir processed_data\json --model_dir re_model --output_data_dir output
+trainenv\Scripts\python src\ai_model\train\train_re.py --data_dir processed_data\json --model_dir re_model --output_data_dir output --epochs 5
+trainenv\Scripts\python src\ai_model\train\calibrate_re.py --data_dir processed_data\json --model_dir re_model --output_data_dir output
 ```
-Then package both models in one archive: the NER files at the root, the RE model under `re/`, and `code/inference.py`.
+Dev F1 is checked after every epoch and the best epoch is kept, so extra epochs cannot make the saved model worse.
+Then package both models in one archive: the NER files at the root, the RE model under `re/`, and `code/inference.py`
+plus `code/re_model.py`.
 The endpoint returns entities **and** typed relations. The pipeline maps them to `APPLIED_TO`, `EVALUATED_ON`, `MEASURED_BY`,
 `COMPARED_WITH`, `IS_A` and `PART_OF` edges.
 

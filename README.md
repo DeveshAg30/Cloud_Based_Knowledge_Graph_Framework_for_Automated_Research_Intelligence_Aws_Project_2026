@@ -9,7 +9,7 @@ answer **only from those facts**, citing the source papers.
 | Result | Value |
 |---|---|
 | SciBERT entity recognition (SciERC test F1) | **0.618** (Methods 0.707) |
-| SciBERT relation extraction (SciERC test F1, calibrated) | **0.423** |
+| SciBERT relation extraction (SciERC test F1, calibrated) | **0.661** (previously 0.423) |
 | End-to-end test of the deployed system | **13/13** checks (`scripts/smoke_test.py`) |
 | GraphRAG answer recall vs. the same LLM without the graph | **100.0%** vs 2.1% |
 | Hallucinated answers (confident and mostly wrong) | **0.0%** vs 62.5% without the graph |

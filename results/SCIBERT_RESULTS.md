@@ -57,37 +57,42 @@ by majority vote. PDF text is repaired first: ligatures, hyphenation across line
 
 ## Relation extraction (second SciBERT model)
 
-`src/ai_model/train/train_re.py` fine-tunes `allenai/scibert_scivocab_uncased` as a sentence-pair classifier. Each
-candidate pair of entities in a sentence is marked (`[E1] ... [/E1]`, `[E2] ... [/E2]`) and classified as one of the 7 SciERC
-relations or NONE.
+`src/ai_model/train/train_re.py` fine-tunes `allenai/scibert_scivocab_uncased` to classify each candidate pair of entities
+in a sentence as one of the 7 SciERC relations or NONE. The model (`src/ai_model/inference/re_model.py`) follows PURE
+(Zhong & Chen, 2021): **typed entity markers** (`[S:Method] BERT [/S:Method] ... [O:Task] parsing [/O:Task]`) and
+**entity-start pooling** (Baldini Soares et al., 2019), i.e. the classifier reads the encoder states at the two start markers
+instead of `[CLS]`.
 
-**Setup:** 2 epochs, learning rate 3e-5, batch size 16, max length 128. Training used all 3,215 annotated relations plus 0.7
-sampled NONE pairs per positive (5,518 examples). Dev and test use **every** candidate pair among gold entities
-(2,488 / 5,062 pairs, about 80% NONE), so precision reflects real use. Trained on the same laptop CPU in about 70 minutes.
+**Setup:** 4 epochs, learning rate 3e-5 (linear decay, 10% warm-up), batch size 16, max length 128. Training used all 3,215
+annotated relations plus 1 sampled NONE pair per positive (6,615 examples). Dev and test use **every** candidate pair among
+gold entities (2,488 / 5,062 pairs, about 80% NONE), so precision reflects real use. Dev F1 is measured after every epoch
+and the best epoch is kept (dev F1 by epoch: 0.539, 0.589, 0.554, **0.619**, so epoch 4). Trained on the same laptop CPU
+in about 3 hours.
 
-**Calibration** (`calibrate_re.py`, tuned on dev only): training saw far fewer NONE pairs than real text contains, so the
-NONE probability is re-weighted (prior correction, x2.0) and a relation must reach confidence 0.45.
+**Calibration** (`calibrate_re.py`, tuned on dev only): the NONE probability is re-weighted (x0.5) and a relation must reach
+confidence 0.85. Both values are stored in `re_config.json` next to the model and read by the endpoint.
 
 | SciERC test (gold entities) | Precision | Recall | F1 |
 |---|---|---|---|
-| Raw model (argmax) | 0.292 | 0.697 | 0.412 |
-| **Calibrated (deployed)** | **0.358** | **0.516** | **0.423** |
+| Previous model: `[E1]`/`[E2]` markers, `[CLS]` pooling, 2 epochs, calibrated | 0.358 | 0.516 | 0.423 |
+| Raw model (argmax) | 0.569 | 0.773 | 0.655 |
+| **Calibrated** | **0.658** | **0.664** | **0.661** |
 
-| Relation | Precision | Recall | F1 | Support |
+| Relation (calibrated) | Precision | Recall | F1 | Support |
 |---|---|---|---|---|
-| USED-FOR | 0.364 | 0.473 | 0.411 | 533 |
-| FEATURE-OF | 0.297 | 0.186 | 0.229 | 59 |
-| HYPONYM-OF | 0.351 | 0.791 | 0.486 | 67 |
-| PART-OF | 0.476 | 0.159 | 0.238 | 63 |
-| COMPARE | 0.360 | 0.711 | 0.478 | 38 |
-| CONJUNCTION | 0.386 | 0.854 | 0.532 | 123 |
-| EVALUATE-FOR | 0.287 | 0.495 | 0.363 | 91 |
+| USED-FOR | 0.656 | 0.702 | 0.678 | 533 |
+| FEATURE-OF | 0.515 | 0.288 | 0.370 | 59 |
+| HYPONYM-OF | 0.699 | 0.866 | 0.773 | 67 |
+| PART-OF | 0.577 | 0.238 | 0.337 | 63 |
+| COMPARE | 0.667 | 0.526 | 0.588 | 38 |
+| CONJUNCTION | 0.673 | 0.854 | 0.753 | 123 |
+| EVALUATE-FOR | 0.682 | 0.637 | 0.659 | 91 |
 
 **How the graph uses it:** only relations with a clear meaning for the ontology are kept. *Method used-for Task* becomes
 `APPLIED_TO`, *Dataset or Metric evaluate-for Method or Task* becomes `EVALUATED_ON` / `MEASURED_BY`, *compare* becomes
 `COMPARED_WITH`, *hyponym-of* becomes `IS_A` and *part-of* becomes `PART_OF`. Pairs whose direction or types don't fit a rule
 are discarded, which raises precision further in practice. Both models are served from one SageMaker serverless endpoint.
 
-**Limitations:** relation F1 is modest. SciERC relations are hard and imbalanced: FEATURE-OF and PART-OF each have about
-60 test examples and score low. Training was limited to 2 CPU epochs. More epochs on a GPU, or joint entity and relation
-training, would improve it.
+**Limitations:** scores assume gold entities. In the pipeline, NER errors (F1 0.618) carry over, so end-to-end relation
+quality is lower. SciERC relations are imbalanced: FEATURE-OF and PART-OF each have about 60 test examples and remain the
+weakest (calibration trades their recall for overall precision). Joint entity and relation training would help further.
