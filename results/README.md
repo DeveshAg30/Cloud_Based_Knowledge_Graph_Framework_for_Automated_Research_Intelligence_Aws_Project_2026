@@ -4,4 +4,5 @@
 - [SCIBERT_RESULTS.md](SCIBERT_RESULTS.md): NER training setup, test P/R/F1 per entity type, before/after effect on the graph.
 - [GRAPHRAG_EVAL.md](GRAPHRAG_EVAL.md): hallucination benchmark (GraphRAG vs the same LLM without the graph).
 - [GRAPHRAG_RETRIEVAL_EVAL.md](GRAPHRAG_RETRIEVAL_EVAL.md): retrieval-only context recall.
+- [UI_UX_TESTING.md](UI_UX_TESTING.md): dashboard performance, task checks, accessibility scan and findings.
 - `*.json`: raw outputs of `scripts/evaluate_graphrag.py`, `scripts/collect_metrics.py` and `src/ai_model/train/train.py`.

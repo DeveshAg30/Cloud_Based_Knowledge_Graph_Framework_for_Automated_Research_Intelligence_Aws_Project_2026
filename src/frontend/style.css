@@ -79,7 +79,7 @@ input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px 
 .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; flex-wrap: wrap; }
 .pw { position: relative; display: block; }
 .pw input { padding-right: 64px !important; }
-.eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; color: var(--accent); font-size: 13px; padding: 6px; }
+.eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; color: #2a63c8; font-size: 13px; padding: 6px; } /* darker than --accent: 4.5:1 on the input field */
 .pw-rules { list-style: none; padding: 0; margin: -4px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 13px; color: var(--muted); }
 .pw-rules li::before { content: "○"; margin-right: 6px; }
 .pw-rules li.ok { color: var(--ok); }

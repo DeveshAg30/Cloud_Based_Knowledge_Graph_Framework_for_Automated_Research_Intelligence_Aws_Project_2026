@@ -77,9 +77,24 @@ class Neo4jClient:
         Called by the writer only, so read-only API cold starts skip these 18 round trips."""
         if self._schema_ready:
             return
+        constrained = {r["name"] for r in self.query("SHOW CONSTRAINTS YIELD name RETURN name")}
         for label in self._labels:
-            self.query(f"CREATE INDEX {label.lower()}_uid IF NOT EXISTS FOR (n:{label}) ON (n.uid)")
-            self.query(f"CREATE INDEX {label.lower()}_name IF NOT EXISTS FOR (n:{label}) ON (n.name_lc)")
+            # A uniqueness constraint (not a plain index): parallel ingest Lambdas MERGE the same entities, and without
+            # it two concurrent MERGEs can both create the node. Graphs built before this change have a plain uid
+            # index, which blocks the constraint, so it is swapped only when the label holds no duplicate uids;
+            # otherwise the plain index stays and ingestion keeps working until the duplicates are merged.
+            lc = label.lower()
+            if f"{lc}_uid_unique" not in constrained:
+                dupes = self.query(f"MATCH (n:{label}) WITH n.uid AS u, count(*) AS c WHERE c > 1 RETURN count(*) AS d")
+                if dupes and dupes[0]["d"] == 0:
+                    try:
+                        self.query(f"DROP INDEX {lc}_uid IF EXISTS")
+                        self.query(f"CREATE CONSTRAINT {lc}_uid_unique IF NOT EXISTS FOR (n:{label}) REQUIRE n.uid IS UNIQUE")
+                    except Exception as exc:  # e.g. another Lambda is changing the schema at the same moment
+                        print(f"uniqueness constraint on {label}.uid not created: {exc}")
+                if f"{lc}_uid_unique" not in {r["name"] for r in self.query("SHOW CONSTRAINTS YIELD name RETURN name")}:
+                    self.query(f"CREATE INDEX {lc}_uid IF NOT EXISTS FOR (n:{label}) ON (n.uid)")
+            self.query(f"CREATE INDEX {lc}_name IF NOT EXISTS FOR (n:{label}) ON (n.name_lc)")
         self._schema_ready = True
 
     def query(self, cypher: str, params: dict | None = None):

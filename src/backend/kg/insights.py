@@ -109,10 +109,10 @@ def profile(graph, name: str):
 
 SHORTEST = ("MATCH (x {uid: $a}), (y {uid: $b}) MATCH p = allShortestPaths((x)-[*..5]-(y)) "
             "RETURN [n IN nodes(p) | {uid: n.uid, label: labels(n)[0], name: n.name}] AS nodes, "
-            "[r IN relationships(p) | {rel: type(r), doc_id: r.doc_id, from: startNode(r).uid}] AS rels LIMIT 5")
+            "[r IN relationships(p) | {rel: type(r), doc_id: r.doc_id, from: startNode(r).uid}] AS rels LIMIT 25")
 BOUNDED = ("MATCH p = (x {uid: $a})-[*1..4]-(y {uid: $b}) "
            "RETURN [n IN nodes(p) | {uid: n.uid, label: labels(n)[0], name: n.name}] AS nodes, "
-           "[r IN relationships(p) | {rel: type(r), doc_id: r.doc_id, from: startNode(r).uid}] AS rels LIMIT 5")
+           "[r IN relationships(p) | {rel: type(r), doc_id: r.doc_id, from: startNode(r).uid}] AS rels LIMIT 25")
 
 
 def connect(graph, a: str, b: str):
@@ -128,16 +128,24 @@ def connect(graph, a: str, b: str):
         rows = graph.query(BOUNDED, {"a": a_node["uid"], "b": b_node["uid"]})
     nodes, edges, paths = {}, {}, []
     for row in rows:
-        hops, docs = [], []
-        for n in row["nodes"]:
-            nodes.setdefault(n["uid"], {"id": n["uid"], "label": n["label"], "name": n["name"],
-                                        "seed": n["uid"] in (a_node["uid"], b_node["uid"])})
+        steps = []
         for k, r in enumerate(row["rels"]):
             left, right = row["nodes"][k], row["nodes"][k + 1]
             src, dst = (left, right) if r["from"] == left["uid"] else (right, left)
+            steps.append((src, r, dst))
+        hops = [f"({s['label']}) {s['name']} -[{r['rel']}]-> ({d['label']}) {d['name']}" for s, r, d in steps]
+        # parallel edges between the same nodes give paths that read identically; show each chain once
+        if any(p["hops"] == hops for p in paths):
+            continue
+        for n in row["nodes"]:
+            nodes.setdefault(n["uid"], {"id": n["uid"], "label": n["label"], "name": n["name"],
+                                        "seed": n["uid"] in (a_node["uid"], b_node["uid"])})
+        docs = []
+        for src, r, dst in steps:
             edges.setdefault((src["uid"], r["rel"], dst["uid"]), {"source": src["uid"], "target": dst["uid"], "rel": r["rel"]})
-            hops.append(f"({src['label']}) {src['name']} -[{r['rel']}]-> ({dst['label']}) {dst['name']}")
             if r.get("doc_id") and r["doc_id"] not in docs:
                 docs.append(r["doc_id"])
         paths.append({"length": len(row["rels"]), "hops": hops, "docs": docs})
+        if len(paths) == 5:
+            break
     return {"from": a_node, "to": b_node, "paths": paths, "nodes": list(nodes.values()), "edges": list(edges.values())}
