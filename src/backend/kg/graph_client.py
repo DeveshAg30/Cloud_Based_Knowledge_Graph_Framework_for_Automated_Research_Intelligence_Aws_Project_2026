@@ -78,7 +78,18 @@ class Neo4jClient:
         if self._schema_ready:
             return
         for label in self._labels:
-            self.query(f"CREATE INDEX {label.lower()}_uid IF NOT EXISTS FOR (n:{label}) ON (n.uid)")
+            # A uniqueness constraint (not a plain index): parallel ingest Lambdas MERGE the same entities, and without
+            # it two concurrent MERGEs can both create the node. Graphs built before this change have a plain uid
+            # index, which blocks the constraint, so it is dropped first. If the graph already holds duplicate uids
+            # the constraint cannot be created; keep the plain index so ingestion still works until they are merged.
+            uid_index = f"CREATE INDEX {label.lower()}_uid IF NOT EXISTS FOR (n:{label}) ON (n.uid)"
+            try:
+                self.query(f"DROP INDEX {label.lower()}_uid IF EXISTS")
+                self.query(f"CREATE CONSTRAINT {label.lower()}_uid_unique IF NOT EXISTS "
+                           f"FOR (n:{label}) REQUIRE n.uid IS UNIQUE")
+            except Exception as exc:
+                print(f"uniqueness constraint on {label}.uid not created ({exc}); using a plain index")
+                self.query(uid_index)
             self.query(f"CREATE INDEX {label.lower()}_name IF NOT EXISTS FOR (n:{label}) ON (n.name_lc)")
         self._schema_ready = True
 
