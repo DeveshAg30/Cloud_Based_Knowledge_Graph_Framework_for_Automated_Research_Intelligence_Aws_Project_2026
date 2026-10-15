@@ -72,7 +72,9 @@ on this account; it is **served on Amazon SageMaker**. All of these are deploy p
 | [scripts/](scripts/) | Dataset fetchers, local ingest, SageMaker deploy, benchmarks, metrics collection |
 | [dataset/](dataset/) | Sample papers in the canonical document format |
 | [results/](results/) | Evaluation reports and raw metrics |
-| [docs/](docs/) | Setup guides: [FREE_TIER_SETUP.md](docs/FREE_TIER_SETUP.md) (as deployed) and [AWS_IMPLEMENTATION.md](docs/AWS_IMPLEMENTATION.md) (full AWS) |
+| [docs/](docs/) | Project report ([Project_Report.docx](docs/Project_Report.docx)) and setup guides: [FREE_TIER_SETUP.md](docs/FREE_TIER_SETUP.md) (as deployed) and [AWS_IMPLEMENTATION.md](docs/AWS_IMPLEMENTATION.md) (full AWS) |
+| [literature_survey/](literature_survey/), [references/](references/) | The 15-paper survey with gap analysis, and the APA reference list |
+| [architecture/](architecture/), [presentation/](presentation/) | Architecture diagrams and dashboard screenshots |
 | [tests/](tests/) | 30 unit tests (`python -m pytest tests`) and `scripts/smoke_test.py`, an end-to-end test of the deployed system |
 
 ## Quick start
